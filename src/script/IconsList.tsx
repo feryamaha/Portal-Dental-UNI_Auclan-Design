@@ -2,6 +2,8 @@ import React from 'react';
 
 const iconArquivosUteis = (props: React.SVGProps<SVGSVGElement>) => (<svg {...props} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M14.9019 17.5032H5.09786C4.07001 17.5032 3.20939 16.7243 3.10703 15.7016L2.50678 9.69911C2.45048 9.13661 2.63477 8.57654 3.01407 8.15737C3.39338 7.7382 3.9323 7.49902 4.49761 7.49902H15.5022C16.0675 7.49902 16.6064 7.7382 16.9857 8.15737C17.365 8.57654 17.5493 9.13661 17.493 9.69911L16.8928 15.7016C16.7904 16.7243 15.9298 17.5032 14.9019 17.5032V17.5032Z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M4.99805 4.99789H15.0022" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M6.66528 2.49692H13.3347" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/><path d="M7.91577 10.6253H12.0842" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>);
 
+const iconArrow2Down = (props: React.SVGProps<SVGSVGElement>) => (<svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 10L12 14L16 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>);
+
 const iconArrowLeft = (props: React.SVGProps<SVGSVGElement>) => (<svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M10 7L5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M10 17L5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>);
 
 const iconArrowRedLeft = (props: React.SVGProps<SVGSVGElement>) => (<svg {...props} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M10 7L5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M10 17L5 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>);
@@ -48,6 +50,7 @@ const iconVendasPf = (props: React.SVGProps<SVGSVGElement>) => (<svg {...props} 
 
 export const icons = {
   iconArquivosUteis: iconArquivosUteis,
+  iconArrow2Down: iconArrow2Down,
   iconArrowLeft: iconArrowLeft,
   iconArrowRedLeft: iconArrowRedLeft,
   iconArrowRedRight: iconArrowRedRight,

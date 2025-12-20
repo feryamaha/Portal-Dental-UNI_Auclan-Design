@@ -7,36 +7,16 @@ import { Button } from '@/components/ui/Button'
 import { Icon } from '@/script/Icon'
 
 type LoginFormPanelProps = {
-    title?: string
-    portalLabel?: string
-    description?: string
-    portalType?: PortalType
-    fields?: LoginFieldConfig[]
+    portalType: PortalType
+    fields: LoginFieldConfig[]
     forgotHref?: string
     forgotLabel?: string
     ctaLabel?: string
 }
 
-const defaultFields: LoginFieldConfig[] = [
-    {
-        id: 'beneficiario-id',
-        label: 'Número do seu cartão ou CPF',
-        name: 'login',
-        placeholder: 'Número do seu cartão ou CPF',
-        allowAllCharacters: true,
-    },
-    {
-        id: 'beneficiario-password',
-        label: 'Senha',
-        name: 'password',
-        type: 'password',
-        placeholder: 'Senha',
-    },
-]
-
 export default function LoginFormPanel({
-    portalType = 'beneficiario',
-    fields = defaultFields,
+    portalType,
+    fields,
     forgotHref,
     forgotLabel,
     ctaLabel,

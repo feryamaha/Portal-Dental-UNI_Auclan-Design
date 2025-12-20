@@ -24,6 +24,7 @@ export type LoginFormFieldsProps = {
 
 export default function LoginFormFields({
     fields,
+
 }: LoginFormFieldsProps) {
     return (
         <form className="space-y-4">
@@ -45,12 +46,12 @@ export default function LoginFormFields({
             ))}
 
             <div className="inline-flex">
-                <Button href="#" variant="tertiary" size="default" className='text-[#AF0F2A]' >
+                <Button href='#' variant="tertiary" size="default" className='text-[#AF0F2A]' >
                     Esqueceu a senha? <Icon name='iconArrowRedRight' />
                 </Button>
             </div>
 
-            <Button type="button" variant="primary" size="sm" className='bg-[#AF0F2A]'>
+            <Button href='#' type="button" variant="primary" size="sm" className='bg-[#AF0F2A]'>
                 Acessar o portal
             </Button>
         </form>

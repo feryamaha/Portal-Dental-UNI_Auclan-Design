@@ -1,3 +1,4 @@
+"use client"
 import { useState, useEffect, useRef } from "react";
 import {
   UseFormRegister,
@@ -26,6 +27,8 @@ interface DropInputProps<TFieldValues extends FieldValues = FieldValues> {
   setValue?: UseFormSetValue<TFieldValues>;
   className?: string;
   disabled?: boolean;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 export function DropInput<TFieldValues extends FieldValues = FieldValues>({
@@ -39,22 +42,32 @@ export function DropInput<TFieldValues extends FieldValues = FieldValues>({
   setValue,
   className = "",
   disabled = false,
+  value,
+  onChange,
 }: DropInputProps<TFieldValues>) {
   const [isOpen, setIsOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [localValue, setLocalValue] = useState(value ?? "");
+
+  useEffect(() => {
+    if (value !== undefined) {
+      setLocalValue(value);
+    }
+  }, [value]);
 
   // Watch do valor atual via RHF
-  const watchedValue = useWatch({ control, name }) as string;
+  const watchedValue = control ? (useWatch({ control, name }) as string) : undefined;
 
   // Registra o campo no RHF
   const registerProps = register ? register(name) : null;
 
   // Label do valor selecionado
-  const selectedOption = options.find((opt) => opt.value === watchedValue);
-  const displayValue = selectedOption?.label || "";
+  const currentValue = control ? watchedValue ?? "" : localValue;
+  const selectedOption = options.find((opt) => opt.value === currentValue);
+  const displayValue = selectedOption?.label || placeholder;
 
-  const hasValue = !!watchedValue;
+  const hasValue = !!currentValue;
   const shouldShowLabel = isFocused || hasValue || isOpen;
 
   // Click outside to close
@@ -98,6 +111,9 @@ export function DropInput<TFieldValues extends FieldValues = FieldValues>({
       setValue(name, optionValue as TFieldValues[typeof name], {
         shouldValidate: true,
       });
+    } else {
+      setLocalValue(optionValue);
+      if (onChange) onChange(optionValue);
     }
     setIsOpen(false);
     setIsFocused(false);
@@ -156,7 +172,7 @@ export function DropInput<TFieldValues extends FieldValues = FieldValues>({
     <div className={`relative ${className}`} ref={dropdownRef}>
       {/* Input hidden para RHF */}
       {registerProps && (
-        <input type="hidden" {...registerProps} value={watchedValue || ""} />
+        <input type="hidden" {...registerProps} value={currentValue || ""} />
       )}
 
       {/* Campo visual (não é input real) */}
@@ -170,10 +186,10 @@ export function DropInput<TFieldValues extends FieldValues = FieldValues>({
           } ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:border-gray-950"}`}
       >
         <span className={`${!hasValue ? "text-gray-400" : "text-gray-900"}`}>
-          {displayValue || (isFocused || isOpen ? placeholder : "")}
+          {displayValue}
         </span>
         <Icon
-          name="iconArrrow2Down"
+          name="iconArrow2Down"
           className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
         />
       </button>

@@ -1,6 +1,10 @@
 import Image from 'next/image'
 
-export default function LoginHero() {
+type LoginHeroProps = {
+    portalLabel?: string
+}
+
+export default function LoginHero({ portalLabel = 'Beneficiários' }: LoginHeroProps) {
     return (
         <div className="flex flex-col gap-[56px] relative w-1/2 min-h-screen h-full bg-background-image-login bg-cover bg-center bg-no-repeat text-white overflow-hidden p-[16px_0px_0px_80px]">
             <div className="pointer-events-none absolute inset-0 z-0 bg-[url('/assets/images/mask-image.webp')] bg-cover bg-center" />
@@ -15,7 +19,7 @@ export default function LoginHero() {
                     />
                 </div>
                 <div className="pl-4">
-                    <p className="text-white text-base font-normal">Beneficiários</p>
+                    <p className="text-white text-base font-normal">{portalLabel}</p>
                 </div>
             </div>
             <div className="relative z-10">
