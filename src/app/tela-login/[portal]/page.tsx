@@ -132,14 +132,15 @@ const portalConfig: Record<string, PortalConfig> = {
     },
 }
 
-type PageProps = {
-    params: {
+type TelaLoginPortalPageProps = {
+    params: Promise<{
         portal: string
-    }
+    }>
 }
 
-export default function TelaLoginPortalPage({ params }: PageProps) {
-    const slug = params.portal?.toLowerCase()
+export default async function TelaLoginPortalPage({ params }: TelaLoginPortalPageProps) {
+    const { portal } = await params
+    const slug = portal?.toLowerCase()
     const config = portalConfig[slug]
 
     if (!config) {
