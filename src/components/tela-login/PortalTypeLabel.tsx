@@ -1,17 +1,9 @@
 
-const PORTAL_COPY = {
-    beneficiario: 'Beneficiário',
-    dentista: 'Dentista',
-    corretor: 'Corretor',
-    empresa: 'Empresa',
-    representante: 'Representante',
-} as const
+import { getPortalLabel } from '@/context/tela-login/portalCopy'
+import type { PortalType } from '@/context/tela-login/portalCopy'
 
-export type PortalType = keyof typeof PORTAL_COPY
-
-export function getPortalLabel(type: PortalType = 'beneficiario') {
-    return PORTAL_COPY[type]
-}
+export { getPortalLabel }
+export type { PortalType }
 
 type PortalTypeLabelProps = {
     type?: PortalType

@@ -1,0 +1,13 @@
+export const PORTAL_COPY = {
+    beneficiario: 'Beneficiário',
+    dentista: 'Dentista',
+    corretor: 'Corretor',
+    empresa: 'Empresa',
+    representante: 'Representante',
+} as const
+
+export type PortalType = keyof typeof PORTAL_COPY
+
+export function getPortalLabel(type: PortalType = 'beneficiario') {
+    return PORTAL_COPY[type]
+}
