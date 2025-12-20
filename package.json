@@ -1,0 +1,53 @@
+{
+  "name": "portal-dentaluni",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "generate:icons": "node scripts/generateIcons.js",
+    "precommit-deps-build-security": "node scripts/precommit-deps-build-security.js",
+    "precommit-browser-security": "node scripts/precommit-browser-security.js",
+    "precommit-code-architecture": "node scripts/precommit-code-architecture.js",
+    "precommit-full": "yarn precommit-deps-build-security && yarn precommit-browser-security && yarn precommit-code-architecture"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^4.1.2",
+    "@microsoft/clarity": "^1.0.0",
+    "@react-google-maps/api": "^2.20.6",
+    "@svgr/webpack": "^8.1.0",
+    "@tiptap/pm": "^3.4.1",
+    "@tiptap/react": "^3.4.1",
+    "@tiptap/starter-kit": "^3.4.1",
+    "axios": "^1.11.0",
+    "clsx": "^2.1.1",
+    "js-cookie": "^3.0.5",
+    "next": "15.5.9",
+    "quill": "^2.0.3",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-hook-form": "^7.54.2",
+    "react-input-mask": "^2.0.4",
+    "react-markdown": "^10.1.0",
+    "swiper": "^11.2.4",
+    "tailwind-merge": "^3.4.0",
+    "tailwind-scrollbar": "^3.1.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "^20",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "postcss": "^8",
+    "sharp": "^0.34.5",
+    "tailwindcss": "^3.4.1",
+    "typescript": "5.7.3"
+  },
+  "overrides": {
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3"
+  }
+}

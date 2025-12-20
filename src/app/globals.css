@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 600;
+  src: url('/fonts/lato-600.woff2') format('truetype');
+  font-display: swap;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-inter antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input[type='time']::-webkit-calendar-picker-indicator {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+button,
+input,
+select,
+textarea,
+span,
+ul,
+ol {
+  @apply font-inter;
+}
+
+h1 {
+  @apply font-lato font-semibold text-5xl tracking-[-1.5%] text-secondary-950 sm:text-4xl;
+}
+
+h2 {
+  @apply font-lato font-semibold text-4xl tracking-[-1.5%] text-secondary-950 md:text-3xl;
+}
+
+h3 {
+  @apply font-lato font-semibold text-[1.5rem] tracking-[-0.0225rem] leading-[130%] text-secondary-950 sm:text-2xl;
+}
+
+h4 {
+  @apply font-lato font-semibold;
+}
+
+h5 {
+  @apply font-inter font-semibold;
+}
+
+p {
+  @apply font-inter tracking-[-0.02rem] text-secondary-900;
+}
+
+.bullet ul {
+  list-style: disc;
+}
+
+a:focus,
+button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Mobile Animations */
+@keyframes modal-enter-mobile {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes modal-exit-mobile {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* Desktop Animations */
+@keyframes modal-enter-desktop {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-exit-desktop {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Mobile Animations */
+@media (max-width: 639px) {
+  .modal-enter {
+    animation: modal-enter-mobile 300ms ease-out forwards;
+  }
+
+  .modal-exit {
+    animation: modal-exit-mobile 300ms ease-in forwards;
+  }
+}
+
+/* Desktop Animations */
+@media (min-width: 640px) {
+  .modal-enter {
+    animation: modal-enter-desktop 300ms ease-in-out forwards;
+  }
+
+  .modal-exit {
+    animation: modal-exit-desktop 300ms ease-in-out forwards;
+  }
+}
+
+body.overflow-hidden {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
