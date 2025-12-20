@@ -6,7 +6,7 @@
   font-family: 'Lato';
   font-style: normal;
   font-weight: 600;
-  src: url('/fonts/lato-600.woff2') format('truetype');
+  src: url('/assets/fonts/lato-600.woff2') format('truetype');
   font-display: swap;
 }
 
@@ -75,6 +75,7 @@ button:focus {
     transform: translateY(100%);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
@@ -86,6 +87,7 @@ button:focus {
     transform: translateY(0);
     opacity: 1;
   }
+
   100% {
     transform: translateY(100%);
     opacity: 0;
@@ -97,6 +99,7 @@ button:focus {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -106,6 +109,7 @@ button:focus {
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }

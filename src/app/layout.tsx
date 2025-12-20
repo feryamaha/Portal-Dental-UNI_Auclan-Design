@@ -5,6 +5,11 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Dental Uni',
   description: 'Portal Dental UNI',
+  icons: {
+    icon: [{ url: '/favicon.ico', type: 'image/x-icon', rel: 'icon' }],
+    shortcut: ['/favicon.ico'],
+    apple: ['/favicon.ico'],
+  },
 };
 
 export default async function RootLayout({

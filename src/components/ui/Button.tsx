@@ -7,6 +7,8 @@ import { Icon, IconProps } from "@/script/Icon";
 
 interface ButtonProps extends ComponentProps<"button"> {
   href?: string;
+  target?: string;
+  rel?: string;
   variant: "primary" | "primary-icon" | "secondary" | "tertiary" | "link";
   size: "sm" | "md" | "lg" | "default";
   background?:
@@ -27,6 +29,8 @@ export function Button({
   icon = "none",
   positionIcon = "left",
   href,
+  target,
+  rel,
   ...props
 }: ButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
@@ -139,7 +143,13 @@ export function Button({
   if (href) {
     const isExternal =
       href.startsWith("http://") || href.startsWith("https://");
-    const linkProps = isExternal ? { target: "_blank", rel: "noopener" } : {};
+    const resolvedTarget = target ?? (isExternal ? "_blank" : undefined);
+    const resolvedRel =
+      rel ?? (resolvedTarget === "_blank" ? "noopener" : undefined);
+    const linkProps =
+      resolvedTarget || resolvedRel
+        ? { target: resolvedTarget, rel: resolvedRel }
+        : {};
     return (
       <Link href={href} className="flex" {...linkProps}>
         <button
