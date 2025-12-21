@@ -1,4 +1,5 @@
 import { PortalType } from '@/components/tela-login/PortalTypeLabel'
+import type { LoginFieldConfig } from '@/components/tela-login/LoginFormFields'
 
 export type PortalFieldCustomRenderer = 'dentistaDocuments'
 
@@ -11,6 +12,7 @@ export type PortalFieldConfig = {
     className?: string
     allowAllCharacters?: boolean
     customRenderer?: PortalFieldCustomRenderer
+    inputProps?: LoginFieldConfig['inputProps']
 }
 
 export type PortalConfig = {
@@ -31,15 +33,18 @@ const portalConfigRecord = {
                 id: 'beneficiario-id',
                 label: 'Número do seu cartão ou CPF',
                 name: 'login',
-                placeholder: 'Número do seu cartão ou CPF',
+                placeholder: '',
                 allowAllCharacters: true,
+                inputProps: {
+                    mask: 'cpf',
+                },
             },
             {
                 id: 'beneficiario-password',
                 label: 'Senha',
                 name: 'password',
                 type: 'password',
-                placeholder: 'Senha',
+                placeholder: '',
             },
         ],
     },
@@ -58,7 +63,7 @@ const portalConfigRecord = {
                 label: 'Senha',
                 name: 'password',
                 type: 'password',
-                placeholder: 'Senha',
+                placeholder: '',
             },
         ],
     },
@@ -70,14 +75,14 @@ const portalConfigRecord = {
                 id: 'corretor-code',
                 label: 'Código',
                 name: 'code',
-                placeholder: 'Código',
+                placeholder: '',
             },
             {
                 id: 'corretor-password',
                 label: 'Senha',
                 name: 'password',
                 type: 'password',
-                placeholder: 'Senha',
+                placeholder: '',
             },
         ],
     },
@@ -89,14 +94,14 @@ const portalConfigRecord = {
                 id: 'empresa-code',
                 label: 'Código',
                 name: 'code',
-                placeholder: 'Código',
+                placeholder: '',
             },
             {
                 id: 'empresa-password',
                 label: 'Senha',
                 name: 'password',
                 type: 'password',
-                placeholder: 'Senha',
+                placeholder: '',
             },
         ],
     },
@@ -108,14 +113,14 @@ const portalConfigRecord = {
                 id: 'representante-code',
                 label: 'Código',
                 name: 'code',
-                placeholder: 'Código',
+                placeholder: '',
             },
             {
                 id: 'representante-password',
                 label: 'Senha',
                 name: 'password',
                 type: 'password',
-                placeholder: 'Senha',
+                placeholder: '',
             },
         ],
     },

@@ -131,6 +131,8 @@ export function FloatingLabelInput<
     setHasContent(currentVal.length > 0);
   }, [value, watchedValue]);
   const currentValue: string = value || watchedValue || ""; // Forçando string para evitar mismatches
+  const uncontrolledValue =
+    value !== undefined ? (mask ? applyMask(value) : value) : undefined;
   const hasValue =
     (currentValue && String(currentValue).length > 0) || hasContent;
   const shouldShowLabel = isFocused || hasValue;
@@ -269,7 +271,7 @@ export function FloatingLabelInput<
     <div className={`relative ${className}`}>
       <input
         {...baseProps}
-        value={mask ? applyMask(currentValue) : currentValue}
+        value={uncontrolledValue}
         onChange={handleChange}
       />
       <label

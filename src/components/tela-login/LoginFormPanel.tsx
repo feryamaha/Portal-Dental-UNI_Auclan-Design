@@ -1,10 +1,13 @@
+"use client"
 
+import { useMemo } from 'react'
 import LoginFormHeader from '@/components/tela-login/LoginFormHeader'
 import LoginFormFields, { LoginFieldConfig } from '@/components/tela-login/LoginFormFields'
 import TermoPoliticaUso from '@/components/tela-login/TermoPoliticaUso'
 import { PortalType } from '@/components/tela-login/PortalTypeLabel'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/script/Icon'
+import { useLoginFormFields } from '@/hooks/hooks-UI-UX/tela-login/LoginFormFields/loginFormFields.hook'
 
 type LoginFormPanelProps = {
     portalType: PortalType
@@ -21,6 +24,9 @@ export default function LoginFormPanel({
     forgotLabel,
     ctaLabel,
 }: LoginFormPanelProps) {
+    const portalSlug = useMemo(() => portalType, [portalType])
+    const { handleSubmit, handleChange, error, isSubmitting } = useLoginFormFields(portalSlug)
+
     return (
         <div className="w-1/2 min-h-screen flex flex-col justify-between pl-[48px] py-[32px] ">
             <div className="inline-flex">
@@ -37,6 +43,10 @@ export default function LoginFormPanel({
                     forgotHref={forgotHref}
                     forgotLabel={forgotLabel}
                     ctaLabel={ctaLabel}
+                    onSubmit={handleSubmit}
+                    onFieldChange={handleChange}
+                    errorMessage={error}
+                    isSubmitting={isSubmitting}
                 />
                 <div className="flex flex-wrap items-center gap-2 text-sm text-neutral-700">
                     <span>Cartão bloqueado?</span>
