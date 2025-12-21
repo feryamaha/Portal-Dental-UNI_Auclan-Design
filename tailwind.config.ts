@@ -41,9 +41,9 @@ export default {
 
         accent: {
           white: '#FFFFFF',
-          light: '#FFECE3',
-          default: '#E45512',
-          dark: '#BD3F11'
+          light: '#FCEBEC',
+          default: '#8A1724',
+          dark: '#5D0F17'
         },
         auxiliary: {
           default: '#F44336',

@@ -20,14 +20,24 @@ export type LoginFormFieldsProps = {
     forgotLabel?: string
     forgotHref?: string
     ctaLabel?: string
+    onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void
+    onFieldChange?: (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => void
+    errorMessage?: string | null
+    isSubmitting?: boolean
 }
 
 export default function LoginFormFields({
     fields,
-
+    forgotLabel = 'Esqueceu a senha?',
+    forgotHref = '#',
+    ctaLabel = 'Acessar o portal',
+    onSubmit,
+    onFieldChange,
+    errorMessage,
+    isSubmitting = false,
 }: LoginFormFieldsProps) {
     return (
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={onSubmit}>
             {fields.map((field) => (
                 <div key={field.id} className={field.className ?? ''}>
                     {field.render ? (
@@ -39,20 +49,31 @@ export default function LoginFormFields({
                             placeholder={field.placeholder}
                             type={field.type}
                             allowAllCharacters={field.allowAllCharacters}
+                            onChange={onFieldChange?.(field.name)}
                             {...(field.inputProps ?? {})}
                         />
                     )}
                 </div>
             ))}
 
+            {errorMessage && (
+                <p className="text-sm text-[#AF0F2A] font-medium">{errorMessage}</p>
+            )}
+
             <div className="inline-flex">
-                <Button href='#' variant="tertiary" size="default" className='text-[#AF0F2A]' >
-                    Esqueceu a senha? <Icon name='iconArrowRedRight' />
+                <Button href={forgotHref} variant="tertiary" size="default" className='text-[#AF0F2A]'>
+                    {forgotLabel} <Icon name='iconArrowRedRight' />
                 </Button>
             </div>
 
-            <Button href='#' type="button" variant="primary" size="sm" className='bg-[#AF0F2A]'>
-                Acessar o portal
+            <Button
+                type="submit"
+                variant="primary"
+                size="sm"
+                className='bg-[#AF0F2A]'
+                disabled={isSubmitting}
+            >
+                {isSubmitting ? 'Entrando...' : ctaLabel}
             </Button>
         </form>
     )
