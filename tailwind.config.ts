@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import defaultTheme from 'tailwindcss/defaultTheme'
 
 export default {
   content: [
@@ -116,7 +117,7 @@ export default {
           'linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.00) 50%, #000 100%)'
       },
       fontFamily: {
-        lato: ['Lato', 'sans-serif'],
+        lato: ['var(--font-lato)', 'sans-serif'],
         inter: ['var(--font-inter)', 'sans-serif'],
         openSans: ['var(--font-open-sans)', 'sans-serif']
       },
@@ -151,11 +152,14 @@ export default {
       '6xl': ['4rem', '120%']
     },
     screens: {
-      '2xl': { max: '1535px' },
-      xl: { max: '1279px' },
-      lg: { max: '1023px' },
-      md: { max: '767px' },
-      sm: { max: '639px' }
+      ...defaultTheme.screens,
+      '@mobile': '639px',
+      '@tablet': '999px',
+      '@laptop': '1025px',
+      '@Desktop': '1281px',
+      '@Desktop1440': '1438px',
+      '@LargeDesktop': '1537px',
+      '@UltraWide': '1929px'
     }
   },
   plugins: []
