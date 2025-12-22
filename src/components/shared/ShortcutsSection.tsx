@@ -49,7 +49,7 @@ export function ShortcutsSection({
             <header className="mb-5 flex items-center justify-between">
                 <h2 className="font-inter text-xl font-semibold text-secondary-900">{title}</h2>
             </header>
-            <div className="flex gap-4 overflow-x-auto">
+            <div className="flex flex-wrap gap-4 ">
                 {resolvedItems.map((shortcut) => (
                     <ShortcutCard key={shortcut.id} icon={shortcut.icon} label={shortcut.label} href={shortcut.href} />
                 ))}

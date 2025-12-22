@@ -139,7 +139,7 @@ export function BeneficiarioHomeContent() {
     return (
         <MainContentShell title="Home">
 
-            <div className="w-full flex flex-col @Desktop1440:flex-row gap-6 ">
+            <div className="flex flex-col @Desktop:flex-row gap-6">
                 <div className="w-full flex flex-col gap-6">
                     <div className='w-full'>
                         <SliderBanner items={sliderItems} duration={SLIDER_DURATION} />
@@ -151,11 +151,14 @@ export function BeneficiarioHomeContent() {
                             portal="beneficiario"
                             shortcutIds={['invoices', 'protocols', 'guides', 'ir', 'payment']}
                         />
-                        <NewsHighlightSection feature={newsFeature} articles={newsArticles} />
+                        <div>
+                            <NewsHighlightSection feature={newsFeature} articles={newsArticles} />
+                        </div>
+
                     </div>
                 </div>
 
-                <div className='flex flex-row @Desktop1440:flex-col gap-8'>
+                <div className='flex flex-col gap-8'>
                     <CardMeusProtocolos items={protocolosMock} />
                     <CardMinhasGuias items={guiasMock} />
                 </div>

@@ -28,23 +28,23 @@ export function NewsHighlightSection({
     if (!feature || !articles?.length) return null
 
     return (
-        <section className="w-full">
+        <div className="">
             <div className='w-[254px]'>
                 <NewsSectionHeader title={title} ctaLabel={ctaLabel} />
             </div>
-            <div className="w-max flex gap-6 ">
+            <div className="flex flex-wrap gap-6 @Desktop:flex-nowrap">
                 <NewsFeatureCard
                     imageSrc={feature.imageSrc}
                     imageAlt={feature.imageAlt}
                     title={feature.title}
                     date={feature.date}
                 />
-                <div className="flex max-w-[352px] flex-col gap-2">
+                <div className="w-full @Desktop:max-w-[352px] flex flex-col gap-2">
                     {articles.map((article) => (
                         <NewsListEntry key={article.title} title={article.title} date={article.date} />
                     ))}
                 </div>
             </div>
-        </section>
+        </div>
     )
 }
