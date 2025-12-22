@@ -11,8 +11,8 @@ type NewsFeatureCardProps = {
 
 export function NewsFeatureCard({ imageSrc, imageAlt, title, date }: NewsFeatureCardProps) {
     return (
-        <div className="flex max-w-[357px] flex-col gap-4">
-            <div className="h-[190px] w-full overflow-hidden rounded-lg">
+        <div className="w-full @Desktop:w-[357px] flex flex-col gap-4">
+            <div className=" h-[190px] overflow-hidden rounded-lg">
                 <Image src={imageSrc} alt={imageAlt} width={357} height={190} className="h-full w-full object-cover" />
             </div>
             <div className="font-inter text-secondary-900">
