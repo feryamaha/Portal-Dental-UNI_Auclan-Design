@@ -153,13 +153,13 @@ export default {
     },
     screens: {
       ...defaultTheme.screens,
-      '@mobile': '639px',
-      '@tablet': '999px',
-      '@laptop': '1025px',
-      '@Desktop': '1281px',
-      '@Desktop1440': '1438px',
-      '@LargeDesktop': '1537px',
-      '@UltraWide': '1929px'
+      '@mobile': { min: '639px' },
+      '@tablet': { min: '999px' },
+      '@laptop': { min: '1025px' },
+      '@Desktop': { min: '1281px' },
+      '@Desktop1440': { min: '1438px' },
+      '@LargeDesktop': { min: '1537px' },
+      '@UltraWide': { min: '1929px' }
     }
   },
   plugins: []

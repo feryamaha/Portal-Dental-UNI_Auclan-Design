@@ -69,7 +69,7 @@ export default function LoginFormFields({
             <Button
                 type="submit"
                 variant="primary"
-                size="sm"
+                size="lg"
                 className='bg-[#AF0F2A]'
                 disabled={isSubmitting}
             >

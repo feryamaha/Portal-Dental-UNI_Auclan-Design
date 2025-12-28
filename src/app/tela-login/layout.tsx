@@ -37,11 +37,15 @@ export default async function TelaLoginLayout({ children }: { children: ReactNod
     const nonce = headersList.get('X-Nonce') || undefined
 
     return (
-        <div
-            data-nonce={nonce}
-            className={`${lato.variable} font-lato ${inter.variable} ${openSans.variable} antialiased`}
+        <html
+            lang="pt-BR"
+            suppressHydrationWarning
+            className={`${lato.variable} ${inter.variable} ${openSans.variable}`}
         >
-            {children}
-        </div>
+            <head nonce={nonce} suppressHydrationWarning></head>
+            <body nonce={nonce} suppressHydrationWarning>
+                {children}
+            </body>
+        </html>
     )
 }
