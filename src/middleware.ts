@@ -16,6 +16,9 @@ export function middleware(request: NextRequest) {
   response.headers.set('X-Nonce', nonce);
 
   // CSP Level 3 com strict-dynamic + fallback para Vercel
+  // NOTA: Em desenvolvimento, upgrade-insecure-requests está desativado para permitir
+  // acesso via IP local (ex: http://192.168.1.9:3000). Reativar antes de fazer commit/push
+  // para produção para manter segurança HTTPS.
   const isDev = process.env.NODE_ENV === 'development';
 
   // Detecta se está na Vercel
@@ -33,8 +36,8 @@ export function middleware(request: NextRequest) {
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
-    "upgrade-insecure-requests",
-  ].join('; ');
+    `${!isDev ? "upgrade-insecure-requests" : ""}`,
+  ].join('; ').replace(/;$/, '');
 
   response.headers.set('Content-Security-Policy', csp);
 
