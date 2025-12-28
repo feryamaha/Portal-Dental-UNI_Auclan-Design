@@ -1,7 +1,7 @@
-import LoginHero from '@/components/tela-login/LoginHero'
-import LoginFormPanel from '@/components/tela-login/LoginFormPanel'
+import SectionContentLeft from '@/components/tela-login/SectionContentLeft'
+import SectionContentRight from '@/components/tela-login/SectionContentRight'
 import { LoginFieldConfig } from '@/components/tela-login/LoginFormFields'
-import { DentistaDocumentsFields } from '@/components/tela-login/DentistaDocumentsFields'
+import { LoginDentistaFields } from '@/components/tela-login/LoginDentistaFields'
 import {
     getPortalConfig,
     type PortalFieldCustomRenderer,
@@ -16,7 +16,7 @@ type TelaLoginPortalPageProps = {
 }
 
 const customRendererMap: Record<PortalFieldCustomRenderer, () => React.ReactNode> = {
-    dentistaDocuments: () => <DentistaDocumentsFields />,
+    dentistaDocuments: () => <LoginDentistaFields />,
 }
 
 function mapFieldsToLoginFields(fields: PortalFieldConfig[]): LoginFieldConfig[] {
@@ -47,17 +47,15 @@ export default async function TelaLoginPortalPage({ params }: TelaLoginPortalPag
     const fields = mapFieldsToLoginFields(config.fields)
 
     return (
-        <section className="min-h-screen bg-white">
-            <div className="w-full min-h-screen flex items-stretch ">
-                <LoginHero portalLabel={config.heroLabel} />
-                <LoginFormPanel
-                    portalType={config.portalType}
-                    fields={fields}
-                    forgotHref={config.forgotHref}
-                    forgotLabel={config.forgotLabel}
-                    ctaLabel={config.ctaLabel}
-                />
-            </div>
+        <section className="min-h-screen bg-white relative @laptop:flex ">
+            <SectionContentLeft portalLabel={config.heroLabel} />
+            <SectionContentRight
+                portalType={config.portalType}
+                fields={fields}
+                forgotHref={config.forgotHref}
+                forgotLabel={config.forgotLabel}
+                ctaLabel={config.ctaLabel}
+            />
         </section>
     )
 }

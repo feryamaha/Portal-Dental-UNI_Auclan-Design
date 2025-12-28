@@ -1,12 +1,12 @@
 import Image from 'next/image'
 
-type LoginHeroProps = {
+type SectionContentLeftProps = {
     portalLabel?: string
 }
 
-export default function LoginHero({ portalLabel = 'Beneficiários' }: LoginHeroProps) {
+export default function SectionContentLeft({ portalLabel = 'Beneficiários' }: SectionContentLeftProps) {
     return (
-        <div className="flex flex-col gap-[56px] relative w-1/2 min-h-screen h-full bg-background-image-login bg-cover bg-center bg-no-repeat text-white overflow-hidden p-[16px_0px_0px_80px]">
+        <div className="flex flex-col gap-[56px] relative w-full min-h-screen h-full bg-background-image-login bg-cover bg-center bg-no-repeat text-white overflow-hidden p-[24px] @laptop:p-[16px_0px_0px_80px] @laptop:w-1/2 @laptop:h-screen @laptop:flex-shrink-0">
             <div className="pointer-events-none absolute inset-0 z-0 bg-[url('/assets/images/mask-image.webp')] bg-cover bg-center" />
 
             <div className="w-max flex items-center relative z-10 ">
