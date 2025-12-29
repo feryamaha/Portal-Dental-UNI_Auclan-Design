@@ -1,18 +1,9 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { Icon } from "@/script/Icon";
+import type { BreadcrumbItem, BreadcrumbsProps } from "@/types/ui/breadcrumbs.types";
 
-export interface BreadcrumbItem {
-  label: string;
-  href: string;
-  icon?: string;
-}
-
-interface BreadcrumbsProps {
-  items: BreadcrumbItem[];
-  lengthWordLimit?: number;
-  isMobile?: boolean;
-}
+export type { BreadcrumbItem } from "@/types/ui/breadcrumbs.types";
 
 export function Breadcrumbs({
   items,

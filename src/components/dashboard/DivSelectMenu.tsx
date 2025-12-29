@@ -1,8 +1,5 @@
 "use client"
-
-type DivSelectMenuProps = {
-    className?: string
-}
+import type { DivSelectMenuProps } from '@/types/dashboard/div-select-menu.types'
 
 export function DivSelectMenu({ className = "" }: DivSelectMenuProps) {
     const baseClasses =

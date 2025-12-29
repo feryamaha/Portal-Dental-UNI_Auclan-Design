@@ -1,13 +1,8 @@
 "use client"
 
-import { SubCardMeusProtocolos, type SubCardMeusProtocolosProps } from '@/components/ui/SubCardMeusProtocolos'
+import { SubCardMeusProtocolos } from '@/components/ui/SubCardMeusProtocolos'
 import { NewsSectionHeader } from '@/components/ui/NewsSectionHeader'
-
-type CardMeusProtocolosProps = {
-    title?: string
-    items: SubCardMeusProtocolosProps[]
-    className?: string
-}
+import type { CardMeusProtocolosProps } from '@/types/shared/card-meus-protocolos.types'
 
 export function CardMeusProtocolos({ title = 'Meus protocolos', items, className = '' }: CardMeusProtocolosProps) {
     if (!items.length) return null

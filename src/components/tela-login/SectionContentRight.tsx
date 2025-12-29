@@ -8,14 +8,7 @@ import { PortalType } from '@/components/tela-login/PortalTypeLabel'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/script/Icon'
 import { useLoginFormFields } from '@/hooks/hooks-UI-UX/tela-login/LoginFormFields/loginFormFields.hook'
-
-type SectionContentRightProps = {
-    portalType: PortalType
-    fields: LoginFieldConfig[]
-    forgotHref?: string
-    forgotLabel?: string
-    ctaLabel?: string
-}
+import type { SectionContentRightProps } from '@/types/tela-login/section-content-right.types'
 
 export default function SectionContentRight({
     portalType,

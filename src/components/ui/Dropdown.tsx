@@ -1,39 +1,9 @@
-import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/script/Icon";
-
-interface MenuItem {
-  label: string;
-  icon?: string;
-  onClick?: () => void;
-}
-
-interface DropdownMenuProps {
-  items: MenuItem[];
-  triggerText?: string;
-}
+import type { DropdownMenuProps, MenuItem } from "@/types/ui/dropdown.types";
+import { useDropdownMenu } from "@/hooks/hooks-UI-UX/ui/use-dropdown-menu.hook";
 
 export function DropdownMenu({ items }: DropdownMenuProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  });
+  const { isOpen, setIsOpen, dropdownRef } = useDropdownMenu();
 
   const handleItemClick = (item: MenuItem) => {
     if (item.onClick) {

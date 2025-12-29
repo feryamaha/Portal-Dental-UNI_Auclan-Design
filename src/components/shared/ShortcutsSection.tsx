@@ -1,19 +1,9 @@
 "use client"
 
-import { useMemo } from 'react'
-
 import { ShortcutCard } from '@/components/ui/ShortcutCard'
-import { getSidebarContent, type SidebarItem } from '@/context/dashboard/Sidebar/sidebar'
-import type { PortalSlug } from '@/context/tela-login/portalConfig'
-
-type ShortcutsSectionProps = {
-    portal: PortalSlug
-    title?: string
-    shortcutIds?: string[]
-    items?: SidebarItem[]
-    maxItems?: number
-    className?: string
-}
+import type { SidebarItem } from '@/context/dashboard/Sidebar/sidebar'
+import type { ShortcutsSectionProps } from '@/types/shared/shortcuts-section.types'
+import { useShortcutsSection } from '@/hooks/hooks-UI-UX/shared/use-shortcuts-section.hook'
 
 export function ShortcutsSection({
     portal,
@@ -23,23 +13,12 @@ export function ShortcutsSection({
     maxItems = 5,
     className = '',
 }: ShortcutsSectionProps) {
-    const sidebarContent = getSidebarContent(portal)
-    const flattenedItems = useMemo(() => sidebarContent.sections.flatMap((section) => section.items), [sidebarContent.sections])
-
-    let resolvedItems: SidebarItem[]
-    if (items?.length) {
-        resolvedItems = items
-    } else if (shortcutIds?.length) {
-        resolvedItems = shortcutIds
-            .map((id) => flattenedItems.find((item) => item.id === id))
-            .filter((item): item is SidebarItem => Boolean(item))
-    } else {
-        resolvedItems = flattenedItems
-    }
-
-    if (maxItems && resolvedItems.length > maxItems) {
-        resolvedItems = resolvedItems.slice(0, maxItems)
-    }
+    const { resolvedItems } = useShortcutsSection({
+        portal,
+        shortcutIds,
+        items: items as SidebarItem[] | undefined,
+        maxItems,
+    })
 
     if (!resolvedItems.length) return null
 

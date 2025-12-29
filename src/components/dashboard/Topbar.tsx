@@ -1,92 +1,16 @@
 "use client"
-
-"use client"
-
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { clsx } from 'clsx'
-
 import { Icon } from '@/script/Icon'
 import { Button } from '@/components/ui/Button'
-import { Breadcrumbs, type BreadcrumbItem } from '@/components/ui/Breadcrumbs'
-import { getTopbarConfig } from '@/context/dashboard/Topbar/topbar'
-import { getSidebarContent } from '@/context/dashboard/Sidebar/sidebar'
-import { basePaths } from '@/data/sidebarHighlights'
-import type { PortalSlug } from '@/context/tela-login/portalConfig'
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
+import { useDashboardTopbar } from '@/hooks/hooks-UI-UX/shared/use-dashboard-topbar.hook'
+import type { TopbarProps } from '@/types/dashboard/topbar.types'
 
-function inferPortalFromPath(pathname?: string): PortalSlug {
-    if (!pathname) return 'dentista'
-
-    const segments = pathname.split('/').filter(Boolean)
-    const dashSegment = segments.find((segment) => segment.startsWith('dash-'))
-
-    if (!dashSegment) return 'dentista'
-
-    return dashSegment.replace('dash-', '') as PortalSlug
-}
-
-export type TopbarProps = {
-    portal?: PortalSlug
-    containerClassName?: string
-}
+export type { TopbarProps } from '@/types/dashboard/topbar.types'
 
 export default function Topbar({ portal, containerClassName }: TopbarProps) {
-    const pathname = usePathname()
-    const resolvedPortal = portal ?? inferPortalFromPath(pathname)
-    const { breadcrumbs, quickLinks, actions, user } = getTopbarConfig(resolvedPortal)
-    const sidebarContent = getSidebarContent(resolvedPortal)
-
-    const normalizedPath = pathname?.replace(/\/$/, '') || ''
-    const flattenedItems = sidebarContent.sections.flatMap((section) => section.items)
-
-    const selectedItem = flattenedItems.find((item) => {
-        const normalizedHref = item.href.replace(/\/$/, '')
-        const isBaseLink = normalizedHref === basePaths[resolvedPortal]
-
-        if (isBaseLink) {
-            return normalizedPath === normalizedHref
-        }
-
-        return normalizedPath === normalizedHref || normalizedPath.startsWith(`${normalizedHref}/`)
-    })
-
-    const breadcrumbItems: BreadcrumbItem[] = []
-
-    if (selectedItem) {
-        breadcrumbItems.push({
-            label: selectedItem.label,
-            href: selectedItem.href,
-            icon: selectedItem.icon,
-        })
-
-        const normalizedHref = selectedItem.href.replace(/\/$/, '')
-        const remainder = normalizedPath.slice(normalizedHref.length).replace(/^\/+/, '')
-
-        if (remainder) {
-            const segments = remainder.split('/').filter(Boolean)
-            let accumulatedPath = normalizedHref
-
-            segments.forEach((segment) => {
-                accumulatedPath += `/${segment}`
-                const label = segment
-                    .split('-')
-                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(' ')
-
-                breadcrumbItems.push({
-                    label,
-                    href: accumulatedPath,
-                })
-            })
-        }
-    } else {
-        breadcrumbItems.push(
-            ...breadcrumbs.map((crumb, index) => ({
-                label: crumb,
-                href: index === 0 ? basePaths[resolvedPortal] : '#',
-            }))
-        )
-    }
+    const { quickLinks, actions, user, breadcrumbItems } = useDashboardTopbar({ portal })
 
     const innerClasses = clsx(
         'flex items-center justify-between py-6',

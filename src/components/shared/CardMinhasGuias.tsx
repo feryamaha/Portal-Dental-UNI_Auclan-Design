@@ -1,13 +1,8 @@
 "use client"
 
-import { SubCardMinhasGuias, type SubCardMinhasGuiasProps } from '@/components/ui/SubCardMinhasGuias'
+import { SubCardMinhasGuias } from '@/components/ui/SubCardMinhasGuias'
 import { NewsSectionHeader } from '@/components/ui/NewsSectionHeader'
-
-type CardMinhasGuiasProps = {
-    title?: string
-    items: SubCardMinhasGuiasProps[]
-    className?: string
-}
+import type { CardMinhasGuiasProps } from '@/types/shared/card-minhas-guias.types'
 
 export function CardMinhasGuias({ title = 'Minhas guias', items, className = '' }: CardMinhasGuiasProps) {
     if (!items.length) return null

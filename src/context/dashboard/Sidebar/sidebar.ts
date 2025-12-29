@@ -1,35 +1,21 @@
 import { PortalSlug } from '@/context/tela-login/portalConfig'
 import { sidebarHighlights, basePaths } from '@/data/sidebarHighlights'
 
-export type SidebarItem = {
-    id: string
-    label: string
-    href: string
-    icon: string
-    badge?: string
-}
+import type {
+    SidebarConfig,
+    SidebarContent,
+    SidebarHighlight,
+    SidebarItem,
+    SidebarSection,
+} from '@/types/context/dashboard/sidebar.types'
 
-export type SidebarSection = {
-    id: string
-    title: string
-    items: SidebarItem[]
-}
-
-export type SidebarConfig = SidebarSection[]
-
-export type SidebarHighlight = {
-    title?: string
-    pillLabel?: string
-    subtitle?: string
-    helperText?: string
-    ctaLabel?: string
-    ctaHref?: string
-}
-
-export type SidebarContent = {
-    highlight?: SidebarHighlight | null
-    sections: SidebarConfig
-}
+export type {
+    SidebarConfig,
+    SidebarContent,
+    SidebarHighlight,
+    SidebarItem,
+    SidebarSection,
+} from '@/types/context/dashboard/sidebar.types'
 
 const sidebarContents: Record<PortalSlug, SidebarContent> = {
     beneficiario: {

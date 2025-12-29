@@ -1,29 +1,18 @@
 import { PortalSlug } from '@/context/tela-login/portalConfig'
 
-export type TopbarQuickLink = {
-    id: string
-    label: string
-    href: string
-    icon?: string
-}
+import type {
+    TopbarAction,
+    TopbarConfig,
+    TopbarQuickLink,
+    TopbarUser,
+} from '@/types/context/dashboard/topbar.types'
 
-export type TopbarAction = {
-    id: string
-    icon: string
-    href?: string
-}
-
-export type TopbarUser = {
-    name: string
-    role: string
-}
-
-export type TopbarConfig = {
-    breadcrumbs: string[]
-    quickLinks: TopbarQuickLink[]
-    actions: TopbarAction[]
-    user: TopbarUser
-}
+export type {
+    TopbarAction,
+    TopbarConfig,
+    TopbarQuickLink,
+    TopbarUser,
+} from '@/types/context/dashboard/topbar.types'
 
 const defaultActions: TopbarAction[] = [
     { id: 'help', icon: 'iconDuvidas' },

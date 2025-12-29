@@ -1,25 +1,11 @@
 "use client";
 import clsx from "clsx";
-import React, { ComponentProps, useState } from "react";
+import React from "react";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
-import { Icon, IconProps } from "@/script/Icon";
-
-interface ButtonProps extends ComponentProps<"button"> {
-  href?: string;
-  target?: string;
-  rel?: string;
-  variant: "primary" | "primary-icon" | "secondary" | "tertiary" | "link";
-  size: "sm" | "md" | "lg" | "default";
-  background?:
-  | "bg-primary"
-  | "bg-secondary"
-  | "dangerPrimary"
-  | "dangerSecondary"
-  | "dangerTertiary";
-  icon?: "none" | "icon";
-  positionIcon?: "left" | "md" | "right";
-}
+import { Icon } from "@/script/Icon";
+import type { ButtonProps } from "@/types/ui/button.types";
+import { useButton } from "@/hooks/hooks-UI-UX/ui/use-button.hook";
 
 export function Button({
   variant,
@@ -33,7 +19,8 @@ export function Button({
   rel,
   ...props
 }: ButtonProps) {
-  const [isHovered, setIsHovered] = useState(false);
+  const { className, ...restProps } = props;
+
   const classes = twMerge(
     clsx(
       "font-inter leading-[150%] text-base font-semibold rounded-md flex  items-center duration-200 ease-linear transition-colors cursor-pointer w-full",
@@ -76,67 +63,35 @@ export function Button({
     )
   );
 
-  const isDangerSecondaryCombo =
-    variant === "secondary" && background === "dangerSecondary";
-  let hasManualIcon = false;
-  const processedChildren = React.Children.map(props.children, (child) => {
-    if (!React.isValidElement(child)) return child;
-    const isIcon = child.type === Icon;
-    if (isIcon) hasManualIcon = true;
-    const isDangerIcon =
-      isIcon && (child.props as IconProps).name === "iconHome";
-    const shouldSwap =
-      isIcon &&
-      isDangerIcon &&
-      isDangerSecondaryCombo &&
-      isHovered &&
-      !disabled;
-    return shouldSwap
-      ? (React.cloneElement(child, {
-        name: "iconToAdd",
-      } as IconProps) as typeof child)
-      : child;
+  const mergedClassName = twMerge(
+    classes,
+    className // Classes adicionais do usuário
+  );
+
+  const { positionIcon: resolvedPositionIcon, processedChildren, autoIconName, onMouseEnter, onMouseLeave } = useButton({
+    variant,
+    size,
+    disabled,
+    background,
+    icon,
+    positionIcon,
+    children: props.children,
   });
 
-  const resolveAutoIconName = (): IconProps["name"] | null => {
-    if (icon !== "icon" || hasManualIcon) return null;
-
-    let autoIconName: IconProps["name"] = "iconToAdd";
-
-    if (!disabled) {
-      if (
-        (variant === "tertiary" && isHovered) ||
-        (background === "dangerTertiary" && isHovered) ||
-        (variant === "secondary" && isDangerSecondaryCombo && isHovered)
-      ) {
-        autoIconName = "iconToAdd";
-      } else if (variant === "primary" || variant === "secondary") {
-        autoIconName = "iconToAdd";
-      }
-    }
-    return autoIconName;
-  };
-
-  const autoIconName = resolveAutoIconName();
   const autoIcon = autoIconName ? <Icon name={autoIconName} /> : null;
 
   const buttonContent = (
     <>
-      {positionIcon === "left" && autoIcon}
+      {resolvedPositionIcon === "left" && autoIcon}
       {processedChildren}
-      {positionIcon === "right" && autoIcon}
+      {resolvedPositionIcon === "right" && autoIcon}
     </>
   );
 
-  const { className, ...restProps } = props;
-
   const commonButtonProps = {
-    className: twMerge(
-      classes,
-      className // Classes adicionais do usuário
-    ),
-    onMouseEnter: () => !disabled && setIsHovered(true),
-    onMouseLeave: () => setIsHovered(false),
+    className: mergedClassName,
+    onMouseEnter,
+    onMouseLeave,
     ...restProps,
   };
 

@@ -5,11 +5,7 @@ import { Badge } from '@/components/ui/Badge'
 import type { SidebarHighlight } from '@/context/dashboard/Sidebar/sidebar'
 import type { PortalSlug } from '@/context/tela-login/portalConfig'
 import { Icon } from '@/script/Icon'
-
-type SidebarHighlightProps = {
-    portal: PortalSlug
-    highlight?: SidebarHighlight | null
-}
+import type { SidebarHighlightProps } from '@/types/dashboard/sidebar-highlight.types'
 
 export default function SidebarHighlight({ highlight }: SidebarHighlightProps) {
     if (!highlight) return null

@@ -1,18 +1,7 @@
 "use client";
 import React from "react";
-import { StaticImageData } from "next/image";
 import { Icon } from "@/script/Icon";
-
-interface SliderControlProps {
-  images: { src: string | StaticImageData; alt: string }[];
-  current: number;
-  isPlaying: boolean;
-  onPrev: () => void;
-  onNext: () => void;
-  onGoTo: (idx: number) => void;
-  onTogglePlay: () => void;
-  progressDurationMs: number;
-}
+import type { SliderControlProps } from "@/types/ui/slider-control.types";
 
 const ProgressBar: React.FC<{
   isActive: boolean;

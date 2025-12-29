@@ -1,13 +1,7 @@
 "use client"
 
 import Image from 'next/image'
-
-type NewsFeatureCardProps = {
-    imageSrc: string
-    imageAlt: string
-    title: string
-    date: string
-}
+import type { NewsFeatureCardProps } from '@/types/ui/news-feature-card.types'
 
 export function NewsFeatureCard({ imageSrc, imageAlt, title, date }: NewsFeatureCardProps) {
     return (

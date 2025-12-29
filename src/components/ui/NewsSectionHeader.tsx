@@ -2,13 +2,7 @@
 
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/script/Icon'
-
-type NewsSectionHeaderProps = {
-    title: string
-    ctaLabel?: string
-    ctaIconName?: string
-    onCtaClick?: () => void
-}
+import type { NewsSectionHeaderProps } from '@/types/ui/news-section-header.types'
 
 export function NewsSectionHeader({ title, ctaLabel = 'Ver mais', ctaIconName = 'iconLinkCta', onCtaClick }: NewsSectionHeaderProps) {
     return (
