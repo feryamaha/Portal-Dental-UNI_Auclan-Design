@@ -1,10 +1,6 @@
 "use client"
 
-type NewsListEntryProps = {
-    title: string
-    date: string
-    className?: string
-}
+import type { NewsListEntryProps } from '@/types/ui/news-list-entry.types'
 
 export function NewsListEntry({ title, date, className = '' }: NewsListEntryProps) {
     return (

@@ -8,12 +8,7 @@ import {
     type PortalFieldConfig,
 } from '@/context/tela-login/portalConfig'
 import { notFound } from 'next/navigation'
-
-type TelaLoginPortalPageProps = {
-    params: Promise<{
-        portal: string
-    }>
-}
+import type { TelaLoginPortalPageProps } from '@/types/app/tela-login/portal-page.types'
 
 const customRendererMap: Record<PortalFieldCustomRenderer, () => React.ReactNode> = {
     dentistaDocuments: () => <LoginDentistaFields />,

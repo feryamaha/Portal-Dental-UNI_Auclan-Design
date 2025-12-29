@@ -1,38 +1,21 @@
 "use client"
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { getSidebarContent, type SidebarSection } from '@/context/dashboard/Sidebar/sidebar'
-import type { PortalSlug } from '@/context/tela-login/portalConfig'
 import { getPortalLabel } from '@/context/tela-login/portalCopy'
 import { Icon } from '@/script/Icon'
 import { clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import SidebarHighlight from '@/components/dashboard/SidebarHighlight'
 import { DivSelectMenu } from '@/components/dashboard/DivSelectMenu'
-import { basePaths } from '@/data/sidebarHighlights'
+import { useDashboardSidebar } from '@/hooks/hooks-UI-UX/shared/use-dashboard-sidebar.hook'
+import type { SidebarProps } from '@/types/dashboard/sidebar.types'
 
-function inferPortalFromPath(pathname?: string): PortalSlug {
-    if (!pathname) return 'dentista'
-
-    const segments = pathname.split('/').filter(Boolean)
-    const dashSegment = segments.find((segment) => segment.startsWith('dash-'))
-
-    if (!dashSegment) return 'dentista'
-
-    const portal = dashSegment.replace('dash-', '') as PortalSlug
-    return portal
-}
-
-export type SidebarProps = {
-    portal?: PortalSlug
-}
+export type { SidebarProps } from '@/types/dashboard/sidebar.types'
 
 export default function Sidebar({ portal }: SidebarProps) {
-    const pathname = usePathname()
-    const resolvedPortal = portal ?? inferPortalFromPath(pathname)
+    const { resolvedPortal, isActive } = useDashboardSidebar({ portal })
     const { sections, highlight } = getSidebarContent(resolvedPortal)
-    const portalBasePath = basePaths[resolvedPortal]
 
     return (
         <aside className="w-max min-h-screen bg-white border-r border-secondary-50 flex flex-col py-[20px]">
@@ -57,27 +40,20 @@ export default function Sidebar({ portal }: SidebarProps) {
                         </p>
                         <div className="space-y-1">
                             {section.items.map((item) => {
-                                const normalizedPath = pathname?.replace(/\/$/, '') || ''
-                                const normalizedHref = item.href.replace(/\/$/, '')
-                                const isBaseLink = normalizedHref === portalBasePath
-                                const isActive = isBaseLink
-                                    ? normalizedPath === normalizedHref
-                                    : normalizedPath === normalizedHref ||
-                                    normalizedPath.startsWith(`${normalizedHref}/`)
+                                const itemIsActive = isActive(item.href)
                                 const itemClasses = twMerge(
                                     clsx(
                                         'relative flex items-center gap-4 p-[8px_12px] rounded-lg text-sm transition-colors',
                                         'text-secondary-600 hover:bg-secondary-50',
                                         {
-                                            'bg-primary-25 text-primary-500': isActive,
+                                            'bg-primary-25 text-primary-500': itemIsActive,
                                         }
                                     )
                                 )
 
                                 return (
-
                                     <Link key={item.id} href={item.href} className={itemClasses}>
-                                        {isActive && (
+                                        {itemIsActive && (
                                             <DivSelectMenu className='absolute top-1/2 left-[-8px]' />
                                         )}
                                         <Icon name={item.icon} className="text-current" size={20} />
@@ -88,7 +64,6 @@ export default function Sidebar({ portal }: SidebarProps) {
                                             </span>
                                         )}
                                     </Link>
-
                                 )
                             })}
                         </div>

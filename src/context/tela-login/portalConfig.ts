@@ -1,30 +1,21 @@
 import { PortalType } from '@/components/tela-login/PortalTypeLabel'
 import type { LoginFieldConfig } from '@/components/tela-login/LoginFormFields'
 
-export type PortalFieldCustomRenderer = 'dentistaDocuments'
+import type {
+    PortalConfig,
+    PortalFieldConfig,
+    PortalFieldCustomRenderer,
+    PortalSlug,
+} from '@/types/context/tela-login/portal-config.types'
 
-export type PortalFieldConfig = {
-    id: string
-    label: string
-    name: string
-    placeholder?: string
-    type?: string
-    className?: string
-    allowAllCharacters?: boolean
-    customRenderer?: PortalFieldCustomRenderer
-    inputProps?: LoginFieldConfig['inputProps']
-}
+export type {
+    PortalConfig,
+    PortalFieldConfig,
+    PortalFieldCustomRenderer,
+    PortalSlug,
+} from '@/types/context/tela-login/portal-config.types'
 
-export type PortalConfig = {
-    portalType: PortalType
-    heroLabel: string
-    fields: PortalFieldConfig[]
-    forgotHref?: string
-    forgotLabel?: string
-    ctaLabel?: string
-}
-
-const portalConfigRecord = {
+export const portalConfigRecord = {
     beneficiario: {
         portalType: 'beneficiario',
         heroLabel: 'Beneficiários',
@@ -125,8 +116,6 @@ const portalConfigRecord = {
         ],
     },
 } as const satisfies Record<string, PortalConfig>
-
-export type PortalSlug = keyof typeof portalConfigRecord
 
 export function getPortalConfig(slug?: string): PortalConfig | null {
     if (!slug) return null

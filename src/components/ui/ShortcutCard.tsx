@@ -1,12 +1,7 @@
 "use client"
 import Link from 'next/link'
 import { Icon } from '@/script/Icon'
-
-type ShortcutCardProps = {
-    icon: string
-    label: string
-    href: string
-}
+import type { ShortcutCardProps } from '@/types/ui/shortcut-card.types'
 
 export function ShortcutCard({ icon, label, href }: ShortcutCardProps) {
     return (

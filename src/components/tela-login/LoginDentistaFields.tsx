@@ -1,6 +1,6 @@
 import { DropInput } from '@/components/ui/DropInput'
 import { FloatingLabelInput } from '@/components/ui/FloatingLabelInput'
-import { brazilStates } from '@/context/tela-login/brazilStates'
+import { brazilStatesOptions } from '@/utils/brazil-states-options.helpers'
 
 export function LoginDentistaFields() {
     return (
@@ -8,7 +8,7 @@ export function LoginDentistaFields() {
             <DropInput
                 label="UF"
                 name="uf"
-                options={brazilStates.map((state) => ({ value: state, label: state }))}
+                options={brazilStatesOptions}
                 placeholder="UF"
             />
             <FloatingLabelInput label="CRO" name="cro" placeholder="CRO" />

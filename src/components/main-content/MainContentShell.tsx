@@ -1,9 +1,7 @@
 import { ReactNode } from 'react'
+import type { MainContentShellProps } from '@/types/main-content/main-content-shell.types'
 
-export type MainContentShellProps = {
-    title?: string
-    children: ReactNode
-}
+export type { MainContentShellProps } from '@/types/main-content/main-content-shell.types'
 
 export default function MainContentShell({ title = 'Home', children }: MainContentShellProps) {
     return (

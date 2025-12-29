@@ -3,9 +3,7 @@ import PortalTypeLabel, {
     getPortalLabel,
 } from '@/components/tela-login/PortalTypeLabel'
 import { Icon } from '@/script/Icon'
-type LoginFormHeaderProps = {
-    portalType?: PortalType
-}
+import type { LoginFormHeaderProps } from '@/types/tela-login/login-form-header.types'
 
 export default function LoginFormHeader({ portalType = 'beneficiario' }: LoginFormHeaderProps) {
     return (

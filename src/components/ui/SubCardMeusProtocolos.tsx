@@ -5,20 +5,9 @@ import { Fragment } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/script/Icon'
+import type { SubCardMeusProtocolosProps } from '@/types/ui/sub-card-meus-protocolos.types'
 
-type ProtocolEvent = {
-    label: string
-    value: string
-}
-
-export type SubCardMeusProtocolosProps = {
-    statusLabel: string
-    statusVariant?: 'danger' | 'success' | 'warning' | 'info'
-    title: string
-    protocolNumber: string
-    description?: string
-    events: ProtocolEvent[]
-}
+export type { SubCardMeusProtocolosProps } from '@/types/ui/sub-card-meus-protocolos.types'
 
 export function SubCardMeusProtocolos({
     statusLabel,

@@ -1,8 +1,5 @@
 import Image from 'next/image'
-
-type SectionContentLeftProps = {
-    portalLabel?: string
-}
+import type { SectionContentLeftProps } from '@/types/tela-login/section-content-left.types'
 
 export default function SectionContentLeft({ portalLabel = 'Beneficiários' }: SectionContentLeftProps) {
     return (

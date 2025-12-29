@@ -1,35 +1,8 @@
 "use client"
-import { useState, useEffect, useRef } from "react";
-import {
-  UseFormRegister,
-  FieldErrors,
-  useWatch,
-  Control,
-  FieldValues,
-  Path,
-  UseFormSetValue,
-} from "react-hook-form";
+import type { FieldValues } from "react-hook-form";
 import { Icon } from "@/script/Icon";
-
-interface DropInputOption {
-  value: string;
-  label: string;
-}
-
-interface DropInputProps<TFieldValues extends FieldValues = FieldValues> {
-  label: string;
-  name: Path<TFieldValues>;
-  placeholder?: string;
-  options: DropInputOption[];
-  register?: UseFormRegister<TFieldValues>;
-  errors?: FieldErrors<TFieldValues>;
-  control?: Control<TFieldValues>;
-  setValue?: UseFormSetValue<TFieldValues>;
-  className?: string;
-  disabled?: boolean;
-  value?: string;
-  onChange?: (value: string) => void;
-}
+import type { DropInputProps } from "@/types/ui/drop-input.types";
+import { useDropInput } from "@/hooks/hooks-UI-UX/ui/use-drop-input.hook";
 
 export function DropInput<TFieldValues extends FieldValues = FieldValues>({
   label,
@@ -45,128 +18,32 @@ export function DropInput<TFieldValues extends FieldValues = FieldValues>({
   value,
   onChange,
 }: DropInputProps<TFieldValues>) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const [localValue, setLocalValue] = useState(value ?? "");
-
-  useEffect(() => {
-    if (value !== undefined) {
-      setLocalValue(value);
-    }
-  }, [value]);
-
-  // Watch do valor atual via RHF
-  const watchedValue = control ? (useWatch({ control, name }) as string) : undefined;
-
-  // Registra o campo no RHF
-  const registerProps = register ? register(name) : null;
-
-  // Label do valor selecionado
-  const currentValue = control ? watchedValue ?? "" : localValue;
-  const selectedOption = options.find((opt) => opt.value === currentValue);
-  const displayValue = selectedOption?.label || placeholder;
-
-  const hasValue = !!currentValue;
-  const shouldShowLabel = isFocused || hasValue || isOpen;
-
-  // Click outside to close
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-        setIsFocused(false);
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isOpen) return;
-
-      if (e.key === "Escape") {
-        setIsOpen(false);
-        setIsFocused(false);
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]);
-
-  const handleSelect = (optionValue: string) => {
-    if (setValue) {
-      setValue(name, optionValue as TFieldValues[typeof name], {
-        shouldValidate: true,
-      });
-    } else {
-      setLocalValue(optionValue);
-      if (onChange) onChange(optionValue);
-    }
-    setIsOpen(false);
-    setIsFocused(false);
-  };
-
-  const handleToggle = () => {
-    if (!disabled) {
-      setIsOpen(!isOpen);
-      setIsFocused(!isOpen);
-    }
-  };
-
-  // Função para obter mensagem de erro (mesma lógica do FloatingLabelInput)
-  const getErrorMessage = (): string | null => {
-    if (!errors || !name) return null;
-
-    const nameParts = name.split(".");
-    let currentError: unknown = errors;
-
-    for (const part of nameParts) {
-      if (
-        currentError &&
-        typeof currentError === "object" &&
-        part in (currentError as Record<string, unknown>)
-      ) {
-        currentError = (currentError as Record<string, unknown>)[part];
-      } else {
-        return null;
-      }
-    }
-
-    if (!currentError) return null;
-
-    if (typeof currentError === "object" && currentError !== null) {
-      if (
-        "message" in currentError &&
-        typeof (currentError as { message?: unknown }).message === "string"
-      ) {
-        return (currentError as { message: string }).message;
-      }
-      if (
-        "type" in currentError &&
-        (currentError as { type?: unknown }).type === "required"
-      ) {
-        return `${label.replace("*", "").trim()} é obrigatório`;
-      }
-    }
-
-    return null;
-  };
-
-  const errorMessage = getErrorMessage();
-  const hasError = !!errorMessage;
+  const {
+    isOpen,
+    dropdownRef,
+    watchedValue,
+    registerProps,
+    currentValue,
+    displayValue,
+    hasValue,
+    shouldShowLabel,
+    handleSelect,
+    handleToggle,
+    errorMessage,
+    hasError,
+  } = useDropInput<TFieldValues>({
+    label,
+    name,
+    placeholder,
+    options,
+    register,
+    errors,
+    control,
+    setValue,
+    disabled,
+    value,
+    onChange,
+  });
 
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>

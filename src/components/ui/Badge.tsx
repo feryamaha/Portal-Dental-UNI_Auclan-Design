@@ -1,18 +1,7 @@
 import clsx from "clsx";
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
-
-interface BadgeProps extends ComponentProps<"span"> {
-  variant:
-  | "default"
-  | "light"
-  | "success"
-  | "info"
-  | "warning"
-  | "danger"
-  | "number";
-  disabled?: boolean;
-}
+import type { BadgeProps } from "@/types/ui/badge.types";
 
 export function Badge({ variant, disabled = false, ...props }: BadgeProps) {
   const classes = twMerge(

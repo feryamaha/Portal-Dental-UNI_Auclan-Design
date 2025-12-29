@@ -3,21 +3,7 @@
 import { NewsFeatureCard } from '@/components/ui/NewsFeatureCard'
 import { NewsListEntry } from '@/components/ui/NewsListEntry'
 import { NewsSectionHeader } from '@/components/ui/NewsSectionHeader'
-
-type NewsHighlightSectionProps = {
-    title?: string
-    ctaLabel?: string
-    feature: {
-        imageSrc: string
-        imageAlt: string
-        title: string
-        date: string
-    }
-    articles: {
-        title: string
-        date: string
-    }[]
-}
+import type { NewsHighlightSectionProps } from '@/types/shared/news-highlight-section.types'
 
 export function NewsHighlightSection({
     title = 'Notícias recentes',
