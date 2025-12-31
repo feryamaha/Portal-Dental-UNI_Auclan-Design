@@ -1,73 +1,89 @@
 # Portal Dental UNI – Dashboard
- 
- Mapa rápido do projeto Portal dashboard (Next.js/React) com as peças principais, stack e instruções de execução.
- 
- ## Visão Geral
- - Dashboard do Portal Dental UNI, com sidebar, topbar e área principal compondo a experiência de beneficiários.
- - Componentes de destaque: HomeContent (conteúdo principal), SliderBanner, ShortcutsSection, NewsHighlightSection, CardMeusProtocolos, CardMinhasGuias.
- - Dados atuais mockados para validação visual; integrações reais podem ser ligadas futuramente via serviços/API.
- 
- ## Stack
- - **Core:** Next.js 15.5.9 (App Router), React 19.2.3, TypeScript 5.7.3.
- - **Formulários/validação:** react-hook-form 7.54.2, zod 3.24.2, @hookform/resolvers 4.1.2.
- - **Estilo/UI:** Tailwind CSS 3.4.1, tailwind-merge 3.4.0, tailwind-scrollbar 3.1.0, clsx 2.1.1.
- - **Integrações previstas:** axios (HTTP), @react-google-maps/api, @microsoft/clarity, js-cookie, swiper/quill/tiptap para UI avançada.
- - **Qualidade:** ESLint (padrão Next), scripts de pre-commit para deps/build/security/architecture.
 
- ## Arquitetura (regra de ouro: UI pura)
- - **`src/components/**` deve conter apenas UI**:
-   - JSX/composição visual
-   - chamadas de hooks
-   - handlers que apenas delegam
-   - condicionais puramente visuais
- - **Proibido** manter dentro de componentes:
-   - parsing/normalização (ex.: `split`, `replace`, `startsWith`)
-   - helpers/funções utilitárias locais
-   - datasets/mocks inline
-   - regras de negócio
- - Onde colocar cada responsabilidade:
-   - **`src/hooks/**`**: orquestração/estado (derivações a partir de rota/props, etc.)
-   - **`src/utils/**`**: funções puras reutilizáveis
-   - **`src/data/**`**: mocks e dados estáticos
- 
- ## Estrutura (resumo)
- ```
- src/
- ├─ app/                # Rotas (App Router + API (router handlers BFF))
- ├─ components/
- │  ├─ main-content/    # UI conteudo principal de cada portal
- │  ├─ shared/          # UI composta de sub componentes reutilizáveis
- │  └─ ui/              # UI reutilizável
- ├─ context/            # Conteúdos/menus (ex.: sidebar)
- ├─ data/               # Mocks e dados auxiliares
- ├─ hooks/              # Hooks (UI/UX e orquestração)
- ├─ utils/              # Funções puras (helpers)
- ├─ scripts/            # Automação para generateIcons e converter imangens em webp
- └─ public/assets/      # Ícones e imagens
- ```
- 
- ## Como rodar
- 1) Pré-requisitos: Node 22.16.0 (.nvmrc) + Yarn.  
- 2) Instale deps: `yarn install`  
- 3) Env: `cp .env.example .env` e ajuste se necessário.  
- 4) Dev server: `yarn dev` → http://localhost:3000
+Uma dashboard multi-portal moderna desenvolvida em Next.js, projetada para atender diferentes perfis de usuários da Dental UNI: Beneficiário, Dentista, Comercial (Corretor), Empresa e Representante.
 
- ## Scripts úteis
- - `yarn dev`: ambiente local
- - `yarn build`: build de produção
- - `yarn start`: start do build
- - `yarn lint`: lint (Next ESLint)
- - `yarn generate:icons`: gera ícones (script interno)
-    ou
- - `node .\\src\\script\\generateIcons.js`: gera ícones (script interno)
- - `node .\\src\\script\\convert-images-to-webp.mjs`: converte imagens para WebP (script interno)
+Cada portal oferece funcionalidades personalizadas, como acesso a protocolos, guias, boletos, agendamentos, pacientes e muito mais – tudo com uma arquitetura escalável e foco em reutilização de componentes e lógica.
 
- 
- ## Notas rápidas
- - Credenciais e chaves de API devem ficar no server (Route Handlers/API internas).  
- - Use axios/fetch no server para esconder segredos; cookies apenas quando indispensável.  
- - Segurança (CSP/headers) deve ser configurada via middleware/layout/Next.config.
- - Regra do projeto: **UI pura em `src/components/**`** (ver seção "Arquitetura").
- 
- ## Licença
- Projeto interno da Dental UNI / Auclan Design. Uso restrito conforme diretrizes da organização.
+## Instalação
+
+```bash
+yarn install
+```
+
+## Pré-requisitos
+
+- Node.js versão 22.16.0 (recomendado usar nvm com o arquivo .nvmrc)
+- Yarn (gerenciador de pacotes)
+
+# Clone o repositório (se aplicável)
+
+```bash
+git clone <url-do-repositorio>
+```
+
+# Instale as dependências
+
+```bash
+yarn install
+```
+
+## Como Rodar
+
+```bash
+yarn dev  
+```
+Acesse em: http://localhost:3000
+A raiz (/) redireciona automaticamente para a tela de login.
+
+## Build
+
+```bash
+yarn build && yarn start
+```
+
+## Credenciais de Teste (Ambiente de Desenvolvimento/Mock)
+
+Acesse via /tela-login/[portal] (ex: /tela-login/beneficiario)
+- Nota: Atualmente usa mock local. Em produção, será integrado com API real de autenticação.
+
+```json
+{
+  "beneficiario": { "login": "111.222.333-44", "password": "10203040" },
+  "dentista": { "login": "555.666.777-88", "password": "99887766" },
+  "corretor": { "login": "222.333.444-55", "password": "55667788" },
+  "empresa": { "login": "333.444.555-66", "password": "66778899" },
+  "representante": { "login": "444.555.666-77", "password": "77889900" }
+}
+```
+
+## Scripts Úteis
+yarn build
+yarn start  
+yarn lint
+yarn generate:icons ou node .\src\script\generateIcons.js
+node .\src\script\convert-images-to-webp.mjs 
+
+## Stack
+
+- Next.js 15 (App Router)
+- React 19
+- TypeScript 5.7
+- Tailwind CSS 3.4
+- React Hook Form + Zod
+
+## Arquitetura e Documentação
+
+O projeto segue princípios rígidos de separação de responsabilidades (UI pura em components/, lógica em hooks/, tipagens centralizadas em types/, etc.).
+Para detalhes completos:
+
+- Estrutura de pastas e fluxos: Veja `Feature-Documentation/Arquitetura-pastas-arquivos.md`
+- Regras de criação de componentes: `Feature-Documentation/Regra-Criacao-Componentes.md`
+- Tela de Login: `Feature-Documentation/tela-login.md`
+
+Veja `Feature-Documentation/` para documentação completa.
+
+## Licença
+
+Projeto interno e confidencial da Dental UNI.
+Desenvolvido e mantido pela equipe Auclan Design.
+Uso restrito – não distribuir ou publicar externamente.

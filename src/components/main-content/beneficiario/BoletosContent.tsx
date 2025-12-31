@@ -1,9 +1,7 @@
-import MainContentShell from '@/components/main-content/MainContentShell'
-
 export function BeneficiarioBoletosContent() {
     return (
-        <MainContentShell title="Meus boletos">
+        <section className="w-full mx-auto p-[24px_32px_0px_32px]">
             <p>Bem-vindo ao portal do Beneficiário. MAIN CONTENT ITEM Meus boletos.</p>
-        </MainContentShell>
+        </section>
     )
 }

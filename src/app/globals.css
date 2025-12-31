@@ -52,17 +52,17 @@ span {
   list-style: disc;
 }
 
-a:focus,
-button:focus {
-  outline: none !important;
-  box-shadow: none !important;
+/* Estilos de foco visível para acessibilidade */
+*:focus-visible {
+  outline: 2px solid #AF0F2A !important;
+  outline-offset: 2px !important;
 }
 
 body.overflow-hidden {
   overflow: hidden !important;
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 
 @layer utilities {

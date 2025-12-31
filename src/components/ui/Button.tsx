@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 import Link from "next/link";
 import { Icon } from "@/script/Icon";
 import type { ButtonProps } from "@/types/ui/button.types";
-import { useButton } from "@/hooks/hooks-UI-UX/ui/use-button.hook";
+import { useButton } from "@/hooks/hooks-dash/hooks-UI-UX/useButton.hook";
 
 export function Button({
   variant,
@@ -89,7 +89,7 @@ export function Button({
   );
 
   const commonButtonProps = {
-    className: mergedClassName,
+    className: `${mergedClassName} focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2`,
     onMouseEnter,
     onMouseLeave,
     ...restProps,
