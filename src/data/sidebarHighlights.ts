@@ -2,11 +2,11 @@ import type { PortalSlug } from '@/context/tela-login/portalConfig'
 import type { SidebarHighlight } from '@/context/dashboard/Sidebar/sidebar'
 
 export const basePaths = {
-    beneficiario: '/dash-beneficiario',
-    dentista: '/dash-dentista',
-    corretor: '/dash-comercial',
-    empresa: '/dash-empresa',
-    representante: '/dash-representante',
+    beneficiario: '/portal-beneficiario',
+    dentista: '/portal-dentista',
+    corretor: '/portal-comercial',
+    empresa: '/portal-empresa',
+    representante: '/portal-representante',
 } as const
 
 export const sidebarHighlights: Record<PortalSlug, SidebarHighlight | null> = {

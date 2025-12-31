@@ -1,4 +1,4 @@
-import type { PortalType } from '@/context/tela-login/portalCopy'
+import type { PortalType } from '@/types/data/portal-copy.types'
 
 export type PortalTypeLabelProps = {
     type?: PortalType

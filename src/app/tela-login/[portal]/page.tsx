@@ -1,12 +1,12 @@
-import SectionContentLeft from '@/components/tela-login/SectionContentLeft'
-import SectionContentRight from '@/components/tela-login/SectionContentRight'
-import { LoginFieldConfig } from '@/components/tela-login/LoginFormFields'
-import { LoginDentistaFields } from '@/components/tela-login/LoginDentistaFields'
+import SectionContentLeft from '@/components/shared-tela-login/SectionContentLeft'
+import SectionContentRight from '@/components/shared-tela-login/SectionContentRight'
+import { LoginFieldConfig } from '@/components/shared-tela-login/LoginFormFields'
+import { LoginDentistaFields } from '@/components/shared-tela-login/LoginDentistaFields'
 import {
     getPortalConfig,
     type PortalFieldCustomRenderer,
     type PortalFieldConfig,
-} from '@/context/tela-login/portalConfig'
+} from '@/data/portal-config'
 import { notFound } from 'next/navigation'
 import type { TelaLoginPortalPageProps } from '@/types/app/tela-login/portal-page.types'
 

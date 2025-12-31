@@ -2,7 +2,7 @@
 import type { FieldValues } from "react-hook-form";
 import { Icon } from "@/script/Icon";
 import type { DropInputProps } from "@/types/ui/drop-input.types";
-import { useDropInput } from "@/hooks/hooks-UI-UX/ui/use-drop-input.hook";
+import { useDropInput } from "@/hooks/hooks-dash/hooks-UI-UX/useDropInput.hook";
 
 export function DropInput<TFieldValues extends FieldValues = FieldValues>({
   label,
@@ -57,9 +57,11 @@ export function DropInput<TFieldValues extends FieldValues = FieldValues>({
         type="button"
         onClick={handleToggle}
         disabled={disabled}
-        className={`w-full h-12 border rounded-lg px-4 pt-2 pb-2 transition-colors text-left flex items-center justify-between ${hasError
-          ? "border-red-500 ring-red-400 focus:outline-none focus:ring-1 focus:border-red-500"
-          : "border-secondary-100 ring-gray950 focus:outline-none focus:ring-1 focus:border-gray-950"
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
+        className={`w-full h-12 border rounded-lg px-4 pt-2 pb-2 transition-colors text-left flex items-center justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${hasError
+          ? "border-red-500 ring-red-400"
+          : "border-secondary-100 ring-gray950"
           } ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:border-gray-950"}`}
       >
         <span className={`${!hasValue ? "text-gray-400" : "text-gray-900"}`}>

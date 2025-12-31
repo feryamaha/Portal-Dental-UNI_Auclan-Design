@@ -1,4 +1,4 @@
-import type { PortalSlug } from '@/context/tela-login/portalConfig'
+import type { PortalSlug } from '@/types/data/portal-config.types'
 
 export function normalizePathname(pathname?: string) {
     return pathname?.replace(/\/$/, '') || ''

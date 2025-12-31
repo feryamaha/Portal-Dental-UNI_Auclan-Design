@@ -2,7 +2,7 @@
 
 import type { FieldValues } from "react-hook-form";
 import type { FloatingLabelInputProps } from "@/types/ui/floating-label-input.types";
-import { useFloatingLabelInput } from "@/hooks/hooks-UI-UX/ui/use-floating-label-input.hook";
+import { useFloatingLabelInput } from "@/hooks/hooks-dash/hooks-UI-UX/useFloatingLabelInput.hook";
 
 export function FloatingLabelInput<
   TFieldValues extends FieldValues = FieldValues,
@@ -61,6 +61,7 @@ export function FloatingLabelInput<
             handleChange(e);
             if (registerProps.onChange) registerProps.onChange(e);
           }}
+          className={`${baseProps.className} focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2`}
         />
         <label
           className={`absolute left-4 pointer-events-none transition-all duration-200 font-normal ${shouldShowLabel
