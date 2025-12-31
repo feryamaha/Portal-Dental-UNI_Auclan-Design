@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import type { SidebarHighlight } from '@/context/dashboard/Sidebar/sidebar'
-import type { PortalSlug } from '@/context/tela-login/portalConfig'
+import type { SidebarHighlight } from '@/types/data/sidebar.types'
+import type { PortalSlug } from '@/types/data/portal-config.types'
 import { Icon } from '@/script/Icon'
 import type { SidebarHighlightProps } from '@/types/dashboard/sidebar-highlight.types'
 

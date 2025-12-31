@@ -1,5 +1,5 @@
-import type { PortalSlug } from '@/context/tela-login/portalConfig'
-import type { SidebarHighlight } from '@/context/dashboard/Sidebar/sidebar'
+import type { PortalSlug } from '@/types/data/portal-config.types'
+import type { SidebarHighlight } from '@/types/data/sidebar.types'
 
 export const basePaths = {
     beneficiario: '/portal-beneficiario',

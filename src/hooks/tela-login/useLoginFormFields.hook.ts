@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import type { PortalSlug } from '@/context/tela-login/portalConfig'
+import type { PortalSlug } from '@/types/data/portal-config.types'
 import mockLogin from '@/data/mock-login/mock-login-fake.json'
 
 const credentialsMap = mockLogin as Record<PortalSlug, { login: string; password: string; redirect: string }>

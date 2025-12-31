@@ -1,7 +1,7 @@
 "use client"
 
 import { ShortcutCard } from '@/components/ui/ShortcutCard'
-import type { SidebarItem } from '@/context/dashboard/Sidebar/sidebar'
+import type { SidebarItem } from '@/types/data/sidebar.types'
 import type { ShortcutsSectionProps } from '@/types/shared/shortcuts-section.types'
 import { useShortcutsSection } from '@/hooks/hooks-dash/hooks-shared/useShortcutsSection.hook'
 

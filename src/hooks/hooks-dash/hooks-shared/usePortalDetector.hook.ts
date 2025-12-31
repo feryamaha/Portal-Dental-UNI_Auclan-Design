@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 
-import type { PortalSlug } from '@/context/tela-login/portalConfig'
+import type { PortalSlug } from '@/types/data/portal-config.types'
 import { basePaths } from '@/data/sidebarHighlights'
 import { inferPortalFromPathname, isActiveHref } from '@/utils/dashboard-path.helpers'
 
