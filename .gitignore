@@ -11,6 +11,9 @@
 !/.yarn/versions
 .yarn/install-state.gz
 .yarn/build-state.yml
+.yarn/cache/@next-swc-*.zip
+.yarn/cache/next-*.zip
+dev-credentials.json
 
 # Next.js build artifacts
 /.next/
