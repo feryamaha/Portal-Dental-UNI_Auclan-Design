@@ -57,9 +57,7 @@ export function DropInput<TFieldValues extends FieldValues = FieldValues>({
         type="button"
         onClick={handleToggle}
         disabled={disabled}
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
-        className={`w-full h-12 border rounded-lg px-4 pt-2 pb-2 transition-colors text-left flex items-center justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${hasError
+        className={`w-full h-12 border rounded-lg px-4 pt-2 pb-2 transition-colors text-left flex items-center justify-between ${hasError
           ? "border-red-500 ring-red-400"
           : "border-secondary-100 ring-gray950"
           } ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:border-gray-950"}`}

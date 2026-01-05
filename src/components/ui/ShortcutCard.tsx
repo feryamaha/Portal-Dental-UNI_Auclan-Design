@@ -7,9 +7,8 @@ export function ShortcutCard({ icon, label, href }: ShortcutCardProps) {
     return (
         <Link
             href={href}
-            className="group flex h-[132px] w-[132px] flex-col justify-between rounded-lg border border-secondary-100 bg-white p-4 text-left shadow-[0_1px_4px_rgba(0,0,0,0.08),0_1px_2px_rgba(25,25,25,0.08)] transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
+            className="group flex h-[132px] w-[132px] flex-col justify-between rounded-lg border border-secondary-100 bg-white p-4 text-left shadow-[0_1px_4px_rgba(0,0,0,0.08),0_1px_2px_rgba(25,25,25,0.08)] transition-all duration-200 hover:-translate-y-0.5"
             aria-label={`Acessar ${label}`}
-            tabIndex={3}
         >
             <div className="flex h-8 w-8 items-center justify-center rounded-md bg-secondary-50 text-secondary-900">
                 <Icon name={icon} />

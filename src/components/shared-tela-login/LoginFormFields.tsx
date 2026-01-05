@@ -1,4 +1,4 @@
-import { ReactNode, useRef } from 'react'
+import { ReactNode } from 'react'
 import { FloatingLabelInput } from '@/components/ui/FloatingLabelInput'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/script/Icon'
@@ -16,17 +16,8 @@ export default function LoginFormFields({
     errorMessage,
     isSubmitting = false,
 }: LoginFormFieldsProps) {
-    const formRef = useRef<HTMLFormElement>(null)
-
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter' && formRef.current) {
-            e.preventDefault()
-            formRef.current.requestSubmit()
-        }
-    }
-
     return (
-        <form ref={formRef} className="space-y-4" onSubmit={onSubmit} onKeyDown={handleKeyDown}>
+        <form className="space-y-4" onSubmit={onSubmit}>
             {fields.map((field) => (
                 <div key={field.id} className={field.className ?? ''}>
                     {field.render ? (
@@ -50,7 +41,7 @@ export default function LoginFormFields({
             )}
 
             <div className="inline-flex">
-                <Button href={forgotHref} variant="tertiary" size="default" className='text-[#AF0F2A]' aria-label={forgotLabel} tabIndex={-1}>
+                <Button href={forgotHref} variant="tertiary" size="default" className='text-[#AF0F2A]'>
                     {forgotLabel} <Icon name='iconArrowRedRight' />
                 </Button>
             </div>
@@ -61,7 +52,6 @@ export default function LoginFormFields({
                 size="lg"
                 className='bg-[#AF0F2A]'
                 disabled={isSubmitting}
-                tabIndex={0}
             >
                 {isSubmitting ? 'Entrando...' : ctaLabel}
             </Button>
