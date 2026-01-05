@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useEffect, useRef } from 'react'
+import { useMemo } from 'react'
 import LoginFormHeader from '@/components/shared-tela-login/LoginFormHeader'
 import LoginFormFields, { LoginFieldConfig } from '@/components/shared-tela-login/LoginFormFields'
 import TermoPoliticaUso from '@/components/shared-tela-login/TermoPoliticaUso'
@@ -19,40 +19,14 @@ export default function SectionContentRight({
 }: SectionContentRightProps) {
     const portalSlug = useMemo(() => portalType, [portalType])
     const { handleSubmit, handleChange, error, isSubmitting } = useLoginFormFields(portalSlug)
-    const modalRef = useRef<HTMLDivElement>(null)
-
-    useEffect(() => {
-        const focusableElements = modalRef.current?.querySelectorAll(
-            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        )
-        const firstElement = focusableElements?.[0] as HTMLElement
-        const lastElement = focusableElements?.[focusableElements.length - 1] as HTMLElement
-
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Tab') {
-                if (e.shiftKey && document.activeElement === firstElement) {
-                    e.preventDefault()
-                    lastElement?.focus()
-                } else if (!e.shiftKey && document.activeElement === lastElement) {
-                    e.preventDefault()
-                    firstElement?.focus()
-                }
-            }
-        }
-
-        document.addEventListener('keydown', handleKeyDown)
-        firstElement?.focus()
-
-        return () => document.removeEventListener('keydown', handleKeyDown)
-    }, [])
 
     return (
         <div className='fixed inset-0 w-full h-full bg-[rgba(58,58,58,0.58)] backdrop-blur-sm z-10 @laptop:static @laptop:bg-transparent @laptop:backdrop-blur-none'>
-            <div ref={modalRef} className="w-[90%] h-[95%] bg-white rounded-xl z-20 p-[16px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 @mobile:w-[70%] @mobile:h-[60%] shadow-[0_1px_4px_0_rgba(0,0,0,0.08),0_1px_2px_0_rgba(25,25,25,0.08)] @laptop:relative @laptop:top-0 @laptop:left-0 @laptop:translate-x-0 @laptop:translate-y-0 @laptop:w-1/2 @laptop:h-screen @laptop:rounded-none @laptop:p-[48px_32px_32px_48px] @laptop:shadow-none @laptop:flex-shrink-0">
+            <div className="w-[90%] h-[95%] bg-white rounded-xl z-20 p-[16px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 @mobile:w-[70%] @mobile:h-[60%] shadow-[0_1px_4px_0_rgba(0,0,0,0.08),0_1px_2px_0_rgba(25,25,25,0.08)] @laptop:relative @laptop:top-0 @laptop:left-0 @laptop:translate-x-0 @laptop:translate-y-0 @laptop:w-1/2 @laptop:h-screen @laptop:rounded-none @laptop:p-[48px_32px_32px_48px] @laptop:shadow-none @laptop:flex-shrink-0">
 
                 <div className='w-full h-full flex flex-col justify-between'>
                     <div className="inline-flex">
-                        <Button href="https://dental-uni-auclan-institucional-v0.vercel.app/" variant="tertiary" size="default" className='text-[#AF0F2A]' aria-label="Voltar para o site institucional">
+                        <Button href="https://dental-uni-auclan-institucional-v0.vercel.app/" variant="tertiary" size="default" className='text-[#AF0F2A]'>
                             <Icon name='iconArrowRedLeft' />
                             Voltar para o site
                         </Button>

@@ -52,7 +52,7 @@ export default function Sidebar({ portal }: SidebarProps) {
                                 )
 
                                 return (
-                                    <Link key={item.id} href={item.href} className={itemClasses} tabIndex={1}>
+                                    <Link key={item.id} href={item.href} className={itemClasses}>
                                         {itemIsActive && (
                                             <DivSelectMenu className='absolute top-1/2 left-[-8px]' />
                                         )}
@@ -74,7 +74,7 @@ export default function Sidebar({ portal }: SidebarProps) {
             <div className="w-full pl-[24px]">
                 <Link
                     href="/sio"
-                    className="flex items-center gap-[8px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded"
+                    className="flex items-center gap-[8px] rounded"
                     aria-label="Acessar SIO - Sistema Integrado de Operações"
                 >
                     <Icon name="iconSioSistemaInt" />

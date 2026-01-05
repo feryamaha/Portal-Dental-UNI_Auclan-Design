@@ -25,7 +25,7 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                 <div className="flex items-center gap-6">
                     <nav className="flex items-center gap-4 text-sm font-medium text-secondary-900">
                         {quickLinks.map((link) => (
-                            <Link key={link.id} href={link.href} className="inline-flex items-center gap-2 hover:text-[#AF0F2A] focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2 rounded" tabIndex={2}>
+                            <Link key={link.id} href={link.href} className="inline-flex items-center gap-2 hover:text-[#AF0F2A] rounded">
                                 {link.icon && <Icon name={link.icon} size={16} className="text-current" />}
                                 {link.label}
                             </Link>
@@ -40,8 +40,6 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                                     className='px-0 text-secondary-900'
                                     key={action.id}
                                     type="button"
-                                    aria-label={`Ação ${action.id}`}
-                                    tabIndex={2}
                                 >
                                     <Icon name={action.icon} className="text-current" />
                                 </Button>
@@ -58,7 +56,7 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                                     <span className="w-max text-sm text-secondary-600">{user.role}</span>
                                 </div>
                                 <div>
-                                    <Button variant="tertiary" size="sm" className='px-0' aria-label="Menu de perfil" tabIndex={2}>
+                                    <Button variant="tertiary" size="sm" className='px-0'>
                                         <Icon name='iconFlechaDupla' className='text-secondary-900' />
                                     </Button>
                                 </div>

@@ -43,7 +43,6 @@ export function useDropInput<TFieldValues extends FieldValues = FieldValues>(par
 
     const [isOpen, setIsOpen] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
-    const [highlightedIndex, setHighlightedIndex] = useState(-1);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [localValue, setLocalValue] = useState(value ?? "");
 
@@ -85,42 +84,6 @@ export function useDropInput<TFieldValues extends FieldValues = FieldValues>(par
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [isOpen]);
-
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (!isOpen) {
-                if (e.key === "Escape") {
-                    setIsFocused(false);
-                }
-                return;
-            }
-
-            switch (e.key) {
-                case "ArrowDown":
-                    e.preventDefault();
-                    setHighlightedIndex((prev) => (prev + 1) % options.length);
-                    break;
-                case "ArrowUp":
-                    e.preventDefault();
-                    setHighlightedIndex((prev) => (prev - 1 + options.length) % options.length);
-                    break;
-                case "Enter":
-                    e.preventDefault();
-                    if (highlightedIndex >= 0) {
-                        handleSelect(options[highlightedIndex].value);
-                    }
-                    break;
-                case "Escape":
-                    e.preventDefault();
-                    setIsOpen(false);
-                    setIsFocused(false);
-                    break;
-            }
-        };
-
-        document.addEventListener("keydown", handleKeyDown);
-        return () => document.removeEventListener("keydown", handleKeyDown);
-    }, [isOpen, highlightedIndex, options]);
 
     const handleSelect = (optionValue: string) => {
         if (setValue) {
@@ -164,6 +127,5 @@ export function useDropInput<TFieldValues extends FieldValues = FieldValues>(par
         handleToggle,
         errorMessage,
         hasError,
-        highlightedIndex,
     };
 }

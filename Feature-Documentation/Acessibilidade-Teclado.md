@@ -1,25 +1,29 @@
 # Acessibilidade por Teclado - Análise e Implementação
 
-## Status Atual: ⚠️ PARCIALMENTE IMPLEMENTADO
+## Status Atual: ⏸️ IMPLEMENTAÇÃO PAUSADA (05 jan 2026)
 
-Data: 31 de dezembro de 2025
+Data da última revisão: 05 de janeiro de 2026
+
+> **Resumo**  
+> - Toda a lógica de acessibilidade via teclado que estava espalhada pelos componentes foi removida temporariamente para evitar uso indevido.  
+> - Foi criado o hook `useKeyboardAccessibility.hook.ts` (ainda não aplicado) para centralizar futura implementação.  
+> - A próxima etapa é reintroduzir acessibilidade seguindo esse novo padrão único.
 
 ---
 
 ## 1. O Que Existe ✅
 
-### Componentes com Suporte Básico
-- **Button.tsx** - Buttons nativos respondem a Tab/Enter
-- **FloatingLabelInput.tsx** - Inputs nativos com Tab/Enter
-- **ShortcutCard.tsx** - Link com `focus-visible:ring-2` (indicador visual)
-- **Breadcrumbs.tsx** - Links navegáveis com `aria-label="breadcrumb"`
-- **SliderControl.tsx** - Botões com `aria-label`
+### Situação Atual (05 jan 2026)
+- **Button.tsx / FloatingLabelInput.tsx** mantêm apenas o comportamento nativo padrão do navegador.
+- **Outros componentes (SliderControl, Dropdown, Sidebar, Topbar, etc.)** estão sem lógica de acessibilidade customizada até que o novo hook seja aplicado.
 
-### Aria Attributes Implementados
-- `aria-label` em controles de slider
-- `aria-current="page"` em breadcrumbs
-- `aria-hidden` em elementos decorativos
-- `role="button"` em alguns divs clicáveis
+### Hook Centralizado Criado
+- Arquivo: `src/hooks/hooks-dash/hooks-UI-UX/useKeyboardAccessibility.hook.ts`
+- Responsável por:
+  - Handlers padrão para Enter/Espaço/Setas/Escape.
+  - Gestão opcional de focus trap e autofocus inicial.
+  - Aplicação dos estilos de foco seguindo o design system (via `clsx` + `twMerge`).
+  - Retorno de `interactiveProps` para serem espalhados em qualquer elemento clicável não nativo.
 
 ---
 
@@ -277,14 +281,14 @@ yarn dev
 
 ---
 
-## 6. Próximos Passos
+## 6. Próximos Passos (Atualizado)
 
-1. **Implementar navegação por teclado em DropInput**
-2. **Implementar navegação por teclado em Dropdown**
-3. **Adicionar focus-visible em todos os elementos interativos**
-4. **Implementar focus trap em modais**
-5. **Adicionar aria-labels em botões de ícone**
-6. **Testar com screen reader**
+1. Aplicar gradualmente o `useKeyboardAccessibility` nos componentes que antes tinham lógica própria (SliderControl, Dropdown, DropInput, modais, etc.).
+2. Reintroduzir estilos de foco reutilizando os tokens fornecidos pelo hook (neutral/form).
+3. Reativar navegação por teclado em Dropdown/DropInput usando o hook como orquestrador.
+4. Reaplicar focus trap em modais através das opções do hook.
+5. Revisar ARIA (`aria-label`, `aria-expanded`, `aria-pressed`, etc.) usando a API do hook para manter consistência.
+6. Atualizar os componentes documentados (Sidebar, Topbar, ShortcutCard, etc.) para importar o hook e remover duplicação.
 
 ---
 

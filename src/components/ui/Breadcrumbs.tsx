@@ -11,7 +11,7 @@ export function Breadcrumbs({
   lengthWordLimit = 5,
 }: BreadcrumbsProps) {
   return (
-    <nav aria-label="breadcrumb">
+    <nav>
       <ul className="flex items-center space-x-1">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
@@ -20,11 +20,10 @@ export function Breadcrumbs({
             <li
               key={index}
               className="flex items-center"
-              aria-current={isLast ? "page" : undefined}
             >
               <Link
                 className={clsx(
-                  "font-inter text-sm flex items-center no-underline focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2 rounded",
+                  "font-inter text-sm flex items-center no-underline rounded",
                   "hover:font-medium hover:text-secondary-900 hover:underline hover:underline-offset-[3px] cursor-pointer",
                   isLast
                     ? "text-secondary-500 font-normal"
@@ -37,8 +36,6 @@ export function Breadcrumbs({
                 href={item.href}
                 onClick={isLast ? (e) => e.preventDefault() : undefined}
                 title={item.label}
-                aria-label={`Navegar para ${item.label}`}
-                tabIndex={2}
                 style={
                   isMobile && item.label.length >= lengthWordLimit
                     ? { maxWidth: `${lengthWordLimit}ch` }
