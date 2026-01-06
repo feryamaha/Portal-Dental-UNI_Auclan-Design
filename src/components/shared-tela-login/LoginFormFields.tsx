@@ -42,7 +42,7 @@ export default function LoginFormFields({
 
             <div className="inline-flex">
                 <Button href={forgotHref} variant="tertiary" size="default" className='text-[#AF0F2A]'>
-                    {forgotLabel} <Icon name='iconArrowRedRight' />
+                    {forgotLabel}
                 </Button>
             </div>
 

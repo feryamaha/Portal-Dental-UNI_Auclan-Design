@@ -7,5 +7,5 @@ export { getPortalLabel }
 export type { PortalType }
 
 export default function PortalTypeLabel({ type = 'beneficiario' }: PortalTypeLabelProps) {
-    return <span className="flex items-center text-2xl font-normal">{getPortalLabel(type)}</span>
+    return <span className="font-inter flex items-center text-base font-medium text-neutral-900">{getPortalLabel(type)}</span>
 }
