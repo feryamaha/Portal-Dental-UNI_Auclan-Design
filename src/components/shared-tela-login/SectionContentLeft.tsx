@@ -16,7 +16,7 @@ export default function SectionContentLeft({ portalLabel = 'Beneficiários' }: S
                     />
                 </div>
                 <div className="pl-4">
-                    <p className="text-white text-base font-normal">{portalLabel}</p>
+                    <p className="font-inter text-white text-base font-medium">{portalLabel}</p>
                 </div>
             </div>
             <div className="relative z-10">

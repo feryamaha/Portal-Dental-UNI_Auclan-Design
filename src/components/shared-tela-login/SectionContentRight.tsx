@@ -4,7 +4,6 @@ import { useMemo } from 'react'
 import LoginFormHeader from '@/components/shared-tela-login/LoginFormHeader'
 import LoginFormFields, { LoginFieldConfig } from '@/components/shared-tela-login/LoginFormFields'
 import TermoPoliticaUso from '@/components/shared-tela-login/TermoPoliticaUso'
-import { PortalType } from '@/components/shared-tela-login/PortalTypeLabel'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/script/Icon'
 import { useLoginFormFields } from '@/hooks/tela-login/useLoginFormFields.hook'
@@ -44,8 +43,8 @@ export default function SectionContentRight({
                             errorMessage={error}
                             isSubmitting={isSubmitting}
                         />
-                        <div className="flex flex-wrap items-center gap-2 text-sm text-neutral-700">
-                            <span>Cartão bloqueado?</span>
+                        <div className="flex flex-wrap items-center gap-2">
+                            <span className='font-inter text-base text-neutral-700 font-normal'>Cartão bloqueado?</span>
                             <div className="inline-flex">
                                 <Button href="#" variant="tertiary" size="default" className='text-[#AF0F2A]' >
                                     Desbloqueie o seu cartão <Icon name='iconArrowRedRight' />

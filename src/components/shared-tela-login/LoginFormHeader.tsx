@@ -9,7 +9,7 @@ export default function LoginFormHeader({ portalType = 'beneficiario' }: LoginFo
     return (
         <div className="space-y-1">
             <div className="flex items-center gap-4">
-                <h1 className="text-[32px] font-medium text-secondary-900">Entrar</h1>
+                <h1 className="font-font-openSan text-[32px] font-semibold text-secondary-900">Entrar</h1>
                 <Icon name="iconEdgeLine" className='text-secondary-100' />
                 <PortalTypeLabel type={portalType} />
             </div>
