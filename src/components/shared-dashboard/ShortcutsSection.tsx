@@ -26,7 +26,7 @@ export function ShortcutsSection({
         // Mantemos sempre `w-full flex flex-col` e usamos `className` só para complementar com estilos específicos no ponto de uso.
         <section className={`w-full flex flex-col ${className}`}>
             <header className="mb-5 flex items-center justify-between">
-                <h2 className="font-inter text-xl font-semibold text-secondary-900">{title}</h2>
+                <h2 className="font-inter text-xl font-semibold text-neutral-900">{title}</h2>
             </header>
             <div className="flex flex-wrap gap-4 ">
                 {resolvedItems.map((shortcut) => (

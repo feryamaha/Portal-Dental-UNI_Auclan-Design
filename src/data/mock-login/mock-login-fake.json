@@ -9,7 +9,7 @@
         "password": "99887766",
         "redirect": "/portal-dentista"
     },
-    "corretor": {
+    "comercial": {
         "login": "222.333.444-55",
         "password": "55667788",
         "redirect": "/portal-comercial"

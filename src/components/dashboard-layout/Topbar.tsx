@@ -23,7 +23,7 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                 <Breadcrumbs items={breadcrumbItems} />
 
                 <div className="flex items-center gap-6">
-                    <nav className="flex items-center gap-4 text-sm font-medium text-secondary-900">
+                    <nav className="flex items-center gap-4 text-sm font-medium text-neutral-900">
                         {quickLinks.map((link) => (
                             <Link key={link.id} href={link.href} className="inline-flex items-center gap-2 hover:text-[#AF0F2A] rounded">
                                 {link.icon && <Icon name={link.icon} size={16} className="text-current" />}
@@ -37,7 +37,7 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                                 <Button
                                     variant="tertiary"
                                     size="sm"
-                                    className='px-0 text-secondary-900'
+                                    className='px-0 text-neutral-900'
                                     key={action.id}
                                     type="button"
                                 >
@@ -52,12 +52,12 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                                     <Icon name="iconAvatar" />
                                 </div>
                                 <div className="w-max flex flex-col">
-                                    <span className="w-max text-sm font-semibold text-secondary-900 pb-[2px]">{user.name}</span>
-                                    <span className="w-max text-sm text-secondary-600">{user.role}</span>
+                                    <span className="w-max text-sm font-semibold text-neutral-900 pb-[2px]">{user.name}</span>
+                                    <span className="w-max text-sm text-neutral-600">{user.role}</span>
                                 </div>
                                 <div>
                                     <Button variant="tertiary" size="sm" className='px-0'>
-                                        <Icon name='iconFlechaDupla' className='text-secondary-900' />
+                                        <Icon name='iconFlechaDupla' className='text-neutral-900' />
                                     </Button>
                                 </div>
                             </div>

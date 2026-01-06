@@ -8,11 +8,11 @@ export function inferPortalFromPathname(pathname?: string): PortalSlug {
     if (!pathname) return 'dentista'
 
     const segments = pathname.split('/').filter(Boolean)
-    const dashSegment = segments.find((segment) => segment.startsWith('dash-'))
+    const portalSegment = segments.find((segment) => segment.startsWith('portal-'))
 
-    if (!dashSegment) return 'dentista'
+    if (!portalSegment) return 'dentista'
 
-    return dashSegment.replace('dash-', '') as PortalSlug
+    return portalSegment.replace('portal-', '') as PortalSlug
 }
 
 export function isActiveHref(params: {

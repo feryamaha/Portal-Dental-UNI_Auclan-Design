@@ -1,5 +1,1 @@
-import { ComercialHome } from '@/components/main-content/comercial/ComercialHome'
-
-export default function PortalComercialPage() {
-    return <ComercialHome />
-}
+export { default } from './[slug]/page'

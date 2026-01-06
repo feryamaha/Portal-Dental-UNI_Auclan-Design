@@ -3,7 +3,7 @@
 import { SliderBanner } from '@/components/shared-dashboard/SliderBanner'
 import { ShortcutsSection } from '@/components/shared-dashboard/ShortcutsSection'
 
-export function DentistaHome() {
+export function HomeEmpresa() {
     return (
         <section className="w-full mx-auto p-[24px_32px_0px_32px]">
             <div className="flex flex-col @Desktop:flex-row gap-6">
@@ -14,8 +14,8 @@ export function DentistaHome() {
 
                     <div className="flex flex-col gap-6">
                         <ShortcutsSection
-                            portal="dentista"
-                            shortcutIds={['protocols', 'files', 'calendar', 'invoices', 'classifieds']}
+                            portal="empresa"
+                            shortcutIds={['protocols', 'guides', 'boletos', 'beneficiarios', 'dashboard', 'files']}
                         />
                     </div>
                 </div>

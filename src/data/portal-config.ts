@@ -58,18 +58,18 @@ export const portalConfigRecord = {
             },
         ],
     },
-    corretor: {
-        portalType: 'corretor',
-        heroLabel: 'Corretores',
+    comercial: {
+        portalType: 'comercial',
+        heroLabel: 'Comercial',
         fields: [
             {
-                id: 'corretor-code',
+                id: 'comercial-code',
                 label: 'Código',
                 name: 'code',
                 placeholder: '',
             },
             {
-                id: 'corretor-password',
+                id: 'comercial-password',
                 label: 'Senha',
                 name: 'password',
                 type: 'password',
