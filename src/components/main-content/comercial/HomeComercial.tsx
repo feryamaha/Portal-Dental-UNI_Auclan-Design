@@ -14,7 +14,7 @@ export function HomeComercial() {
 
                     <div className="flex flex-col gap-6">
                         <ShortcutsSection
-                            portal="corretor"
+                            portal="comercial"
                             shortcutIds={['guides', 'clients', 'dashboard', 'files']}
                         />
                     </div>
