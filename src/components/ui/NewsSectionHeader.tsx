@@ -7,7 +7,7 @@ import type { NewsSectionHeaderProps } from '@/types/ui/news-section-header.type
 export function NewsSectionHeader({ title, ctaLabel = 'Ver mais', ctaIconName = 'iconLinkCta', onCtaClick }: NewsSectionHeaderProps) {
     return (
         <div className="w-full flex items-center justify-between">
-            <h2 className="font-inter text-xl font-semibold text-secondary-900">{title}</h2>
+            <h2 className="font-inter text-xl font-semibold text-neutral-900">{title}</h2>
             {ctaLabel ? (
                 <div className="flex items-center gap-2 text-accent-default">
                     <Button variant="tertiary" size="sm" className="p-0" onClick={onCtaClick}>

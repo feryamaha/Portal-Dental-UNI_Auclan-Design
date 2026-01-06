@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "@/script/Icon";
 import type { SliderControlProps } from "@/types/ui/slider-control.types";
 
@@ -34,6 +34,15 @@ const SliderControl: React.FC<SliderControlProps> = ({
   onTogglePlay,
   progressDurationMs,
 }) => {
+  const [activeArrow, setActiveArrow] = useState<"prev" | "next" | null>(null);
+  const [hoveredArrow, setHoveredArrow] = useState<"prev" | "next" | null>(null);
+
+  useEffect(() => {
+    if (isPlaying) {
+      setActiveArrow(null);
+    }
+  }, [isPlaying]);
+
   return (
     <>
       <style jsx global>{`
@@ -53,31 +62,59 @@ const SliderControl: React.FC<SliderControlProps> = ({
       <div className="flex items-center gap-2">
         <div className="flex items-center space-x-2">
           <div
-            className="w-auto h-max bg-white text-secondary-900 border rounded-full flex items-center gap-[8px] p-[4px_8px] justify-center cursor-pointer text-white"
-            onClick={onTogglePlay}
+            className="w-auto h-max bg-white text-neutral-100 border rounded-full flex items-center gap-[8px] p-[4px_8px] justify-center cursor-pointer text-white"
+            onClick={() => {
+              setActiveArrow(null);
+              onTogglePlay();
+            }}
           >
+
             <div
               className="inline-flex items-center justify-center rounded"
+              onMouseEnter={() => setHoveredArrow("prev")}
+              onMouseLeave={() => setHoveredArrow(null)}
               onClick={(e) => {
                 e.stopPropagation();
+                setHoveredArrow(null);
+                setActiveArrow("prev");
                 onPrev();
               }}
             >
-              <Icon name="iconArrow2Left" className="text-secondary-900" />
+              <Icon
+                name="iconArrow2Left"
+                className={
+                  (!isPlaying && activeArrow === "prev") || (isPlaying && hoveredArrow === "prev")
+                    ? "text-neutral-900"
+                    : "text-neutral-200"
+                }
+              />
             </div>
+
             <div className="w-[18px] h-[18px] flex items-center justify-center text-secondary-900" >
               {isPlaying ? <Icon name="iconPause" className="w-full" /> : <Icon name="iconPlay" className="w-full" />}
             </div>
 
             <div
               className="inline-flex items-center justify-center rounded"
+              onMouseEnter={() => setHoveredArrow("next")}
+              onMouseLeave={() => setHoveredArrow(null)}
               onClick={(e) => {
                 e.stopPropagation();
+                setHoveredArrow(null);
+                setActiveArrow("next");
                 onNext();
               }}
             >
-              <Icon name="iconArrow2Right" className="text-secondary-900" />
+              <Icon
+                name="iconArrow2Right"
+                className={
+                  (!isPlaying && activeArrow === "next") || (isPlaying && hoveredArrow === "next")
+                    ? "text-neutral-900"
+                    : "text-neutral-200"
+                }
+              />
             </div>
+
           </div>
         </div>
         <div className="flex gap-[8px] ">

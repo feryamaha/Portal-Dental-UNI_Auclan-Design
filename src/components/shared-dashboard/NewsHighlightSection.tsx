@@ -15,7 +15,7 @@ export function NewsHighlightSection({
 
     return (
         <div className="">
-            <div className='w-[254px]'>
+            <div className='w-[256px] mb-4'>
                 <NewsSectionHeader title={title} ctaLabel={ctaLabel} />
             </div>
             <div className="flex flex-wrap gap-6 @Desktop:flex-nowrap">

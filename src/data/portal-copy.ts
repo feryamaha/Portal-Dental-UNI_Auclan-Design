@@ -3,7 +3,7 @@ import type { PortalType } from '@/types/data/portal-copy.types'
 export const PORTAL_COPY = {
     beneficiario: 'Beneficiário',
     dentista: 'Dentista',
-    corretor: 'Corretor',
+    comercial: 'Comercial',
     empresa: 'Empresa',
     representante: 'Representante',
 } as const

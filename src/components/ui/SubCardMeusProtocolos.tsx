@@ -30,22 +30,22 @@ export function SubCardMeusProtocolos({
             </div>
 
             <div className="font-inter">
-                <p className="text-sm font-medium text-secondary-900">{title}</p>
-                <p className="text-xs font-normal text-secondary-600">{protocolNumber}</p>
-                {description ? <p className="text-xs font-normal text-secondary-600">{description}</p> : null}
+                <p className="text-sm font-medium text-neutral-900">{title}</p>
+                <p className="text-xs font-normal text-neutral-600">{protocolNumber}</p>
+                {description ? <p className="text-xs font-normal text-neutral-600">{description}</p> : null}
             </div>
 
             <div className="flex items-center gap-[8px]">
                 {events.map((event, index) => (
                     <Fragment key={`${event.label}-${index}`}>
                         <div className="flex items-center gap-[6px]">
-                            <Icon name="iconDataCheck" />
-                            <p className="text-xs font-medium text-secondary-900">
-                                <span className="pr-[3px] font-normal text-secondary-600">{event.label}</span>
+                            <Icon name="iconDataCheck" className="text-neutral-600" />
+                            <p className="text-xs font-medium text-neutral-900">
+                                <span className="pr-[3px] font-normal text-neutral-600">{event.label}</span>
                                 {event.value}
                             </p>
                         </div>
-                        {index < events.length - 1 && <Icon name="iconPointText" className="text-secondary-500" />}
+                        {index < events.length - 1 && <Icon name="iconPointText" className="text-neutral-200" />}
                     </Fragment>
                 ))}
             </div>

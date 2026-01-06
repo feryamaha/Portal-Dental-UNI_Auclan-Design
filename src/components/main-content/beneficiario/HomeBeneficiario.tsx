@@ -14,7 +14,7 @@ import {
     SLIDER_DURATION,
 } from '@/data/mocks/beneficiario-home-content.data'
 
-export function BeneficiarioHomeContent() {
+export function HomeBeneficiario() {
     return (
         <section className="w-full mx-auto p-[24px_32px_0px_32px]">
             <div className="flex flex-col @Desktop:flex-row gap-6">

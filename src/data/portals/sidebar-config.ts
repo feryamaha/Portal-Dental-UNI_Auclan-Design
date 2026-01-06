@@ -76,26 +76,26 @@ const sidebarContents: Record<PortalSlug, SidebarContent> = {
             },
         ],
     },
-    corretor: {
-        highlight: sidebarHighlights.corretor,
+    comercial: {
+        highlight: sidebarHighlights.comercial,
         sections: [
             {
                 id: 'general',
                 title: 'GERAL',
                 items: [
-                    { id: 'home', label: 'Home', href: basePaths.corretor, icon: 'iconHome' },
-                    { id: 'guides', label: 'Minhas Guias', href: `${basePaths.corretor}/guias`, icon: 'iconCalendSimples' },
-                    { id: 'clients', label: 'Clientes', href: `${basePaths.corretor}/clientes`, icon: 'iconProtocolo' },
-                    { id: 'dashboard', label: 'Dashboard', href: `${basePaths.corretor}/dashboard`, icon: 'iconRelatorioProdChart' },
-                    { id: 'files', label: 'Arquivos úteis', href: `${basePaths.corretor}/arquivos`, icon: 'iconArquivosUteis' },
+                    { id: 'home', label: 'Home', href: basePaths.comercial, icon: 'iconHome' },
+                    { id: 'guides', label: 'Minhas Guias', href: `${basePaths.comercial}/guias`, icon: 'iconCalendSimples' },
+                    { id: 'clients', label: 'Clientes', href: `${basePaths.comercial}/clientes`, icon: 'iconProtocolo' },
+                    { id: 'dashboard', label: 'Dashboard', href: `${basePaths.comercial}/dashboard`, icon: 'iconRelatorioProdChart' },
+                    { id: 'files', label: 'Arquivos úteis', href: `${basePaths.comercial}/arquivos`, icon: 'iconArquivosUteis' },
                 ],
             },
             {
                 id: 'others',
                 title: 'OUTROS',
                 items: [
-                    { id: 'ecommerce', label: 'E-commerce', href: `${basePaths.corretor}/ecommerce`, icon: 'iconVendasPf' },
-                    { id: 'prospect', label: 'Prospect', href: `${basePaths.corretor}/prospect`, icon: 'iconClassificados' },
+                    { id: 'ecommerce', label: 'E-commerce', href: `${basePaths.comercial}/ecommerce`, icon: 'iconVendasPf' },
+                    { id: 'prospect', label: 'Prospect', href: `${basePaths.comercial}/prospect`, icon: 'iconClassificados' },
                 ],
             },
         ],

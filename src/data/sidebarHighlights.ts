@@ -4,7 +4,7 @@ import type { SidebarHighlight } from '@/types/data/sidebar.types'
 export const basePaths = {
     beneficiario: '/portal-beneficiario',
     dentista: '/portal-dentista',
-    corretor: '/portal-comercial',
+    comercial: '/portal-comercial',
     empresa: '/portal-empresa',
     representante: '/portal-representante',
 } as const
@@ -19,12 +19,12 @@ export const sidebarHighlights: Record<PortalSlug, SidebarHighlight | null> = {
         ctaHref: `${basePaths.beneficiario}/dependentes/novo`,
     },
     dentista: null,
-    corretor: {
+    comercial: {
         title: '53 clientes',
         subtitle: 'Empresas e beneficiários',
         helperText: 'Atualize a carteira',
         ctaLabel: 'Adicionar cliente',
-        ctaHref: `${basePaths.corretor}/clientes/novo`,
+        ctaHref: `${basePaths.comercial}/clientes/novo`,
     },
     empresa: {
         title: 'Premium',

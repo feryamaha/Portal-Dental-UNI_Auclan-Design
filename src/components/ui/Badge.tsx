@@ -37,7 +37,7 @@ export function Badge({ variant, disabled = false, ...props }: BadgeProps) {
 
       variant === "danger" &&
       (disabled
-        ? "bg-secondary-200 grayscale opacity-60 border border-secondary-100 p-[2px_8px]"
+        ? "bg-neutral-200 grayscale opacity-60 border border-neutral-100 p-[2px_8px]"
         : "bg-accent-light text-accent-default border border-primary-50 p-[1px_8px]"),
 
       variant === "number" &&

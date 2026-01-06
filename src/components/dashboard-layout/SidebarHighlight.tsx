@@ -14,28 +14,28 @@ export default function SidebarHighlight({ highlight }: SidebarHighlightProps) {
     if (!ctaHref || !ctaLabel) return null
 
     return (
-        <div className="flex flex-col gap-4 rounded-lg border border-secondary-100 p-[12px_16px] shadow-[0_1px_2px_rgba(0,0,0,0.06)] my-[20px]">
+        <div className="flex flex-col gap-4 rounded-lg border border-neutral-100 p-[12px_16px] shadow-[0_1px_2px_rgba(0,0,0,0.06)] my-[20px]">
             <div className="flex items-start justify-between gap-2">
                 <div className='w-full flex items-start justify-between'>
                     <div className='flex flex-col gap-1'>
                         <div className='h-[22px] flex items-center gap-2'>
-                            {title && <p className="text-sm font-medium text-secondary-900">{title}</p>}
+                            {title && <p className="font-inter text-sm font-medium text-neutral-900">{title}</p>}
                             {pillLabel && (
                                 <Badge variant="danger">
                                     {pillLabel}
                                 </Badge>
                             )}
                         </div>
-                        {subtitle && <p className="text-xs text-secondary-500">{subtitle}</p>}
+                        {subtitle && <p className="font-inter text-sm text-neutral-600">{subtitle}</p>}
                     </div>
                     <div>
                         <Button variant='tertiary' size='sm' className='p-0'>
-                            <Icon name="iconArrowRedRight" className='text-secondary-900' />
+                            <Icon name="iconArrowRedRight" className='text-neutral-900' />
                         </Button>
                     </div>
                 </div>
             </div>
-            {helperText && <p className="mt-2 text-xs text-secondary-500">{helperText}</p>}
+            {helperText && <p className="mt-2 font-inter text-sm text-neutral-600">{helperText}</p>}
             <div className="w-max">
                 <Button href={ctaHref} variant="primary" size="sm" className='text-sm' >
                     <Icon name="iconPlusCta" />

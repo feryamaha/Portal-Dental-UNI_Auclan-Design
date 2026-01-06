@@ -16,7 +16,18 @@ const nextConfig = {
   poweredByHeader: false, // Remove X-Powered-By (todas docs)
   
   images: {
-    domains: ['www.dentaluni.com.br', 'dummyimage.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.dentaluni.com.br',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'dummyimage.com',
+        pathname: '/**',
+      },
+    ],
   },
   
   webpack: (config) => {
