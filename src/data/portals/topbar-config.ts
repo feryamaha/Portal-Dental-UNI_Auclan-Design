@@ -26,11 +26,11 @@ const topbarConfigs: Record<PortalSlug, TopbarConfig> = {
         actions: defaultActions,
         user: { name: 'Joaquim Jow', role: 'Titular' },
     },
-    corretor: {
+    comercial: {
         breadcrumbs: ['Home'],
         quickLinks: [],
         actions: defaultActions,
-        user: { name: 'Felipe Rossi', role: 'Corretor' },
+        user: { name: 'Felipe Rossi', role: 'Comercial' },
     },
     empresa: {
         breadcrumbs: ['Home'],
