@@ -11,6 +11,7 @@ export type LoginFieldConfig = {
     allowAllCharacters?: boolean
     inputProps?: Omit<React.ComponentProps<typeof FloatingLabelInput>, 'label' | 'name'>
     render?: () => ReactNode
+    customRenderer?: string
 }
 
 export type LoginFormFieldsProps = {

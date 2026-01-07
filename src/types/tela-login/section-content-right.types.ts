@@ -1,9 +1,9 @@
 import type { PortalType } from '@/components/shared-tela-login/PortalTypeLabel'
-import type { LoginFieldConfig } from '@/components/shared-tela-login/LoginFormFields'
+import type { PortalFieldConfig } from '@/types/data/portal-config.types'
 
 export type SectionContentRightProps = {
     portalType: PortalType
-    fields: LoginFieldConfig[]
+    fields: PortalFieldConfig[]
     forgotHref?: string
     forgotLabel?: string
     ctaLabel?: string

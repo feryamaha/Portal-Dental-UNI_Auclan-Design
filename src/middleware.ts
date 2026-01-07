@@ -2,6 +2,22 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  // Proteger rotas de dashboard
+  const isProtectedRoute = pathname.startsWith('/portal-');
+  const authToken = request.cookies.get('authToken')?.value;
+  const portalType = request.cookies.get('portalType')?.value;
+
+  if (isProtectedRoute && !authToken) {
+    // Extrair tipo de portal da URL (ex: /portal-dentista → dentista)
+    const portalMatch = pathname.match(/\/portal-([a-z-]+)/);
+    const portal = portalMatch ? portalMatch[1] : 'beneficiario';
+
+    // Redirecionar para o login do portal específico
+    return NextResponse.redirect(new URL(`/tela-login/${portal}`, request.url));
+  }
+
   // Gera nonce usando Web Crypto API (compatível com Edge Runtime)
   const nonceArray = new Uint8Array(16);
   crypto.getRandomValues(nonceArray);

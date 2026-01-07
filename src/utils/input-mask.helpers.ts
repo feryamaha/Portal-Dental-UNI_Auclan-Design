@@ -41,6 +41,11 @@ export function applyMask(value: string, mask?: string): string {
                 .substring(0, 18);
         case "matricula":
             return digits.replace(/(\d{4})(?=\d)/g, "$1 ").substring(0, 9);
+        case "cro":
+            const croDigits = value.replace(/\D/g, '');
+            return croDigits
+                .replace(/^(\d{0,5})/, "$1")
+                .substring(0, 5);
         default:
             return value;
     }

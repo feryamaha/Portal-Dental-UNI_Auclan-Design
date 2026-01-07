@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { FloatingLabelInput } from '@/components/ui/FloatingLabelInput'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/script/Icon'
+import { LoginDentistaFields } from '@/components/shared-tela-login/LoginDentistaFields'
 import type { LoginFieldConfig, LoginFormFieldsProps } from '@/types/tela-login/login-form-fields.types'
 
 export type { LoginFieldConfig, LoginFormFieldsProps } from '@/types/tela-login/login-form-fields.types'
@@ -21,7 +22,11 @@ export default function LoginFormFields({
             {fields.map((field) => (
                 <div key={field.id} className={field.className ?? ''}>
                     {field.render ? (
-                        field.render()
+                        field.customRenderer === 'dentistaDocuments' ? (
+                            <LoginDentistaFields onFieldChange={onFieldChange} />
+                        ) : (
+                            field.render()
+                        )
                     ) : (
                         <FloatingLabelInput
                             label={field.label}

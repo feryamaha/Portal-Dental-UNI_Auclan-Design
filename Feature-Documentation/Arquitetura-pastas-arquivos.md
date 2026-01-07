@@ -1,611 +1,241 @@
 # Arquitetura de Pastas, Arquivos e Componentes
 
-## 1. Visão Geral
-
-A arquitetura da dashboard segue o padrão **Next.js App Router** com separação clara entre:
-- **Rotas públicas** (`/tela-login`)
-- **Rotas autenticadas** (`/portal-*`)
-- **Componentes UI** (sem lógica)
-- **Lógica** (hooks, utils, context, data, types)
+> Documento mestre para criação e manutenção de arquivos. Leia também:
+> - @Feature-Documentation/typescript-typing-convention.md
+> - @Feature-Documentation/ui-separation-convention.md
 
 ---
 
-## 2. Estrutura de Pastas Raiz
+## 1. Objetivo
+
+Garantir que todo novo arquivo siga o fluxo oficial:
+
+```
+UI base (src/components/ui)
+        ↓
+Blocos compartilhados (src/components/shared e src/components/shared-tela-login)
+        ↓
+Montagem por domínio (src/components/main-content e src/components/dashboard-layout)
+        ↓
+Rotas e hidratação (src/app/**)
+        ↓
+Experiência final no navegador
+```
+
+Cada nível conhece somente o nível imediatamente abaixo e usa contratos definidos em `src/types`. Lógica (estado, efeitos, normalização) fica em hooks/utils/data/context.
+
+---
+
+## 2. Visão macro das pastas
 
 ```
 src/
-├── app/                          # Next.js App Router
-├── components/                   # Componentes React
-├── context/                      # React Context (estado global)
-├── data/                         # Dados estáticos e mocks
-├── hooks/                        # Custom hooks (lógica)
-├── libs/                         # Bibliotecas e utilitários
-├── schema/                       # Validação de dados
-├── script/                       # Scripts utilitários
-├── types/                        # Tipagens TypeScript
-├── utils/                        # Funções utilitárias puras
-└── Feature-Documentation/        # Documentação de features
+├── app/                 # Rotas, layouts e hydration
+├── components/
+│   ├── ui/              # Componentes básicos, sem lógica
+│   ├── shared/          # Blocos compartilhados entre telas/portais
+│   ├── shared-tela-login/ # Composição específica da tela de login
+│   ├── dashboard-layout/ # Sidebar, Topbar e helpers estruturais
+│   └── main-content/    # Montagem visual dos portais
+├── data/                # Mocks, configs, copy
+├── hooks/               # Lógica reutilizável (estado, efeitos)
+├── types/               # Tipagens (contratos)
+├── utils/ e libs/       # Helpers puros
+└── Feature-Documentation/ # Este documento e demais guias
 ```
 
 ---
 
-## 3. Estrutura de `src/app` (Rotas)
+## 3. Hierarquia de criação
 
-```
-src/app/
-├── layout.tsx                    # Root Layout (HTML, fontes, metadados)
-├── page.tsx                      # Rota raiz (/) - redireciona para login
-├── globals.css                   # Estilos globais
-├── favicon.ico                   # Favicon
-│
-├── (dashboard)/                  # Grupo de rotas autenticadas
-│   ├── layout.tsx               # Layout com Sidebar + Topbar
-│   ├── portal-beneficiario/
-│   │   └── page.tsx             # Renderiza BeneficiarioHomeContent
-│   ├── portal-dentista/
-│   │   └── page.tsx             # Renderiza DentistaHome
-│   ├── portal-comercial/
-│   │   └── page.tsx             # Renderiza ComercialHome
-│   ├── portal-empresa/
-│   │   └── page.tsx             # Renderiza EmpresaHome
-│   └── portal-representante/
-│       └── page.tsx             # Renderiza RepresentanteHome
-│
-├── tela-login/                   # Grupo de rotas públicas
-│   ├── layout.tsx               # Layout especifico da tela de login
-│   └── [portal]/
-│       └── page.tsx             # Renderiza formulário de login dinâmico
-│
-└── api/                          # Camada BFF (Backend For Frontend)
-    └── [recurso]/
-        └── route.ts             # Route handlers para integração com APIs externas
-```
+| Ordem | Pasta / arquivo                               | Responsabilidade | Pode importar de | Nomenclatura / Export |
+|------|------------------------------------------------|------------------|------------------|-----------------------|
+| 1    | `src/components/ui/*`                          | UI pura (Button, Badge, Icon wrappers) | Nada além de `types`, ícones e Tailwind helpers | Arquivo: `PascalCase.tsx`, export: `export function PascalCase()` |
+| 2    | `src/components/shared/*`                      | Combina vários UI para formar blocos reutilizáveis | `ui`, `hooks`, `data`, `types`, `utils` | `SliderBanner.tsx`, `ShortcutsSection.tsx` |
+| 3    | `src/components/shared-tela-login/*`           | Pedaços específicos da jornada pública | `ui` e `shared` | Não pode importar nada de `main-content` ou rotas autenticadas. |
+| 4    | `src/components/dashboard-layout/*`            | Estruturas fixas (Sidebar, Topbar, DivSelectMenu) | `shared`, `ui`, `hooks`, `data/portals` | Não devem instanciar conteúdo dos portais; apenas navegação/ações. |
+| 5    | `src/components/main-content/[portal]/*`       | Montagem visual do portal (Home + *Content) | `shared`, `ui`, `data`, `hooks` (apenas de exibição) | Cada portal segue o padrão `PortalRecursoContent`. |
+| 6    | `src/app/(dashboard)/portal-[slug]/page.tsx`   | Hidratação (App Router). Um arquivo estático por portal reexporta o dinâmico | Apenas `main-content` | `export { default } from './[slug]/page'` |
+| 7    | `src/app/(dashboard)/portal-[slug]/[slug]/page.tsx` | Rota catch-all. Decide qual content renderizar | `hooks` (ex.: `usePortalContentLogic`), `main-content` | Export default com condicional |
+| 8    | `src/app/(dashboard)/layout.tsx`               | Envelopa rotas autenticadas com Sidebar + Topbar | `dashboard-layout` | Mantém tipagem inline permitida |
+| 9    | `src/app/tela-login`                           | Rotas públicas | `shared-tela-login`, `shared`, `ui` | `[portal]/page.tsx` consome config |
+| 10   | `src/app/globals.css`, `layout.tsx`, `page.tsx`, `not-found.tsx`, `favicon.ico` | Setup global e rotas especiais | — | Devem existir exatamente uma vez |
 
 ---
 
-## 4. Estrutura de `src/components`
+## 4. Regras por pasta
 
-```
-src/components/
-├── ui/                           # Componentes UI puros (sem lógica)
-│   ├── Button.tsx
-│   ├── Input.tsx
-│   ├── Card.tsx
-│   └── ...
-│
-├── shared/                       # Componentes reutilizáveis entre portais
-│   ├── SliderBanner.tsx         # Banner com slider
-│   ├── ShortcutsSection.tsx     # Seção de atalhos
-│   ├── NewsHighlightSection.tsx # Seção de notícias
-│   ├── CardMeusProtocolos.tsx   # Card de protocolos
-│   ├── CardMinhasGuias.tsx      # Card de guias
-│   ├── Sidebar.tsx              # Navegação lateral (detecta portal via hook)
-│   ├── Topbar.tsx               # Barra superior
-│   └── ...
-│
-└── main-content/                # Componentes específicos por portal
-    ├── beneficiario/
-    │   ├── BeneficiarioHome.tsx      # Home do beneficiario (UI apenas)
-    │   ├── BoletosContent.tsx        # Conteúdo de boletos
-    │   ├── CartoesContent.tsx        # Conteúdo de cartões
-    │   ├── DadosCadastraisContent.tsx
-    │   ├── GuiasContent.tsx
-    │   ├── PlanoContent.tsx
-    │   └── ProtocolosContent.tsx
-    ├── dentista/
-    │   └── DentistaHome.tsx          # Home do dentista (UI apenas)
-    ├── comercial/
-    │   └── ComercialHome.tsx         # Home comercial (UI apenas)
-    ├── empresa/
-    │   └── EmpresaHome.tsx           # Home empresa (UI apenas)
-    └── representante/
-        └── RepresentanteHome.tsx     # Home representante (UI apenas)
-```
+### 4.1 `src/components/ui`
+- **Sem** hooks ou chamadas a `useState`.
+- Recebem somente props tipadas (`import type { … } from '@/types/ui/...`).
+- Nome do arquivo = nome do componente (`Badge.tsx`, `NotificationBadge.tsx`).
+- Exportação sempre nomeada (`export function Badge()`).
 
----
+### 4.2 `src/components/shared`
+- Utilizam UI + hooks + dados.
+- Podem conter pequena lógica de apresentação (ex.: ordenação visual).
+- Devem expor props em `src/types/shared/*.types.ts`.
+- São responsáveis por manter o contrato visual do Figma (classes, spacing).
 
-## 5. Estrutura de Lógica
+### 4.3 `src/components/shared-tela-login`
+- Mesmas regras de `shared`, porém focadas no fluxo público.
+- Não podem importar nada de `main-content` ou rotas autenticadas.
 
-### `src/context/` - Estado Global
+### 4.4 `src/components/dashboard-layout`
+- `Sidebar.tsx`, `Topbar.tsx`, `SidebarHighlight.tsx`, etc.
+- Consomem configs vindas de `src/data/portals`.
+- Não devem instanciar conteúdo dos portais; apenas navegação/ações.
+- Quando houver badges/indicadores, componentizar em `ui`.
 
-```
-src/context/
-├── tela-login/
-│   └── portalConfig.ts          # Configuração de portais (campos, labels)
-└── dashboard/
-    └── Sidebar/
-        └── sidebar.ts           # Configuração de sidebar por portal
-```
+### 4.5 `src/components/main-content`
+- Estrutura:
+  ```
+  src/components/main-content/
+  ├── beneficiario/
+  │   ├── HomeBeneficiario.tsx
+  │   ├── BeneficiarioProtocolosContent.tsx
+  │   └── ...
+  ├── dentista/
+  │   ├── HomeDentista.tsx
+  │   └── DentistaProtocolosContent.tsx
+  └── ...
+  ```
+- Cada portal segue o padrão `PortalRecursoContent`.
+- `Home{Portal}` orquestra sliders, cards, atalhos e cards compartilhados.
+- Conteúdos individuais servem à rota dinâmica (e devem ser apenas JSX).
+- Não importar `next/navigation` nem manipular rota diretamente.
 
-### `src/data/` - Dados Estáticos
+### 4.6 `src/app`
+- `layout.tsx`: setup global (fonts, metadata, `<body>`).
+- `page.tsx`: redireciona para `/tela-login/beneficiario`.
+- `globals.css`: tokens de cor, reset, utilitários.
+- `not-found.tsx`: fallback genérico.
+- `(dashboard)/layout.tsx`: injeta Sidebar + Topbar.
+- `portal-{slug}/page.tsx` reexporta `[slug]/page`.
+- `[slug]/page.tsx`: rota dinâmica. Deve:
+  ```tsx
+  'use client'
+  import { usePortalContentLogic } from '@/hooks/...'
 
-```
-src/data/
-├── mocks/
-│   └── beneficiario-home-content.data.ts  # Dados mock (sliders, notícias, etc)
-├── sidebarHighlights.ts         # Configuração de highlights do sidebar
-└── mock-login/
-    └── mock-login-fake.json     # Credenciais de teste e redirecionamentos
-```
+  export default function PortalBeneficiarioDynamicPage() {
+      const { currentContent } = usePortalContentLogic()
+      return (
+          <>{/* conteúdo */}</>
+      )
+  }
+  ```
+- `/tela-login`: possui layout próprio (sem Sidebar/Topbar) e rota dinâmica `[portal]` que lê configs em `src/data/mock-login`.
 
-### `src/hooks/` - Custom Hooks
+### 4.7 `src/data`
+- Subpastas:
+  - `mocks/`: dados fake para slider, notícias, protocolos.
+  - `portals/`: `sidebar-config.ts`, `topbar-config.ts`, `portal-copy.ts`.
+  - `mock-login/`: credenciais e redirecionamentos.
+- Chaves devem usar os slugs oficiais (`beneficiario`, `dentista`, `comercial`, `empresa`, `representante`).
 
-```
-src/hooks/
-└── hooks-UI-UX/
-    ├── shared/
-    │   └── use-dashboard-sidebar.hook.ts  # Detecta portal via pathname
-    └── tela-login/
-        └── LoginFormFields/
-            └── loginFormFields.hook.ts    # Lógica de formulário de login
-```
+### 4.8 `src/hooks`
+- Organização atual:
+  ```
+  src/hooks/hooks-dash/
+  ├── hooks-shared/
+  │   └── usePortalDetector.hook.ts
+  └── usePortalContentLogic.hook.ts
+  ```
+- `usePortalContentLogic` controla o estado `currentContent` lendo `pathname`. Qualquer condicional de render baseada em rota deve usar esse hook (não replicar lógica nas páginas).
 
-### `src/types/` - Tipagens TypeScript
-
-```
-src/types/
-├── context/
-│   └── tela-login/
-│       └── portal-config.types.ts    # Tipos de configuração de portais
-├── app/
-│   └── tela-login/
-│       └── portal-page.types.ts      # Tipos de props de pages
-└── main-content/
-    └── main-content-shell.types.ts   # Tipos de componentes (se necessário)
-```
-
-### `src/utils/` - Funções Utilitárias
-
-```
-src/utils/
-└── (funções puras, sem estado)
-```
+### 4.9 `src/types`
+- Todos os contratos vivem aqui.
+- Nome do arquivo: `kebab-case` + `.types.ts`.
+- Nome de interface: `ComponentNameProps`, `SidebarSection`, `PortalSlug`, etc.
+- Lembre de reexportar tipos quando facilitar consumo (`export type { SidebarSection } from '@/types/dashboard/sidebar.types'`).
 
 ---
 
-## 5.1 Camada BFF (Backend For Frontend) - `src/app/api/`
+## 5. Rotas, hidratação e navegação
 
-**Responsabilidade:** Integração com APIs externas e lógica de backend
+1. `src/app/layout.tsx` configura HTML e fontes.
+2. `src/app/page.tsx` redireciona para `/tela-login/beneficiario`.
+3. `/tela-login/[portal]/page.tsx` usa componentes de `shared-tela-login` + UI.
+4. Após autenticar, `mock-login-fake.json` aponta para `/portal-{slug}`.
+5. `src/app/(dashboard)/layout.tsx` carrega Sidebar + Topbar.
+6. `portal-{slug}/page.tsx` reexporta `[slug]/page`.
+7. `[slug]/page.tsx` consulta `usePortalContentLogic` e renderiza o content correto.
+8. Componentes de conteúdo consultam dados em `src/data` e usam blocos de `shared`/`ui`.
 
-A pasta `src/app/api/` é uma **camada BFF** que funciona como intermediária entre o frontend e as APIs externas. Utiliza **Route Handlers** do Next.js para criar endpoints que:
-
-- Recebem requisições do frontend
-- Fazem chamadas para APIs externas
-- Transformam/normalizam dados
-- Retornam dados formatados para o frontend
-- Gerenciam autenticação e autorização
-
-### Estrutura da Camada BFF
-
-```
-src/app/api/
-├── auth/
-│   ├── login/
-│   │   └── route.ts             # POST /api/auth/login
-│   └── logout/
-│       └── route.ts             # POST /api/auth/logout
-│
-├── beneficiario/
-│   ├── protocolos/
-│   │   └── route.ts             # GET /api/beneficiario/protocolos
-│   ├── guias/
-│   │   └── route.ts             # GET /api/beneficiario/guias
-│   └── boletos/
-│       └── route.ts             # GET /api/beneficiario/boletos
-│
-├── dentista/
-│   ├── agendamentos/
-│   │   └── route.ts             # GET /api/dentista/agendamentos
-│   └── pacientes/
-│       └── route.ts             # GET /api/dentista/pacientes
-│
-└── [portal]/
-    └── [recurso]/
-        └── route.ts             # Route handler genérico
-```
-
-### Exemplo de Route Handler
-
-```typescript
-// src/app/api/beneficiario/protocolos/route.ts
-
-import { NextRequest, NextResponse } from 'next/server'
-
-export async function GET(request: NextRequest) {
-    try {
-        // 1. Validar autenticação
-        const token = request.headers.get('authorization')
-        if (!token) {
-            return NextResponse.json(
-                { error: 'Não autorizado' },
-                { status: 401 }
-            )
-        }
-
-        // 2. Chamar API externa
-        const response = await fetch('https://api.externa.com/protocolos', {
-            headers: {
-                'Authorization': token,
-                'Content-Type': 'application/json',
-            },
-        })
-
-        // 3. Normalizar dados
-        const data = await response.json()
-        const normalized = data.map(item => ({
-            id: item.id,
-            numero: item.protocol_number,
-            data: item.created_at,
-            status: item.status_code,
-        }))
-
-        // 4. Retornar dados formatados
-        return NextResponse.json(normalized)
-    } catch (error) {
-        return NextResponse.json(
-            { error: 'Erro ao buscar protocolos' },
-            { status: 500 }
-        )
-    }
-}
-```
-
-### Fluxo de Requisição BFF
-
-```
-Frontend (src/components/)
-    ↓ (fetch)
-src/app/api/[portal]/[recurso]/route.ts (BFF)
-    ↓ (fetch)
-API Externa
-    ↓ (resposta)
-BFF normaliza dados
-    ↓ (resposta)
-Frontend recebe dados formatados
-```
-
-### Vantagens da Camada BFF
-
-- ✅ **Separação de Responsabilidades:** Frontend não conhece detalhes da API externa
-- ✅ **Normalização de Dados:** Transforma dados da API para formato esperado pelo frontend
-- ✅ **Segurança:** Tokens e credenciais ficam no servidor (não expostos no cliente)
-- ✅ **Tratamento de Erros:** Centralizado no backend
-- ✅ **Caching:** Possibilidade de implementar cache de requisições
-- ✅ **Transformação de Dados:** Adapta resposta da API para necessidades do frontend
+### Naming das rotas
+- Diretórios: `portal-beneficiario`, `portal-dentista`, `portal-comercial`, `portal-empresa`, `portal-representante`.
+- Rota dinâmica: `[slug]/page.tsx` (singular). Não criar `[...slug]`.
+- Segmentos esperados (`/portal-beneficiario/protocolos`, etc.) devem existir como `id` em `sidebar-config`.
 
 ---
 
-## 6. Fluxo de Renderização Completo
+## 6. Convenções de nomes e exports
 
-### Fluxo de Autenticação (Login)
-
-```
-1. Usuário acessa /
-   ↓
-2. src/app/page.tsx redireciona para /tela-login/beneficiario
-   ↓
-3. src/app/tela-login/layout.tsx (sem Sidebar/Topbar)
-   ↓
-4. src/app/tela-login/[portal]/page.tsx
-   ├─ Renderiza SectionContentLeft
-   └─ Renderiza SectionContentRight (formulário)
-   ↓
-5. useLoginFormFields hook valida credenciais
-   ↓
-6. Se válido, redireciona para /portal-beneficiario (via mock-login-fake.json)
-```
-
-### Fluxo de Dashboard (Autenticado)
-
-```
-1. Usuário acessa /portal-beneficiario
-   ↓
-2. src/app/layout.tsx (Root Layout)
-   ├─ Setup HTML, fontes, metadados
-   └─ Renderiza {children}
-   ↓
-3. src/app/(dashboard)/layout.tsx (Dashboard Layout)
-   ├─ Renderiza <Sidebar />
-   │  └─ use-dashboard-sidebar hook detecta portal via pathname
-   ├─ Renderiza <Topbar />
-   └─ Renderiza <main>{children}</main>
-   ↓
-4. src/app/(dashboard)/portal-beneficiario/page.tsx
-   └─ Renderiza <BeneficiarioHomeContent />
-   ↓
-5. src/components/main-content/beneficiario/BeneficiarioHome.tsx
-   ├─ Renderiza <SliderBanner /> (shared)
-   ├─ Renderiza <ShortcutsSection /> (shared)
-   ├─ Renderiza <NewsHighlightSection /> (shared)
-   ├─ Renderiza <CardMeusProtocolos /> (shared)
-   └─ Renderiza <CardMinhasGuias /> (shared)
-   ↓
-6. Componentes UI renderizam elementos HTML puros
-```
+| Contexto                         | Formato obrigatório                                     | Exemplo                           |
+|---------------------------------|----------------------------------------------------------|-----------------------------------|
+| Arquivos UI                     | `PascalCase.tsx`                                         | `NotificationBadge.tsx`           |
+| Componentes shared              | `PascalCase.tsx`                                         | `ShortcutsSection.tsx`            |
+| Conteúdo de portal              | `{Portal}{Funcao}Content.tsx`                            | `BeneficiarioBoletosContent.tsx`  |
+| Hooks                           | `useNomeFuncao.hook.ts`                                  | `usePortalContentLogic.hook.ts`   |
+| Helpers                         | `*.helpers.ts`                                           | `dashboard-path.helpers.ts`       |
+| Tipagens                        | `kebab-case.types.ts`                                    | `sidebar-config.types.ts`         |
+| Exports                         | Nomeados, alinhados ao nome do arquivo                   | `export function HomeEmpresa()`   |
+| Diretórios de portal            | `portal-{slug}` no `src/app/(dashboard)`; `{slug}` em `main-content` | `portal-beneficiario`, `beneficiario/` |
 
 ---
 
-## 7. Separação de Responsabilidades
+## 7. Fluxo para criar um novo bloco/portal
 
-### Camada 1: Root Layout (`src/app/layout.tsx`)
-
-**Responsabilidade:** Setup global da aplicação
-
-```tsx
-- Configuração de metadados (title, description, favicon)
-- Carregamento de fontes globais (Lato, Inter, Open Sans)
-- Setup HTML/head/body com nonce (CSP)
-- Renderização de {children}
-```
-
-**Necessário?** ✅ **SIM** - Obrigatório no Next.js App Router
-
----
-
-### Camada 2: Root Page (`src/app/page.tsx`)
-
-**Responsabilidade:** Rota raiz e orquestração inicial
-
-```tsx
-- Redireciona para /tela-login/beneficiario
-- Evita página em branco na raiz
-```
-
-**Necessário?** ✅ **SIM** - Essencial para fluxo inicial
+1. **Definir UI base** em `src/components/ui` (criar somente se não existir).
+2. **Montar bloco shared** reutilizando a UI.
+3. **Adicionar variação específica**:
+   - Para login: `src/components/shared-tela-login`.
+   - Para dashboard: `src/components/dashboard-layout` ou `src/components/main-content/[portal]`.
+4. **Atualizar dados**:
+   - `src/data/portals/sidebar-config.ts` (menus e badges).
+   - `src/data/portals/topbar-config.ts`.
+   - `src/data/sidebarHighlights.ts`.
+   - `src/data/mock-login/mock-login-fake.json` (se houver novo portal).
+5. **Atualizar hooks/config** se necessário (`usePortalContentLogic`, helpers de path).
+6. **Garantir rota**:
+   - `src/app/(dashboard)/portal-{slug}/page.tsx` reexporta `[slug]/page`.
+   - `[slug]/page.tsx` conhece todos os `currentContent`.
+7. **Testar** `yarn build` (typecheck + lint) antes do commit.
 
 ---
 
-### Camada 3: Dashboard Layout (`src/app/(dashboard)/layout.tsx`)
+## 8. Fluxos de dados e lógica
 
-**Responsabilidade:** Layout específico para rotas autenticadas
-
-```tsx
-- Renderiza Sidebar (navegação lateral)
-- Renderiza Topbar (barra superior)
-- Envolve {children} com estrutura flex (min-h-screen, layout 2-colunas)
+```
+src/data/** (mocks, configs, copy)
+      ↓
+src/components/shared e shared-tela-login (blocos visuais)
+      ↓
+src/components/main-content/[portal] (montagem da página)
+      ↓
+src/app/(dashboard)/portal-*/[slug]/page.tsx (hidratação condicional)
+      ↓
+Layout do dashboard (Sidebar + Topbar)
+      ↓
+Experiência final no navegador
 ```
 
-**Necessário?** ✅ **SIM** - Essencial para:
-- Aplicar layout específico apenas às rotas `/portal-*`
-- Não renderizar Sidebar/Topbar em `/tela-login`
-- Separação clara entre rotas autenticadas e públicas
+Lógica (estado, side-effects, roteamento) reside em `src/hooks`:
+- `usePortalDetector` → identifica portal na Sidebar.
+- `usePortalContentLogic` → entende o slug e escolhe o conteúdo.
+Nenhum componente em `main-content` deve recriar essas regras.
 
 ---
 
-### Camada 4: Portal Pages (`src/app/(dashboard)/portal-*/page.tsx`)
+## 9. Checklist antes de abrir PR
 
-**Responsabilidade:** Renderizar conteúdo específico do portal
-
-```tsx
-- Importa componente Home do portal
-- Renderiza apenas o conteúdo (sem Sidebar/Topbar)
-- Deixa layout raiz gerenciar estrutura
-```
-
-**Exemplo:**
-```tsx
-import { BeneficiarioHomeContent } from '@/components/main-content/beneficiario/BeneficiarioHome'
-
-export default function PortalBeneficiarioPage() {
-    return <BeneficiarioHomeContent />
-}
-```
+- [ ] Seguiu o fluxo UI → shared → montagem → rota.
+- [ ] Tipagens adicionadas em `src/types` e importadas com `import type`.
+- [ ] Nenhum `any`, `useState` ou `useEffect` dentro de UI básica.
+- [ ] `sidebar-config`, `topbar-config`, `portal-copy`, `sidebarHighlights` atualizados quando necessário.
+- [ ] `usePortalContentLogic` conhece todos os slugs usados no sidebar.
+- [ ] `yarn build` ok antes do push.
 
 ---
 
-### Camada 5: Portal Home Components (`src/components/main-content/[portal]/*Home.tsx`)
-
-**Responsabilidade:** Composição de UI para home do portal
-
-```tsx
-- Renderiza apenas JSX (sem lógica)
-- Importa componentes shared
-- Importa dados de src/data/mocks
-- Aplica padding via Tailwind (p-[24px_32px_0px_32px])
-```
-
-**Exemplo:**
-```tsx
-export function BeneficiarioHomeContent() {
-    return (
-        <section className="w-full mx-auto p-[24px_32px_0px_32px]">
-            <SliderBanner items={sliderItems} duration={SLIDER_DURATION} />
-            <ShortcutsSection portal="beneficiario" shortcutIds={[...]} />
-            {/* mais componentes */}
-        </section>
-    )
-}
-```
-
----
-
-### Camada 6: Shared Components (`src/components/shared/*`)
-
-**Responsabilidade:** Componentes reutilizáveis entre portais
-
-```tsx
-- Renderizam UI pura
-- Recebem dados via props
-- Importam componentes UI
-- Podem usar hooks (se necessário para comportamento)
-```
-
----
-
-### Camada 7: UI Components (`src/components/ui/*`)
-
-**Responsabilidade:** Componentes base sem lógica
-
-```tsx
-- Button, Input, Card, etc
-- Apenas renderizam HTML + Tailwind
-- Recebem props para customização
-```
-
----
-
-## 8. Fluxo de Dados
-
-```
-src/data/mocks/
-    ↓ (importado por)
-src/components/main-content/[portal]/*Home.tsx
-    ↓ (renderizado por)
-src/app/(dashboard)/portal-*/page.tsx
-    ↓ (envolvido por)
-src/app/(dashboard)/layout.tsx (Sidebar + Topbar)
-    ↓ (envolvido por)
-src/app/layout.tsx (HTML + fontes)
-```
-
----
-
-## 9. Fluxo de Lógica
-
-```
-src/hooks/
-    ↓ (importado por)
-src/components/shared/*
-    ↓ (importado por)
-src/components/main-content/[portal]/*Home.tsx
-    ↓ (renderizado por)
-src/app/(dashboard)/portal-*/page.tsx
-```
-
----
-
-## 10. Convenções de Nomenclatura
-
-### Componentes
-
-- **UI Components:** `Button.tsx`, `Input.tsx`, `Card.tsx`
-- **Shared Components:** `SliderBanner.tsx`, `ShortcutsSection.tsx`
-- **Portal Home Components:** `BeneficiarioHome.tsx`, `DentistaHome.tsx`
-- **Portal Content Components:** `BoletosContent.tsx`, `CartoesContent.tsx`
-
-### Funções Exportadas
-
-- **Componentes:** `export function ComponentName() { ... }`
-- **Hooks:** `export function useHookName() { ... }`
-- **Utilitários:** `export function utilityName() { ... }`
-
-### Tipos
-
-- **Tipos de Props:** `ComponentNameProps`
-- **Tipos de Contexto:** `ContextNameType`
-- **Tipos de Dados:** `DataNameType`
-
----
-
-## 11. Arquivos Necessários vs Desnecessários
-
-| Arquivo | Necessário? | Motivo |
-|---------|-----------|--------|
-| `src/app/layout.tsx` | ✅ SIM | Setup global obrigatório |
-| `src/app/page.tsx` | ✅ SIM | Rota raiz e redirecionamento inicial |
-| `src/app/(dashboard)/layout.tsx` | ✅ SIM | Layout específico com Sidebar/Topbar |
-| `src/components/main-content/MainContentShell.tsx` | ❌ NÃO | Apenas wrapper de padding, removido |
-
----
-
-## 12. Próximas Etapas de Desenvolvimento
-
-### Para cada novo portal:
-
-1. **Criar página:** `src/app/(dashboard)/portal-[nome]/page.tsx`
-   ```tsx
-   import { [Nome]Home } from '@/components/main-content/[nome]/[Nome]Home'
-   
-   export default function Portal[Nome]Page() {
-       return <[Nome]Home />
-   }
-   ```
-
-2. **Criar componente Home:** `src/components/main-content/[nome]/[Nome]Home.tsx`
-   ```tsx
-   export function [Nome]Home() {
-       return (
-           <section className="w-full mx-auto p-[24px_32px_0px_32px]">
-               {/* composição de componentes shared */}
-           </section>
-       )
-   }
-   ```
-
-3. **Criar componentes de conteúdo:** `src/components/main-content/[nome]/[Conteudo]Content.tsx`
-   ```tsx
-   export function [Nome][Conteudo]Content() {
-       return (
-           <section className="w-full mx-auto p-[24px_32px_0px_32px]">
-               {/* conteúdo específico */}
-           </section>
-       )
-   }
-   ```
-
-4. **Atualizar configurações:**
-   - `src/context/dashboard/Sidebar/sidebar.ts` - Adicionar items do sidebar
-   - `src/data/sidebarHighlights.ts` - Adicionar highlights
-   - `src/data/mock-login/mock-login-fake.json` - Adicionar credenciais e redirecionamento
-
----
-
-## 13. Princípios Arquiteturais
-
-### UI Separation Convention
-
-- ✅ **Componentes em `main-content/` contêm APENAS JSX**
-- ✅ **Lógica fica em `hooks/`, `utils/`, `context/`, `data/`, `types/`**
-- ✅ **Imports permitidos:** `components/ui`, `components/shared`, `hooks`, `utils`, `data`, `context`, `types`
-- ❌ **Imports proibidos:** Lógica complexa, estado direto, side-effects
-
-### TypeScript Typing Convention
-
-- ✅ **Todas as tipagens centralizadas em `src/types/`**
-- ✅ **Props de componentes tipadas explicitamente**
-- ✅ **Tipos como contratos entre camadas**
-- ❌ **Proibido usar `any`**
-
----
-
-## 14. Resumo Visual
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    src/app/layout.tsx                       │
-│              (HTML, fontes, metadados globais)              │
-└──────────────────────┬──────────────────────────────────────┘
-                       │
-        ┌──────────────┴──────────────┐
-        │                             │
-┌───────▼─────────────┐    ┌─────────▼──────────────┐
-│  /tela-login        │    │  /(dashboard)          │
-│  (layout público)   │    │  (layout autenticado)  │
-└───────┬─────────────┘    └──────────┬──────────────┘
-        │                             │
-        │                    ┌────────┴────────┐
-        │                    │                 │
-        │            ┌───────▼────────┐  ┌────▼────────┐
-        │            │ portal-*       │  │ Sidebar     │
-        │            │ page.tsx       │  │ Topbar      │
-        │            └───────┬────────┘  └─────────────┘
-        │                    │
-        │            ┌───────▼────────────────┐
-        │            │ *Home.tsx              │
-        │            │ (main-content)         │
-        │            └───────┬────────────────┘
-        │                    │
-        │            ┌───────▼────────────────┐
-        │            │ Shared Components      │
-        │            │ (SliderBanner, etc)    │
-        │            └───────┬────────────────┘
-        │                    │
-        │            ┌───────▼────────────────┐
-        │            │ UI Components          │
-        │            │ (Button, Card, etc)    │
-        │            └────────────────────────┘
-```
-
----
-
-**Última atualização:** 30 de dezembro de 2025
+**Última atualização:** 7 de janeiro de 2026

@@ -1,27 +1,27 @@
 {
     "beneficiario": {
         "login": "111.222.333-44",
-        "password": "10203040",
+        "password": "beneficiario",
         "redirect": "/portal-beneficiario"
     },
     "dentista": {
-        "login": "555.666.777-88",
-        "password": "99887766",
+        "login": "SP-12345",
+        "password": "dentista",
         "redirect": "/portal-dentista"
     },
     "comercial": {
         "login": "222.333.444-55",
-        "password": "55667788",
+        "password": "comercial",
         "redirect": "/portal-comercial"
     },
     "empresa": {
         "login": "333.444.555-66",
-        "password": "66778899",
+        "password": "empresa",
         "redirect": "/portal-empresa"
     },
     "representante": {
         "login": "444.555.666-77",
-        "password": "77889900",
+        "password": "representante",
         "redirect": "/portal-representante"
     }
 }
