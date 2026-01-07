@@ -1,12 +1,12 @@
 "use client"
 
-import { useMemo } from 'react'
 import LoginFormHeader from '@/components/shared-tela-login/LoginFormHeader'
-import LoginFormFields, { LoginFieldConfig } from '@/components/shared-tela-login/LoginFormFields'
+import LoginFormFields from '@/components/shared-tela-login/LoginFormFields'
 import TermoPoliticaUso from '@/components/shared-tela-login/TermoPoliticaUso'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/script/Icon'
 import { useLoginFormFields } from '@/hooks/tela-login/useLoginFormFields.hook'
+import { usePortalPageTelaLoginPortais } from '@/hooks/tela-login/usePortalPageTelaLoginPortais.hook'
 import type { SectionContentRightProps } from '@/types/tela-login/section-content-right.types'
 
 export default function SectionContentRight({
@@ -16,8 +16,8 @@ export default function SectionContentRight({
     forgotLabel,
     ctaLabel,
 }: SectionContentRightProps) {
-    const portalSlug = useMemo(() => portalType, [portalType])
-    const { handleSubmit, handleChange, error, isSubmitting } = useLoginFormFields(portalSlug)
+    const mappedFields = usePortalPageTelaLoginPortais(fields)
+    const { handleSubmit, handleChange, error, isSubmitting } = useLoginFormFields(portalType)
 
     return (
         <div className='fixed inset-0 w-full h-full bg-[rgba(58,58,58,0.58)] backdrop-blur-sm z-10 @laptop:static @laptop:bg-transparent @laptop:backdrop-blur-none'>
@@ -34,7 +34,7 @@ export default function SectionContentRight({
                     <div className="w-full @laptop:w-[420px] flex flex-col gap-[32px]">
                         <LoginFormHeader portalType={portalType} />
                         <LoginFormFields
-                            fields={fields}
+                            fields={mappedFields}
                             forgotHref={forgotHref}
                             forgotLabel={forgotLabel}
                             ctaLabel={ctaLabel}

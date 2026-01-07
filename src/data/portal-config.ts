@@ -46,7 +46,7 @@ export const portalConfigRecord = {
             {
                 id: 'dentista-docs',
                 label: 'Documentos',
-                name: 'documents',
+                name: 'login',
                 customRenderer: 'dentistaDocuments',
             },
             {
@@ -65,7 +65,7 @@ export const portalConfigRecord = {
             {
                 id: 'comercial-code',
                 label: 'Código',
-                name: 'code',
+                name: 'login',
                 placeholder: '',
             },
             {
@@ -84,7 +84,7 @@ export const portalConfigRecord = {
             {
                 id: 'empresa-code',
                 label: 'Código',
-                name: 'code',
+                name: 'login',
                 placeholder: '',
             },
             {
@@ -103,7 +103,7 @@ export const portalConfigRecord = {
             {
                 id: 'representante-code',
                 label: 'Código',
-                name: 'code',
+                name: 'login',
                 placeholder: '',
             },
             {
