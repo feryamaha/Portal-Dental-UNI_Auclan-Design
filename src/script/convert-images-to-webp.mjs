@@ -2,8 +2,10 @@ import fs from 'fs'
 import path from 'path'
 import sharp from 'sharp'
 
-// Para executar o scrip use o comando abaixo no terminal:
-// node .\src\script\convert-images-to-webp.mjs
+// Como executar a partir da raiz do projeto:
+// - PowerShell / CMD: node .\src\script\convert-images-to-webp.mjs
+// - Git Bash / WSL / Unix: node ./src/script/convert-images-to-webp.mjs
+// - Yarn (qualquer shell): yarn convert:images
 
 const IMAGES_ROOT = path.join(process.cwd(), 'public', 'assets', 'images')
 

@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "convert:images": "node ./src/script/convert-images-to-webp.mjs",
     "generate:icons": "node scripts/generateIcons.js",
     "precommit-deps-build-security": "node scripts/precommit-deps-build-security.js",
     "precommit-browser-security": "node scripts/precommit-browser-security.js",
