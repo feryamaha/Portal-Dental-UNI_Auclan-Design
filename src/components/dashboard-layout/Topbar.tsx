@@ -1,15 +1,18 @@
 "use client"
+import { useState } from 'react'
 import Link from 'next/link'
 import { clsx } from 'clsx'
 import { Icon } from '@/script/Icon'
 import { Button } from '@/components/ui/Button'
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { useDashboardTopbar } from '@/hooks/hooks-dash/hooks-shared/useDashboardTopbar.hook'
+import { ModalUserMenu } from '@/components/dashboard-layout/ModalUserMenu'
 import type { TopbarProps } from '@/types/dashboard/topbar.types'
 
 export type { TopbarProps } from '@/types/dashboard/topbar.types'
 
 export default function Topbar({ portal, containerClassName }: TopbarProps) {
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
     const { quickLinks, actions, user, breadcrumbItems } = useDashboardTopbar({ portal })
 
     const innerClasses = clsx(
@@ -56,7 +59,13 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                                     <span className="w-max text-sm text-neutral-600">{user.role}</span>
                                 </div>
                                 <div>
-                                    <Button variant="tertiary" size="sm" className='px-0'>
+                                    <Button
+                                        variant="tertiary"
+                                        size="sm"
+                                        className='px-0'
+                                        onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                                        type="button"
+                                    >
                                         <Icon name='iconFlechaDupla' className='text-neutral-900' />
                                     </Button>
                                 </div>
@@ -65,6 +74,12 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                     </div>
                 </div>
             </div>
+
+            <ModalUserMenu
+                portal={portal}
+                isOpen={isUserMenuOpen}
+                onClose={() => setIsUserMenuOpen(false)}
+            />
         </header>
     )
 }
