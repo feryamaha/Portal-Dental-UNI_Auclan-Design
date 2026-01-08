@@ -20,7 +20,7 @@ export default function Sidebar({ portal }: SidebarProps) {
 
     return (
         <aside className="w-max min-h-screen bg-white border-r border-secondary-50 flex flex-col py-[20px]">
-            <div className="px-[20px] ">
+            <div className="px-[20px]">
                 <div className="flex items-center gap-[12px]">
                     <Icon name='iconFaviconDental' />
                     <div className='flex flex-col gap-[2px]'>
@@ -33,7 +33,7 @@ export default function Sidebar({ portal }: SidebarProps) {
                 <SidebarHighlight portal={resolvedPortal} highlight={highlight} />
             </div>
 
-            <nav className="flex-1 overflow-y-auto space-y-6 px-2">
+            <nav className="flex-1 overflow-y-auto space-y-6 px-2 mt-[20px]">
                 {sections.map((section: SidebarSection) => (
                     <div key={section.id}>
                         <p className="px-4 font-inter text-xs font-medium text-neutral-500 mb-2">
@@ -76,9 +76,9 @@ export default function Sidebar({ portal }: SidebarProps) {
                     className="flex items-center gap-[8px] rounded"
                     aria-label="Acessar SIO - Sistema Integrado de Operações"
                 >
-                    <Icon name="iconSioSistemaInt" />
+                    <Icon name="iconSioSistemaInt" className='text-secondary-700' />
                     <span className='font-inter font-medium text-sm text-secondary-700'>Acessar SIO</span>
-                    <Icon name="iconLinkCta" />
+                    <Icon name="iconLinkCta" className='text-secondary-700' />
                 </Link>
             </div>
         </aside>

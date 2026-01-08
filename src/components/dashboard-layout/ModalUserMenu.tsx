@@ -21,13 +21,13 @@ export function ModalUserMenu({ portal, isOpen, onClose }: ModalUserMenuProps) {
         <>
             {/* Backdrop */}
             <div
-                className="fixed bg-[url('/assets/images/mask-image.webp')] bg-cover bg-center bg-no-repeat inset-0 z-40"
+                className="fixed bg-black bg-opacity-50 bg-[url('/assets/images/mask-image.webp')] bg-cover bg-center bg-no-repeat inset-0 z-40"
                 onClick={onClose}
                 aria-hidden="true"
             />
 
             {/* Modal */}
-            <div className="fixed  right-[32px] w-[324px] h-max p-[16px_12px_24px_12px] bg-white rounded-lg border border-neutral-100 shadow-[0_1px_3px_0_rgba(25, 25, 25, 0.12)] z-50">
+            <div className="absolute right-[32px] w-[324px] h-max p-[16px_12px_24px_12px] bg-white rounded-lg border border-neutral-100 shadow-[0_1px_3px_0_rgba(25, 25, 25, 0.12)] z-50">
                 {/* Header */}
                 <div>
                     <div className="flex items-center gap-3">

@@ -4,7 +4,8 @@ import type { GooglePlayAppleStoreProps } from '@/types/ui/google-play-apple-sto
 
 export function GooglePlayAppleStore({ className = '' }: GooglePlayAppleStoreProps) {
     return (
-        <div className={`p-[8px_16px] bg-auxiliary-success-border bg-cover rounded-[4px] ${className}`}>
+        /* LEMBRAR DE ALTERAR IMAGEM DE BACKGROUND QUE ESTA SOLIDA -  IMAGEM ESTA COM ERRO VEIO COM TEXTO E LOGO  */
+        <div className={`p-[8px_16px] bg-auxiliary-success-border /*bg-[url('/assets/images/map-dental-bg.png')]*/ bg-cover rounded-[4px] ${className}`}>
             <p className="subtitle mb-2">Aplicativo Dental Uni</p>
             <div className="flex items-center gap-3">
                 <Link

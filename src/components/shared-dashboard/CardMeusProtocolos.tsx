@@ -2,10 +2,13 @@
 
 import { SubCardMeusProtocolos } from '@/components/ui/SubCardMeusProtocolos'
 import { NewsSectionHeader } from '@/components/ui/NewsSectionHeader'
+import { sortProtocolsByPriority } from '@/utils/protocol-priority.utils'
 import type { CardMeusProtocolosProps } from '@/types/shared/card-meus-protocolos.types'
 
 export function CardMeusProtocolos({ title = 'Meus protocolos', items, className = '' }: CardMeusProtocolosProps) {
     if (!items.length) return null
+
+    const orderedItems = sortProtocolsByPriority(items)
 
     return (
         <div
@@ -17,7 +20,7 @@ export function CardMeusProtocolos({ title = 'Meus protocolos', items, className
                 </div>
 
                 <div className="w-full flex flex-col gap-[16px]">
-                    {items.map((item) => (
+                    {orderedItems.map((item) => (
                         <SubCardMeusProtocolos key={item.protocolNumber} {...item} />
                     ))}
                 </div>

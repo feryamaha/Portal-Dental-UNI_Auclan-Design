@@ -47,9 +47,11 @@ export const protocolosMock: SubCardMeusProtocolosProps[] = [
         statusVariant: 'danger' as const,
         title: 'Atualização de telefone',
         protocolNumber: '30448420230808004679',
+        priorityType: 'obrigatorio',
+        receivedAt: '2025-07-08T09:00:00-03:00',
         events: [
             { label: 'Data:', value: '01/05/2023' },
-            { label: 'Data:', value: '01/05/2023' },
+            { label: 'Prazo:', value: '01/05/2023' },
         ],
     },
     {
@@ -57,9 +59,11 @@ export const protocolosMock: SubCardMeusProtocolosProps[] = [
         statusVariant: 'danger' as const,
         title: 'Atualização de telefone',
         protocolNumber: '30448420230808004680',
+        priorityType: 'nao-lido',
+        receivedAt: '2025-07-07T14:30:00-03:00',
         events: [
             { label: 'Data:', value: '01/05/2023' },
-            { label: 'Data:', value: '01/05/2023' },
+            { label: 'Prazo:', value: '01/05/2023' },
         ],
     },
     {
@@ -67,9 +71,10 @@ export const protocolosMock: SubCardMeusProtocolosProps[] = [
         statusVariant: 'danger' as const,
         title: 'Atualização de telefone',
         protocolNumber: '30448420230808004681',
+        receivedAt: '2025-07-06T11:15:00-03:00',
         events: [
             { label: 'Data:', value: '01/05/2023' },
-            { label: 'Data:', value: '01/05/2023' },
+            { label: 'Prazo:', value: '01/05/2023' },
         ],
     },
     {
@@ -77,9 +82,10 @@ export const protocolosMock: SubCardMeusProtocolosProps[] = [
         statusVariant: 'danger' as const,
         title: 'Atualização de telefone',
         protocolNumber: '30448420230808004682',
+        receivedAt: '2025-07-05T10:00:00-03:00',
         events: [
             { label: 'Data:', value: '01/05/2023' },
-            { label: 'Data:', value: '01/05/2023' },
+            { label: 'Prazo:', value: '01/05/2023' },
         ],
     },
     {
@@ -87,9 +93,10 @@ export const protocolosMock: SubCardMeusProtocolosProps[] = [
         statusVariant: 'danger' as const,
         title: 'Atualização de telefone',
         protocolNumber: '30448420230808004683',
+        receivedAt: '2025-07-04T08:45:00-03:00',
         events: [
             { label: 'Data:', value: '01/05/2023' },
-            { label: 'Data:', value: '01/05/2023' },
+            { label: 'Prazo:', value: '01/05/2023' },
         ],
     },
 ]
