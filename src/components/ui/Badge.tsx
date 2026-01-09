@@ -17,23 +17,23 @@ export function Badge({ variant, disabled = false, ...props }: BadgeProps) {
 
       variant === "light" &&
       (disabled
-        ? "bg-secondary-200 grayscale opacity-60 border border-secondary-100 p-[2px_8px_2px_4px]"
-        : "bg-secondary-0 text-secondary-800 border border-secondary-100 p-[2px_8px_2px_4px]"),
+        ? "bg-secondary-200 grayscale opacity-60 border border-secondary-100 p-[2px_8px]"
+        : "bg-secondary-0 text-secondary-800 border border-secondary-100 p-[2px_8px]"),
 
       variant === "success" &&
       (disabled
-        ? "bg-secondary-200 grayscale opacity-60 border border-secondary-100 p-[2px_8px_2px_4px]"
-        : "bg-auxiliary-success-background text-auxiliary-success-default border border-auxiliary-success-border p-[2px_8px_2px_4px]"),
+        ? "bg-secondary-200 grayscale opacity-60 border border-secondary-100 p-[2px_8px]"
+        : "bg-auxiliary-success-background text-auxiliary-success-default border border-auxiliary-success-border p-[2px_8px]"),
 
       variant === "info" &&
       (disabled
-        ? "bg-secondary-200 grayscale opacity-60 border border-secondary-100 p-[2px_8px_2px_4px]"
-        : "bg-auxiliary-info-background text-auxiliary-info-default border border-auxiliary-info-border p-[2px_8px_2px_4px]"),
+        ? "bg-neutral-200 grayscale opacity-60 border border-neutral-100 p-[2px_8px]"
+        : "bg-auxiliary-info-background text-auxiliary-info-default border border-auxiliary-info-border p-[2px_8px]"),
 
       variant === "warning" &&
       (disabled
-        ? "bg-secondary-200 grayscale opacity-60 border border-secondary-100 p-[2px_8px_2px_4px]"
-        : "bg-auxiliary-warning-background text-accent-default border border-auxiliary-warning-border p-[2px_8px_2px_4px]"),
+        ? "bg-neutral-200 grayscale opacity-60 border border-neutral-100 p-[2px_8px]"
+        : "bg-auxiliary-warning-background text-auxiliary-warning-default border border-auxiliary-warning-border p-[2px_8px]"),
 
       variant === "danger" &&
       (disabled

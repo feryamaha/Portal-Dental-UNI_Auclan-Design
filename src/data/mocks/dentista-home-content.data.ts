@@ -3,11 +3,11 @@ import type { SubCardMinhasGuiasProps } from '@/types/ui/sub-card-minhas-guias.t
 
 export const protocolosMock: SubCardMeusProtocolosProps[] = [
     {
-        statusLabel: 'Em análise',
-        statusVariant: 'warning',
+        statusLabel: 'Cancelado',
+        statusVariant: 'danger',
         title: 'Solicitação de materiais clínicos',
         protocolNumber: 'PRT-20250703-001',
-        priorityType: 'obrigatorio',
+
         receivedAt: '2025-07-08T10:30:00-03:00',
         events: [
             { label: 'Data:', value: '03/07/2025' },
@@ -15,11 +15,11 @@ export const protocolosMock: SubCardMeusProtocolosProps[] = [
         ],
     },
     {
-        statusLabel: 'Concluído',
-        statusVariant: 'success',
+        statusLabel: 'Pendente',
+        statusVariant: 'warning',
         title: 'Atualização cadastral CRO',
         protocolNumber: 'PRT-20250623-045',
-        priorityType: 'nao-lido',
+        priorityType: 'obrigatorio',
         receivedAt: '2025-07-07T15:45:00-03:00',
         events: [
             { label: 'Data:', value: '23/06/2025' },
@@ -31,6 +31,7 @@ export const protocolosMock: SubCardMeusProtocolosProps[] = [
         statusVariant: 'info',
         title: 'Solicitação de agenda extra',
         protocolNumber: 'PRT-20250708-112',
+        priorityType: 'nao-lido',
         receivedAt: '2025-07-06T09:20:00-03:00',
         events: [
             { label: 'Data:', value: '08/07/2025' },

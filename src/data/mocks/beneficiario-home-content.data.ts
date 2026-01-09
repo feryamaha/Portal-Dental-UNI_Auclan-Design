@@ -1,6 +1,12 @@
 import type { SubCardMeusProtocolosProps } from '@/types/ui/sub-card-meus-protocolos.types'
 import type { SubCardMinhasGuiasProps } from '@/types/ui/sub-card-minhas-guias.types'
 
+{/* DESACOPLAR A HIDRATAÇÃO DOS DADOS DESTE ARQUIVO /data/mocks/beneficiario-home-content.data.ts
+para arquivos dedicados meus protocolos e  minhas guias igual o card cronograma, news e slider */}
+
+//CRIAR NOVO ARQUIVO minhas-guias-content.data.ts
+//CRIAR NOVO ARQUIVO meus-protocolos-content.data.ts
+
 export const protocolosMock: SubCardMeusProtocolosProps[] = [
     {
         statusLabel: 'Cancelado',
