@@ -54,19 +54,19 @@ export default {
             default: '#119551'
           },
           danger: {
-            background: '#FDECEA',
+            background: '#FFF6F8',
             border: '#FFA7A0',
-            default: '#F44336'
+            default: '#DF554B'
           },
           info: {
             background: '#F1F6FD',
             border: '#A7C5FD',
-            default: '#0052EA'
+            default: '#1759D3'
           },
           warning: {
-            background: '#E69A1A',
+            background: '#FFFBED',
             border: '#FCD28C',
-            default: '#FFFBED'
+            default: '#E69A1A'
           }
         },
 
