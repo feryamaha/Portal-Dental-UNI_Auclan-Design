@@ -4,8 +4,8 @@ import type { NewsListEntryProps } from '@/types/ui/news-list-entry.types'
 
 export function NewsListEntry({ title, date, className = '' }: NewsListEntryProps) {
     return (
-        <div className={`font-inter border-b border-secondary-100 pb-4 ${className}`}>
-            <p className="pb-3 text-base font-medium text-secondary-900">{title}</p>
+        <div className={`h-full flex flex-col justify-between font-inter${className}`}>
+            <p className="text-base font-medium text-secondary-900 pb-[12px]">{title}</p>
             <p className="text-xs font-normal text-secondary-600">{date}</p>
         </div>
     )

@@ -5,6 +5,7 @@ import { Fragment } from 'react'
 import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/script/Icon'
+import { ProtocolPriorityTag } from '@/components/ui/ProtocolPriorityTag'
 import type { SubCardMeusProtocolosProps } from '@/types/ui/sub-card-meus-protocolos.types'
 
 export type { SubCardMeusProtocolosProps } from '@/types/ui/sub-card-meus-protocolos.types'
@@ -16,12 +17,14 @@ export function SubCardMeusProtocolos({
     protocolNumber,
     description,
     events,
+    priorityType,
 }: SubCardMeusProtocolosProps) {
     return (
         <div className="w-full flex flex-col gap-[8px] border-b border-secondary-100 pb-[16px]">
             <div className="flex w-full items-center justify-between">
                 <Badge variant={statusVariant}>{statusLabel}</Badge>
-                <div>
+                <div className='flex gap-[8px]'>
+                    {priorityType && <ProtocolPriorityTag priorityType={priorityType} />}
                     <Button variant="tertiary" size="sm" className="p-0">
                         <Icon name="iconButtonMais" />
                     </Button>

@@ -15,22 +15,17 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
     const { quickLinks, actions, user, breadcrumbItems } = useDashboardTopbar({ portal })
 
-    const innerClasses = clsx(
-        'flex items-center justify-between py-6',
-        containerClassName ?? 'px-[32px]'
-    )
-
     return (
-        <header className="w-full bg-white">
-            <div className={innerClasses}>
+        <header className="w-full bg-white py-[6px] px-[32px]">
+            <div className="flex items-center justify-between">
                 <Breadcrumbs items={breadcrumbItems} />
 
                 <div className="flex items-center gap-6">
-                    <nav className="flex items-center gap-4 text-sm font-medium text-neutral-900">
+                    <nav className="flex items-center gap-4 text-sm font-medium text-neutral-900 pr-4 border-r border-neutral-200">
                         {quickLinks.map((link) => (
-                            <Link key={link.id} href={link.href} className="inline-flex items-center gap-2 hover:text-[#AF0F2A] rounded">
-                                {link.icon && <Icon name={link.icon} size={16} className="text-current" />}
+                            <Link key={link.id} href={link.href} className="flex items-center gap-2 text-accent-default hover:text-neutral-900 hover:underline underline-offset-4 transition-colors">
                                 {link.label}
+                                {link.icon && <Icon name={link.icon} />}
                             </Link>
                         ))}
                     </nav>
@@ -40,17 +35,17 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                                 <Button
                                     variant="tertiary"
                                     size="sm"
-                                    className='px-0 text-neutral-900'
+                                    className='px-0 text-neutral-700'
                                     key={action.id}
                                     type="button"
                                 >
-                                    <Icon name={action.icon} className="text-current" />
+                                    <Icon name={action.icon} />
                                 </Button>
                             ))}
                         </div>
 
-                        <div className="w-max flex items-center gap-3">
-                            <div className='flex items-center gap-[16px]'>
+                        <div className="w-max flex items-center gap-3 py-[8px]">
+                            <div className='flex items-center gap-[12px]'>
                                 <div className="w-max flex items-center justify-center">
                                     <Icon name="iconAvatar" />
                                 </div>

@@ -1,5 +1,4 @@
 "use client"
-
 import { ShortcutCard } from '@/components/ui/ShortcutCard'
 import type { SidebarItem } from '@/types/data/sidebar.types'
 import type { ShortcutsSectionProps } from '@/types/shared/shortcuts-section.types'
@@ -23,9 +22,8 @@ export function ShortcutsSection({
     if (!resolvedItems.length) return null
 
     return (
-        // Mantemos sempre `w-full flex flex-col` e usamos `className` só para complementar com estilos específicos no ponto de uso.
-        <section className={`w-full flex flex-col ${className}`}>
-            <header className="mb-5 flex items-center justify-between">
+        <section className={`w-full flex flex-col gap-[16px] ${className}`}>
+            <header className="flex items-center justify-between">
                 <h2 className="font-inter text-xl font-semibold text-neutral-900">{title}</h2>
             </header>
             <div className="flex flex-wrap gap-4 ">

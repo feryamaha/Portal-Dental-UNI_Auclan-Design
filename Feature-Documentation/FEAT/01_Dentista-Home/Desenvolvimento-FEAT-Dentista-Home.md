@@ -1,0 +1,11 @@
+## FEAT/Dentista-Home – Meus Protocolos
+- Atualizados tipos em `src/types/ui/sub-card-meus-protocolos.types.ts` com `priorityType` e `receivedAt`.
+- Criado `ProtocolPriorityTag.tsx` com tipagem explícita e `whitespace-nowrap` para evitar quebra do texto “Não lido”.
+- Ajustado `SubCardMeusProtocolos.tsx` para consumir o novo componente e manter layout com ações secundárias.
+- Implementado `sortProtocolsByPriority()` em `src/utils/protocol-priority.utils.ts` (ordem: obrigatório → não lido → data).
+- Atualizado `CardMeusProtocolos.tsx` para aplicar a ordenação antes do render.
+- Incluído hook `useProtocolsData.hook.ts` com fetch de `/api/protocolos` e ordenação integrada.
+- Criada rota `src/app/api/protocolos/route.ts` servindo mocks por portal (BFF pronta para backend).
+- Enriquecidos mocks de beneficiário e dentista com `priorityType` + `receivedAt`.
+- Adicionada exportação no `src/hooks/hook-fetch-API/index.ts` centralizando `useProtocolsData`.
+- Documentada arquitetura em `Feature-Documentation/Arquitetura-CardMeusProtocolos-Prioridade.md`.
