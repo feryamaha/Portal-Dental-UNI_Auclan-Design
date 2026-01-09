@@ -15,14 +15,9 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
     const { quickLinks, actions, user, breadcrumbItems } = useDashboardTopbar({ portal })
 
-    const innerClasses = clsx(
-        'flex items-center justify-between py-6',
-        containerClassName ?? 'px-[32px]'
-    )
-
     return (
-        <header className="w-full bg-white">
-            <div className={innerClasses}>
+        <header className="w-full bg-white py-[6px] px-[32px]">
+            <div className="flex items-center justify-between">
                 <Breadcrumbs items={breadcrumbItems} />
 
                 <div className="flex items-center gap-6">
@@ -49,7 +44,7 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                             ))}
                         </div>
 
-                        <div className="w-max flex items-center gap-3">
+                        <div className="w-max flex items-center gap-3 py-[8px]">
                             <div className='flex items-center gap-[12px]'>
                                 <div className="w-max flex items-center justify-center">
                                     <Icon name="iconAvatar" />

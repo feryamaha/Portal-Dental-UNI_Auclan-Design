@@ -12,13 +12,12 @@ export function SliderBanner({ items, duration = 6000 }: SliderBannerProps) {
     if (!items.length) return null
 
     return (
-        <div className="w-full flex flex-col gap-4">
-            <div className="relative w-full overflow-hidden rounded-2xl text-secondary-0 p-3" style={{ aspectRatio: '728 / 88' }}>
+        <div className="w-full flex flex-col gap-[8px]">
+            <div className="relative w-[728px] h-[88px] overflow-hidden rounded-2xl text-secondary-0 p-3">
                 <Image
                     src={items[currentSlide].imageSrc}
                     alt={`Banner ${items[currentSlide].category}`}
                     fill
-                    sizes="(min-width: 1280px) 960px, 100vw"
                     className="object-cover"
                     priority
                 />

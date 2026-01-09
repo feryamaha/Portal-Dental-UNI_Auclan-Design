@@ -4,9 +4,15 @@ import { useEffect, useMemo, useState } from "react";
 
 import type { SliderBannerItem } from "@/types/shared/slider-banner.types";
 
-export function useSliderBanner(items: SliderBannerItem[], duration: number) {
+const DEFAULT_SLIDER_DURATION = 6000;
+
+export function useSliderBanner(items: SliderBannerItem[], duration: number = DEFAULT_SLIDER_DURATION) {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isPlaying, setIsPlaying] = useState(items.length > 1);
+
+    useEffect(() => {
+        setIsPlaying(items.length > 1);
+    }, [items.length]);
 
     useEffect(() => {
         if (!isPlaying || items.length <= 1) return;

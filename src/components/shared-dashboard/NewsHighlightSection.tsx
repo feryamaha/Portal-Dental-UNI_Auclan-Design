@@ -14,21 +14,27 @@ export function NewsHighlightSection({
     if (!feature || !articles?.length) return null
 
     return (
-        <div className="">
-            <div className='w-[256px] mb-4'>
+        <div className="flex flex-col gap-[16px]">
+            <div className='w-[256px]'>
                 <NewsSectionHeader title={title} ctaLabel={ctaLabel} />
             </div>
-            <div className="flex flex-wrap gap-6 @Desktop:flex-nowrap">
+            <div className="flex flex-wrap gap-[24px] @Desktop:flex-nowrap">
                 <NewsFeatureCard
                     imageSrc={feature.imageSrc}
                     imageAlt={feature.imageAlt}
                     title={feature.title}
                     date={feature.date}
                 />
-                <div className="w-full @Desktop:max-w-[352px] flex flex-col gap-2">
-                    {articles.map((article) => (
-                        <NewsListEntry key={article.title} title={article.title} date={article.date} />
-                    ))}
+                <div className="w-max @Desktop:max-w-[352px] flex flex-col justify-between gap-[6px]">
+                    <div>
+                        <NewsListEntry key={articles[0]?.title} title={articles[0]?.title} date={articles[0]?.date} />
+                    </div>
+                    <div className="border-t border-b border-gray-200 py-[8px]">
+                        <NewsListEntry key={articles[1]?.title} title={articles[1]?.title} date={articles[1]?.date} />
+                    </div>
+                    <div>
+                        <NewsListEntry key={articles[2]?.title} title={articles[2]?.title} date={articles[2]?.date} />
+                    </div>
                 </div>
             </div>
         </div>

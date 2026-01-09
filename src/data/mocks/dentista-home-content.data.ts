@@ -1,18 +1,5 @@
 import type { SubCardMeusProtocolosProps } from '@/types/ui/sub-card-meus-protocolos.types'
 import type { SubCardMinhasGuiasProps } from '@/types/ui/sub-card-minhas-guias.types'
-import {
-    sliderItems as beneficiarioSliderItems,
-    newsFeature as beneficiarioNewsFeature,
-    newsArticles as beneficiarioNewsArticles,
-} from '@/data/mocks/beneficiario-home-content.data'
-
-export const SLIDER_DURATION = 6500
-
-export const sliderItems = beneficiarioSliderItems
-
-export const newsFeature = beneficiarioNewsFeature
-
-export const newsArticles = beneficiarioNewsArticles
 
 export const protocolosMock: SubCardMeusProtocolosProps[] = [
     {
