@@ -127,6 +127,30 @@ export default {
         socialAmbiental: '0px 4px 10px 0px rgba(0, 0, 0, 0.22)',
         cookie: '0px 4px 12px 0px rgba(0, 0, 0, 0.20)',
         '10': '0 1px 4px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(25, 25, 25, 0.08)'
+      },
+      keyframes: {
+        modalSlideIn: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(0)' }
+        },
+        modalSlideOut: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(0)' }
+        },
+        overlayFadeIn: {
+          from: { opacity: '1' },
+          to: { opacity: '1' }
+        },
+        overlayFadeOut: {
+          from: { opacity: '1' },
+          to: { opacity: '1' }
+        }
+      },
+      animation: {
+        'modal-slide-in': 'modalSlideIn 0s linear forwards',
+        'modal-slide-out': 'modalSlideOut 0s linear forwards',
+        'modal-overlay-fade-in': 'overlayFadeIn 0s linear forwards',
+        'modal-overlay-fade-out': 'overlayFadeOut 0s linear forwards'
       }
     },
     container: {
