@@ -33,7 +33,7 @@ export function SegmentedControl({
 
     const classes = twMerge(
         clsx(
-            "inline-flex items-center p-[2px] bg-secondary-200 rounded-md overflow-hidden transition-colors duration-200 ease-linear ",
+            "inline-flex items-center p-[2px] bg-secondary-200 rounded-lg overflow-hidden transition-colors duration-200 ease-linear px-[3px] ",
             size === "sm" && "h-max w-full @mobile:w-max ",
             size === "md" && "h-max w-full @mobile:w-max ",
             size === "lg" && "h-max w-full @mobile:w-max ",
@@ -75,17 +75,17 @@ export function SegmentedControl({
 
         return twMerge(
             clsx(
-                "font-inter font-normal text-sm transition-colors duration-200 ease-linear flex items-center justify-center gap-[6px] rounded-md shadow-[0 1px 4px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(25, 25, 25, 0.08)] overflow-hidden",
+                "font-inter font-normal text-sm transition-colors duration-200 ease-linear flex items-center justify-center gap-[6px] rounded-lg shadow-[0_1px_4px_0_rgba(0,0,0,0.08),0_1px_2px_0_rgba(25,25,25,0.08)] overflow-hidden",
                 !isLast && "border-r border-secondary-200",
                 size === "sm" && "w-full @mobile:w-max h-max p-[2px_6px]",
                 size === "md" && "w-full @mobile:w-max h-max p-[4px_12px]",
                 size === "lg" && "w-full @mobile:w-max h-max p-[6px_12px]",
                 isSelected &&
                 !disabled &&
-                "bg-white text-secondary-900 border border-secondary-100",
+                "bg-white text-secondary-900",
                 !isSelected &&
                 !disabled &&
-                "text-secondary-600 bg-secondary-200 border border-secondary-200 ",
+                "text-secondary-600 bg-secondary-200 border border-secondary-200 shadow-none ",
                 disabled && "opacity-50 cursor-not-allowed",
             ),
         );
@@ -103,7 +103,7 @@ export function SegmentedControl({
                 const isLast = index === items.length - 1;
 
                 return (
-                    <div key={item.value}>
+                    <div key={item.value} >
                         <button
                             type="button"
                             className={getButtonClasses(item, index)}

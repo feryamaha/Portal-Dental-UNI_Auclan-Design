@@ -6,14 +6,21 @@ import { Icon } from '@/script/Icon'
 import { Button } from '@/components/ui/Button'
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { useDashboardTopbar } from '@/hooks/hooks-dash/hooks-shared/useDashboardTopbar.hook'
+import { useFaqModalControl } from '@/hooks/hooks-dash/useFaqModalControl.hook'
 import { ModalUserMenu } from '@/components/dashboard-layout/ModalUserMenu'
+import { FaqAjuda } from '@/components/shared-dashboard/FaqAjuda'
 import type { TopbarProps } from '@/types/dashboard/topbar.types'
 
 export type { TopbarProps } from '@/types/dashboard/topbar.types'
 
 export default function Topbar({ portal, containerClassName }: TopbarProps) {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
-    const { quickLinks, actions, user, breadcrumbItems } = useDashboardTopbar({ portal })
+    const { quickLinks, actions, user, breadcrumbItems, resolvedPortal } = useDashboardTopbar({ portal })
+    const {
+        shouldRender,
+        openModal,
+        startClose
+    } = useFaqModalControl()
 
     return (
         <header className="w-full bg-white py-[6px] px-[32px]">
@@ -38,6 +45,7 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                                     className='px-0 text-neutral-700'
                                     key={action.id}
                                     type="button"
+                                    onClick={() => action.id === 'help' && openModal()}
                                 >
                                     <Icon name={action.icon} />
                                 </Button>
@@ -75,6 +83,15 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                 isOpen={isUserMenuOpen}
                 onClose={() => setIsUserMenuOpen(false)}
             />
+
+            {shouldRender && (
+                <div className="fixed inset-0 bg-black/50 z-50">
+                    <FaqAjuda
+                        portal={resolvedPortal}
+                        onClose={startClose}
+                    />
+                </div>
+            )}
         </header>
     )
 }
