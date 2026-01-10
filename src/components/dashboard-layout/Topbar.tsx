@@ -7,8 +7,11 @@ import { Button } from '@/components/ui/Button'
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { useDashboardTopbar } from '@/hooks/hooks-dash/hooks-shared/useDashboardTopbar.hook'
 import { useFaqModalControl } from '@/hooks/hooks-dash/useFaqModalControl.hook'
+import { useNotificacoesModalControl } from '@/hooks/hooks-dash/useNotificacoesModalControl.hook'
+import { useNotificacoesData } from '@/hooks/hook-fetch-API'
 import { ModalUserMenu } from '@/components/dashboard-layout/ModalUserMenu'
 import { FaqAjuda } from '@/components/shared-dashboard/FaqAjuda'
+import { ModalNotificacoes } from '@/components/shared-dashboard/ModalNotificacoes'
 import type { TopbarProps } from '@/types/dashboard/topbar.types'
 
 export type { TopbarProps } from '@/types/dashboard/topbar.types'
@@ -16,11 +19,21 @@ export type { TopbarProps } from '@/types/dashboard/topbar.types'
 export default function Topbar({ portal, containerClassName }: TopbarProps) {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
     const { quickLinks, actions, user, breadcrumbItems, resolvedPortal } = useDashboardTopbar({ portal })
+    const { unreadCount } = useNotificacoesData(resolvedPortal)
     const {
         shouldRender,
         openModal,
         startClose
     } = useFaqModalControl()
+    const {
+        shouldRender: shouldRenderNotificacoes,
+        openModal: openNotificacoesModal,
+        startClose: startCloseNotificacoes
+    } = useNotificacoesModalControl()
+
+    const shouldShowNotificationIndicator = (actionId: string) => {
+        return actionId === 'notifications' && unreadCount > 0
+    }
 
     return (
         <header className="w-full bg-white py-[6px] px-[32px]">
@@ -42,15 +55,22 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                                 <Button
                                     variant="tertiary"
                                     size="sm"
-                                    className='px-0 text-neutral-700'
+                                    className='p-[1.8px] text-neutral-700 relative'
                                     key={action.id}
                                     type="button"
-                                    onClick={() => action.id === 'help' && openModal()}
+                                    onClick={() => {
+                                        if (action.id === 'help') openModal()
+                                        if (action.id === 'notifications') openNotificacoesModal()
+                                    }}
                                 >
                                     <Icon name={action.icon} />
+                                    {action.id === 'notifications' && unreadCount > 0 && (
+                                        <Icon name="iconPointBorderText" className="text-accent-default absolute top-0 right-0" />
+                                    )}
                                 </Button>
                             ))}
                         </div>
+
 
                         <div className="w-max flex items-center gap-3 py-[8px]">
                             <div className='flex items-center gap-[12px]'>
@@ -89,6 +109,15 @@ export default function Topbar({ portal, containerClassName }: TopbarProps) {
                     <FaqAjuda
                         portal={resolvedPortal}
                         onClose={startClose}
+                    />
+                </div>
+            )}
+
+            {shouldRenderNotificacoes && (
+                <div className="fixed inset-0 bg-black/50 z-50">
+                    <ModalNotificacoes
+                        portal={resolvedPortal}
+                        onClose={startCloseNotificacoes}
                     />
                 </div>
             )}

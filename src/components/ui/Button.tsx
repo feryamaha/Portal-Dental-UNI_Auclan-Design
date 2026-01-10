@@ -39,7 +39,7 @@ export function Button({
       variant === "tertiary" &&
       (disabled
         ? "text-secondary-200 gap-[12px] cursor-not-allowed justify-center"
-        : "text-primary-500 hover:text-primary-700 gap-[12px] shadow-none justify-center"),
+        : "text-primary-500 hover:text-primary-700 gap-[8px] shadow-none justify-center"),
       variant === "link" &&
       (disabled
         ? "text-secondary-200 font-normal gap-[12px] cursor-not-allowed"
