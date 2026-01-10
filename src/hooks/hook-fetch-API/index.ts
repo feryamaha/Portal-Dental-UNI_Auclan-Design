@@ -6,6 +6,7 @@ export { useSliderBannerData } from './useSliderBannerData.hook'
 export { useNewsHighlightData } from './useNewsHighlightData.hook'
 export { useCronogramaData } from './useCronogramaData.hook'
 export { useFaqAjudaData } from './useFaqAjudaData.hook'
+export { useNotificacoesData } from './useNotificacoesData.hook'
 
 // Futuros hooks de fetch (a implementar):
 // export { useApi } from './useApi.hook'
