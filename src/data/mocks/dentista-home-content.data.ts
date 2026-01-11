@@ -5,9 +5,11 @@ export const protocolosMock: SubCardMeusProtocolosProps[] = [
     {
         statusLabel: 'Cancelado',
         statusVariant: 'danger',
+        status: 'Retorno atendimento chat',
+        subject: 'Atendimento ao beneficiário',
         title: 'Solicitação de materiais clínicos',
-        protocolNumber: 'PRT-20250703-001',
-
+        protocolNumber: '12345678901234567890',
+        priorityType: 'obrigatorio',
         receivedAt: '2025-07-08T10:30:00-03:00',
         events: [
             { label: 'Data:', value: '03/07/2025' },
@@ -17,9 +19,11 @@ export const protocolosMock: SubCardMeusProtocolosProps[] = [
     {
         statusLabel: 'Pendente',
         statusVariant: 'warning',
+        status: 'Retorno atendimento chat',
+        subject: 'Atendimento ao beneficiário',
         title: 'Atualização cadastral CRO',
-        protocolNumber: 'PRT-20250623-045',
-        priorityType: 'obrigatorio',
+        protocolNumber: '23456789012345678901',
+        priorityType: '',
         receivedAt: '2025-07-07T15:45:00-03:00',
         events: [
             { label: 'Data:', value: '23/06/2025' },
@@ -29,8 +33,10 @@ export const protocolosMock: SubCardMeusProtocolosProps[] = [
     {
         statusLabel: 'Pendente',
         statusVariant: 'info',
+        status: 'Retorno atendimento chat',
+        subject: 'Atendimento ao beneficiário',
         title: 'Solicitação de agenda extra',
-        protocolNumber: 'PRT-20250708-112',
+        protocolNumber: '34567890123456789012',
         priorityType: 'nao-lido',
         receivedAt: '2025-07-06T09:20:00-03:00',
         events: [
@@ -41,8 +47,11 @@ export const protocolosMock: SubCardMeusProtocolosProps[] = [
     {
         statusLabel: 'Em análise',
         statusVariant: 'warning',
+        status: 'Retorno atendimento chat',
+        subject: 'Atendimento ao beneficiário',
         title: 'Recurso de glosa GTO',
-        protocolNumber: 'PRT-20250705-078',
+        protocolNumber: '45678901234567890123',
+        priorityType: '',
         receivedAt: '2025-07-05T13:00:00-03:00',
         events: [
             { label: 'Data:', value: '05/07/2025' },
@@ -52,8 +61,11 @@ export const protocolosMock: SubCardMeusProtocolosProps[] = [
     {
         statusLabel: 'Concluído',
         statusVariant: 'success',
+        status: 'Retorno atendimento chat',
+        subject: 'Atendimento ao beneficiário',
         title: 'Atualização de dados bancários',
-        protocolNumber: 'PRT-20250630-219',
+        protocolNumber: '56789012345678901234',
+        priorityType: 'nao-lido',
         receivedAt: '2025-07-04T11:10:00-03:00',
         events: [
             { label: 'Data:', value: '30/06/2025' },
@@ -67,7 +79,7 @@ export const guiasMock: SubCardMinhasGuiasProps[] = [
         statusLabel: 'Autorizada',
         statusVariant: 'success',
         title: 'Paciente: Lucas Andrade',
-        protocolNumber: 'GTO 552310',
+        protocolNumber: '67890123456789012345',
         description: 'Procedimentos aprovados: 2/2',
         events: [
             { label: 'Data:', value: '05/07/2025' },
@@ -78,7 +90,7 @@ export const guiasMock: SubCardMinhasGuiasProps[] = [
         statusLabel: 'Pendente',
         statusVariant: 'warning',
         title: 'Paciente: Camila Monteiro',
-        protocolNumber: 'GTO 552428',
+        protocolNumber: '78901234567890123456',
         description: 'Procedimentos aprovados: 1/3',
         events: [
             { label: 'Data:', value: '07/07/2025' },
@@ -89,7 +101,7 @@ export const guiasMock: SubCardMinhasGuiasProps[] = [
         statusLabel: 'Autorizada',
         statusVariant: 'success',
         title: 'Paciente: Bianca Ferreira',
-        protocolNumber: 'GTO 552611',
+        protocolNumber: '89012345678901234567',
         description: 'Procedimentos aprovados: 1/1',
         events: [
             { label: 'Data:', value: '02/07/2025' },
@@ -100,7 +112,7 @@ export const guiasMock: SubCardMinhasGuiasProps[] = [
         statusLabel: 'Pendente',
         statusVariant: 'info',
         title: 'Paciente: Renan Duarte',
-        protocolNumber: 'GTO 552734',
+        protocolNumber: '90123456789012345678',
         description: 'Procedimentos aprovados: 0/2',
         events: [
             { label: 'Data:', value: '09/07/2025' },
@@ -111,7 +123,7 @@ export const guiasMock: SubCardMinhasGuiasProps[] = [
         statusLabel: 'Em revisão',
         statusVariant: 'warning',
         title: 'Paciente: Sofia Navarro',
-        protocolNumber: 'GTO 552845',
+        protocolNumber: '01234567890123456789',
         description: 'Procedimentos aprovados: 1/4',
         events: [
             { label: 'Data:', value: '11/07/2025' },

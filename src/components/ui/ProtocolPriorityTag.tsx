@@ -3,6 +3,8 @@ import { Icon } from '@/script/Icon'
 
 type ProtocolPriorityTagProps = {
     priorityType?: ProtocolPriorityType
+    iconOnly?: boolean
+    className?: string
 }
 
 type PriorityText = 'Obrigatório' | 'Não lido'
@@ -21,14 +23,26 @@ const priorityMap: Record<Exclude<ProtocolPriorityType, null | undefined>, Prior
         icon: 'iconPointBorderText',
         text: 'Não lido',
     },
+    '': {
+        icon: 'iconPointBorderText',
+        text: 'Não lido',
+    }
 }
 
-export function ProtocolPriorityTag({ priorityType }: ProtocolPriorityTagProps) {
+export function ProtocolPriorityTag({ priorityType, iconOnly = false }: ProtocolPriorityTagProps) {
     if (!priorityType || !priorityMap[priorityType]) {
         return null
     }
 
     const { icon, text } = priorityMap[priorityType]
+
+    if (iconOnly) {
+        return (
+            <span className="flex items-center">
+                <Icon name={icon} className='current' />
+            </span>
+        )
+    }
 
     return (
         <span className="flex items-center gap-2 font-inter font-normal text-xs text-accent-default whitespace-nowrap">
