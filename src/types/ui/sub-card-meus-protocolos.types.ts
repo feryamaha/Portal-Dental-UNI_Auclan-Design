@@ -1,4 +1,4 @@
-export type ProtocolPriorityType = 'obrigatorio' | 'nao-lido' | null | undefined
+export type ProtocolPriorityType = 'obrigatorio' | 'nao-lido' | '' | null | undefined
 
 export type ProtocolEvent = {
     label: string
@@ -8,6 +8,8 @@ export type ProtocolEvent = {
 export type SubCardMeusProtocolosProps = {
     statusLabel: string
     statusVariant?: 'danger' | 'success' | 'warning' | 'info'
+    status?: string
+    subject?: string
     title: string
     protocolNumber: string
     description?: string

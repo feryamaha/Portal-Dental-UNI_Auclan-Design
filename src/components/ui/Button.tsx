@@ -34,7 +34,7 @@ export function Button({
         : "bg-primary-600 text-white hover:bg-primary-700 gap-[8px] justify-between"),
       variant === "secondary" &&
       (disabled
-        ? "font-medium border border-secondary-100 text-secondary-200 justify-between rounded-lg cursor-not-allowed justify-between"
+        ? "font-medium border border-secondary-100 text-neutral-200 justify-between rounded-lg cursor-not-allowed justify-between"
         : "font-medium border border-secondary-100 text-secondary-950 justify-between rounded-lg bg-secondary-25 hover:border-secondary-200 justify-between"),
       variant === "tertiary" &&
       (disabled

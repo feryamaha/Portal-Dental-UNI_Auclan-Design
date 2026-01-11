@@ -1,5 +1,3 @@
-"use client"
-
 import { Fragment } from 'react'
 
 import { Badge } from '@/components/ui/Badge'
@@ -22,9 +20,6 @@ export function SubCardMeusProtocolos({
     return (
         <div className="w-full flex flex-col gap-[8px] border-b border-secondary-100 pb-[16px]">
             <div className="flex w-full items-center justify-between">
-                {/* AJUSTAR A REUTILIZAÇÃO DESSEBADGE NO DESENVOLVIMENTO DO PORTAL BENEFICIARIOS PARA AJUSTAR OS OUTROS BADGES */}
-                {/* DESACOPLAR A HIDRATAÇÃO DOS DADOS DO ARQUIVO /data/mocks/beneficiario-home-content.data.ts
-                 para arquivos dedicados meus protocolos e  minhas guias igual o card cronograma, news e slider */}
                 <Badge variant={statusVariant}>{statusLabel}</Badge>
                 <div className='flex gap-[8px]'>
                     {priorityType && <ProtocolPriorityTag priorityType={priorityType} />}
@@ -32,7 +27,6 @@ export function SubCardMeusProtocolos({
                         <Icon name="iconButtonMais" />
                     </Button>
                 </div>
-
             </div>
 
             <div className="font-inter">

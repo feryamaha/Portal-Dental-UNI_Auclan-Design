@@ -1,11 +1,16 @@
 "use client"
 
+import { useEffect } from 'react'
 import { SliderBanner } from '@/components/shared-dashboard/SliderBanner'
 import { ShortcutsSection } from '@/components/shared-dashboard/ShortcutsSection'
 import { NewsHighlightSection } from '@/components/shared-dashboard/NewsHighlightSection'
 import { CardMeusProtocolos } from '@/components/shared-dashboard/CardMeusProtocolos'
 import { CardCronograma } from '@/components/shared-dashboard/CardCronograma'
+import { ModalVerMaisProtocolos } from '@/components/shared-dashboard/ModalVerMaisProtocolos'
+import { ModalVerMaisProtocolosConsentimento } from '@/components/shared-dashboard/ModalVerMaisProtocolosConsentimento'
 import { useSliderBannerData, useNewsHighlightData, useCronogramaData } from '@/hooks/hook-fetch-API'
+import { useModalVerMaisProtocolosLogic } from '@/hooks/hook-fetch-API/useModalVerMaisProtocolosLogic.hook'
+import { sortProtocolsByPriority } from '@/utils/protocol-priority.utils'
 import {
     protocolosMock,
 } from '@/data/mocks/dentista-home-content.data'
@@ -14,6 +19,23 @@ export function HomeDentista() {
     const { data: sliderItems } = useSliderBannerData('dentista')
     const { data: newsHighlight } = useNewsHighlightData()
     const { data: cronogramaData } = useCronogramaData()
+    const {
+        isModalOpen,
+        isConsentimentoModalOpen,
+        isConsentimentoChecked,
+        openModal,
+        closeModal,
+        goToConsent,
+        goBackToProtocols,
+        confirmConsent,
+        handleConsentimentoCheckboxChange,
+    } = useModalVerMaisProtocolosLogic()
+
+    const orderedItems = sortProtocolsByPriority(protocolosMock)
+
+    useEffect(() => {
+        openModal()
+    }, [])
 
     return (
         <section className="w-full mx-auto p-[24px_32px_0px_32px]">
@@ -45,6 +67,22 @@ export function HomeDentista() {
                     <CardCronograma data={cronogramaData} />
                 </div>
             </div>
+
+            <ModalVerMaisProtocolos
+                isOpen={isModalOpen}
+                protocols={orderedItems}
+                onClose={closeModal}
+                onProceedToConsent={goToConsent}
+            />
+
+            <ModalVerMaisProtocolosConsentimento
+                isOpen={isConsentimentoModalOpen}
+                onClose={closeModal}
+                onConfirm={confirmConsent}
+                onGoBack={goBackToProtocols}
+                isConsentimentoChecked={isConsentimentoChecked}
+                onCheckboxChange={handleConsentimentoCheckboxChange}
+            />
         </section>
     )
 }

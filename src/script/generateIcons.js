@@ -11,8 +11,9 @@ const toCamelCase = (str) =>
 
 const svgOriginalColors = [
   "icon-favicon-dental.svg",
-  "icon-avatar.svg"
-
+  "icon-avatar.svg",
+  "icon-point-border-text.svg",
+  "icon-obrigatorio.svg"
 ];
 
 // ✅ NOVA FUNÇÃO: Converter atributos HTML → React (camelCase)
